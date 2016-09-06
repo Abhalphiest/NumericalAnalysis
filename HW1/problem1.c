@@ -45,8 +45,6 @@ void broken()
   double i = -1.0;
   for(int j = 0; j < 1000000; j++)
   {
-   // fprintf(stdout, "%.20f \n", i); //need to manually set precision to
-				    //see the error
     i += 0.10;
   }
   fprintf(stdout, "-1 + 1000000*.1 = %f \n",i);
@@ -65,7 +63,6 @@ void notBroken()
   int dec = 0;
   for(int j = 0; j < 1000000; j++)
   {
-   //fprintf(stdout, "%d.%d \n", base, dec);
    dec++;
    if(dec > 9)
    {

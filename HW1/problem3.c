@@ -42,7 +42,6 @@ int main(int argc, char** argv)
   for(int j = 0; j < dim; j++)
    {
 	scanf("%f", &val);
-        //printf(" %f\n", val);
 	gsl_matrix_set(mat,i,j, val); 
    }
  }
@@ -51,9 +50,7 @@ int main(int argc, char** argv)
  gsl_permutation* p = gsl_permutation_alloc(dim);
  int sign;
  gsl_matrix* inverse = gsl_matrix_alloc(dim,dim); //for LU decomposition
- //printf("test");
  gsl_linalg_LU_decomp(mat, p, &sign);
- //gsl_permutation_fprintf(stdout, p, "%f");
  gsl_linalg_LU_invert(mat, p, inverse);
  printf("\n");
  gsl_matrix_fprintf(stdout, inverse, "%f");

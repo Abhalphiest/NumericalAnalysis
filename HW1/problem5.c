@@ -1,17 +1,18 @@
-// 
-// File:	problem5.c
-// Course:	Math 411 Numerical Analysis Fall 2016
-// Author:	Margaret Dorsey
-//
-// Homework 1
-//
-// This file contains a c program that tries a variety of root finding
-// methods for a specified problem.
-//
+/* 
+ * File:	problem5.c
+ * Course:	Math 411 Numerical Analysis Fall 2016
+ * Author:	Margaret Dorsey
+ *
+ * Homework 1 Problem 5
+ *
+ * This file contains a c program that tries a variety of root finding
+ * methods for the calculation of the cube root of 2.
+ *
+*/
 
 #include<stdio.h>
 #include<math.h>
-#include"rootfinding.h" //where all the actual rootfindng functions are
+#include"rootfinding.h" //where all the actual rootfinding functions are
 
 
 #define ALPHA .25
@@ -85,7 +86,6 @@ int main()
  //FPI 3
  header("FALSE POSITION METHOD 3");
  fpi3 = FPI(&g3,&function,x1);
- //print out summary
 
  return 0; //exit success
 }
