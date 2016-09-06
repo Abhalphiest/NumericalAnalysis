@@ -1,0 +1,241 @@
+% !TEX TS-program = pdflatex
+% !TEX encoding = UTF-8 Unicode
+
+% This is a simple template for a LaTeX document using the "article" class.
+% See "book", "report", "letter" for other types of document.
+
+\documentclass[11pt]{article} % use larger type; default would be 10pt
+
+\usepackage[utf8]{inputenc} % set input encoding (not needed with XeLaTeX)
+
+%%% Examples of Article customizations
+% These packages are optional, depending whether you want the features they provide.
+% See the LaTeX Companion or other references for full information.
+
+%%% PAGE DIMENSIONS
+\usepackage{geometry} % to change the page dimensions
+\geometry{a4paper} % or letterpaper (US) or a5paper or....
+% \geometry{margin=2in} % for example, change the margins to 2 inches all round
+% \geometry{landscape} % set up the page for landscape
+%   read geometry.pdf for detailed page layout information
+
+\usepackage{graphicx} % support the \includegraphics command and options
+
+% \usepackage[parfill]{parskip} % Activate to begin paragraphs with an empty line rather than an indent
+
+%%% PACKAGES
+\usepackage{booktabs} % for much better looking tables
+\usepackage{array} % for better arrays (eg matrices) in maths
+\usepackage{paralist} % very flexible & customisable lists (eg. enumerate/itemize, etc.)
+\usepackage{verbatim} % adds environment for commenting out blocks of text & for better verbatim
+\usepackage{subfig} % make it possible to include more than one captioned figure/table in a single float
+% These packages are all incorporated in the memoir class to one degree or another...
+
+%%% HEADERS & FOOTERS
+\usepackage{fancyhdr} % This should be set AFTER setting up the page geometry
+\pagestyle{fancy} % options: empty , plain , fancy
+\renewcommand{\headrulewidth}{0pt} % customise the layout...
+\lhead{}\chead{}\rhead{}
+\lfoot{}\cfoot{\thepage}\rfoot{}
+
+%%% SECTION TITLE APPEARANCE
+\usepackage{sectsty}
+\allsectionsfont{\sffamily\mdseries\upshape} % (See the fntguide.pdf for font help)
+% (This matches ConTeXt defaults)
+
+%%% ToC (table of contents) APPEARANCE
+\usepackage[nottoc,notlof,notlot]{tocbibind} % Put the bibliography in the ToC
+\usepackage[titles,subfigure]{tocloft} % Alter the style of the Table of Contents
+\renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
+\renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} % No bold!
+
+
+%%% END Article customizations
+
+%%% The "real" document content comes below...
+
+\title{Numerical Analysis Homework 1}
+\author{Margaret Dorsey}
+%\date{} % Activate to display a given date or no date (if empty),
+         % otherwise the current date is printed 
+
+\begin{document}
+\maketitle
+
+\section*{Problem 4}
+\begin{enumerate}[a.)]
+\item $10.5d = 1010.1b = 01000000001001010\ldots0$
+\par $10d = 1010d, .5d * 2d = 1.0d = 1.0b = .1b * 2b$. So $(10+.5)d = (1010 + .1)b$.
+\par $1010.1 = 1.0101 x 2^3 = 1.0101 \times 2^{1026 - 1023}$
+\item $\frac{1}{3}d = \overline{.01}b = 001111111101010101\ldots01$
+\par $\frac{1}{3} * 2 = \frac{2}{3}$, $\frac{2}{3} * 2 = 1 + \frac{1}{3} \rightarrow \frac{1}{3} * 2 = \ldots = \overline{.01}b$
+\par $\overline{.01} = 1.\overline{01} x 2^{-2} = 1.\overline{01} \times 2^{1021 - 1023}$
+\item $\frac{22}{7}d = 11.\overline{001}b = 010000000000100100100\ldots001$
+\par $\frac{22}{7} = 3 + \frac{1}{7} \rightarrow \frac{1}{7} * 2 = \frac{2}{7} \rightarrow \frac{4}{7} \rightarrow 1 + {1}{7} \ldots = (11.\overline{001})b$
+\par $11.\overline{001} = 1.1\overline{001} \times 2 = 1001001 \ldots 001$
+\end{enumerate}
+
+\section*{Problem 5}
+
+\subsection*{Bisection}
+\subsubsection*{Raw Output}
+\begin{verbatim}
+i: 0 a: 1.000000 b: 2.000000 value: -1.000000000 
+i: 1 a: 1.000000 b: 1.500000 value: 1.375000000 
+i: 2 a: 1.250000 b: 1.500000 value: -0.046875000 
+i: 3 a: 1.250000 b: 1.375000 value: 0.599609375 
+i: 4 a: 1.250000 b: 1.312500 value: 0.260986328 
+i: 5 a: 1.250000 b: 1.281250 value: 0.103302002 
+i: 6 a: 1.250000 b: 1.265625 value: 0.027286530 
+i: 7 a: 1.257812 b: 1.265625 value: -0.010024548 
+i: 8 a: 1.257812 b: 1.261719 value: 0.008573234 
+i: 9 a: 1.259766 b: 1.261719 value: -0.000740074 
+i: 10 a: 1.259766 b: 1.260742 value: 0.003912973 
+i: 11 a: 1.259766 b: 1.260254 value: 0.001585548 
+i: 12 a: 1.259766 b: 1.260010 value: 0.000422512 
+i: 13 a: 1.259888 b: 1.260010 value: -0.000158837 
+i: 14 a: 1.259888 b: 1.259949 value: 0.000131823 
+i: 15 a: 1.259918 b: 1.259949 value: -0.000013510 
+i: 16 a: 1.259918 b: 1.259933 value: 0.000059156 
+i: 17 a: 1.259918 b: 1.259926 value: 0.000022822 
+i: 18 a: 1.259918 b: 1.259922 value: 0.000004656 
+i: 19 a: 1.259920 b: 1.259922 value: -0.000004427 
+i: 20 a: 1.259920 b: 1.259921 value: 0.000000114 
+i: 21 a: 1.259921 b: 1.259921 value: -0.000002156 
+i: 22 a: 1.259921 b: 1.259921 value: -0.000001021 
+i: 23 a: 1.259921 b: 1.259921 value: -0.000000453 
+i: 24 a: 1.259921 b: 1.259921 value: -0.000000169 
+i: 25 a: 1.259921 b: 1.259921 value: -0.000000028 
+i: 26 a: 1.259921 b: 1.259921 value: 0.000000043 
+i: 27 a: 1.259921 b: 1.259921 value: 0.000000008 
+i: 28 a: 1.259921 b: 1.259921 value: -0.000000010 
+i: 29 a: 1.259921 b: 1.259921 value: -0.000000001 
+\end{verbatim}
+\subsection*{Secant}
+\subsubsection*{Raw Output}
+\begin{verbatim}
+i: 0 a: 2.000000 b: 0.500000 value: -1.875000000 
+i: 1 a: 0.500000 b: 0.857143 value: -1.370262391 
+i: 2 a: 0.857143 b: 1.826715 value: 4.095540811 
+i: 3 a: 1.826715 b: 1.100212 value: -0.668230377 
+i: 4 a: 1.100212 b: 1.202121 value: -0.262821088 
+i: 5 a: 1.202121 b: 1.268187 value: 0.039623768 
+i: 6 a: 1.268187 b: 1.259532 value: -0.001853412 
+i: 7 a: 1.259532 b: 1.259919 value: -0.000012113 
+i: 8 a: 1.259919 b: 1.259921 value: 0.000000004 
+i: 9 a: 1.259921 b: 1.259921 value: -0.000000000 
+\end{verbatim}
+\subsection*{False Position}
+\subsubsection*{Raw Output}
+\begin{verbatim}
+i: 0 a: 0.500000 b: 2.000000 value: -1.875000000 
+i: 1 a: 0.857143 b: 2.000000 value: -1.370262391 
+i: 2 a: 1.069620 b: 2.000000 value: -0.776260854 
+i: 3 a: 1.176201 b: 2.000000 value: -0.372787106 
+i: 4 a: 1.224390 b: 2.000000 value: -0.164477725 
+i: 5 a: 1.245085 b: 2.000000 value: -0.069824644 
+i: 6 a: 1.253769 b: 2.000000 value: -0.029154523 
+i: 7 a: 1.257377 b: 2.000000 value: -0.012088652 
+i: 8 a: 1.258871 b: 2.000000 value: -0.004997956 
+i: 9 a: 1.259488 b: 2.000000 value: -0.002063890 
+i: 10 a: 1.259742 b: 2.000000 value: -0.000851855 
+i: 11 a: 1.259847 b: 2.000000 value: -0.000351525 
+i: 12 a: 1.259891 b: 2.000000 value: -0.000145047 
+i: 13 a: 1.259908 b: 2.000000 value: -0.000059848 
+i: 14 a: 1.259916 b: 2.000000 value: -0.000024693 
+i: 15 a: 1.259919 b: 2.000000 value: -0.000010189 
+i: 16 a: 1.259920 b: 2.000000 value: -0.000004204 
+i: 17 a: 1.259921 b: 2.000000 value: -0.000001734 
+i: 18 a: 1.259921 b: 2.000000 value: -0.000000716 
+i: 19 a: 1.259921 b: 2.000000 value: -0.000000295 
+i: 20 a: 1.259921 b: 2.000000 value: -0.000000122 
+i: 21 a: 1.259921 b: 2.000000 value: -0.000000050 
+i: 22 a: 1.259921 b: 2.000000 value: -0.000000021 
+i: 23 a: 1.259921 b: 2.000000 value: -0.000000009 
+i: 24 a: 1.259921 b: 2.000000 value: -0.000000004 
+i: 25 a: 1.259921 b: 2.000000 value: -0.000000001 
+i: 26 a: 1.259921 b: 2.000000 value: -0.000000001 
+\end{verbatim}
+\subsection*{FPI}
+\begin{enumerate}
+\item $g(x) = \frac{x}{2}+ \frac{1}{x^2}$
+\subsubsection*{Raw Output}
+\begin{verbatim}
+i: 0 x: 1.000000 value: 1.500000000 
+i: 1 x: 1.500000 value: 1.194444444 
+i: 2 x: 1.194444 value: 1.298141638 
+i: 3 x: 1.298142 value: 1.242482157 
+i: 4 x: 1.242482 value: 1.269009360 
+i: 5 x: 1.269009 value: 1.255474294 
+i: 6 x: 1.255474 value: 1.262168081 
+i: 7 x: 1.262168 value: 1.258803531 
+i: 8 x: 1.258804 value: 1.260481298 
+i: 9 x: 1.260481 value: 1.259641299 
+i: 10 x: 1.259641 value: 1.260061018 
+i: 11 x: 1.260061 value: 1.259851089 
+i: 12 x: 1.259851 value: 1.259956036 
+i: 13 x: 1.259956 value: 1.259903558 
+i: 14 x: 1.259904 value: 1.259929796 
+i: 15 x: 1.259930 value: 1.259916677 
+i: 16 x: 1.259917 value: 1.259923236 
+i: 17 x: 1.259923 value: 1.259919957 
+i: 18 x: 1.259920 value: 1.259921597 
+i: 19 x: 1.259922 value: 1.259920777 
+i: 20 x: 1.259921 value: 1.259921187 
+i: 21 x: 1.259921 value: 1.259920982 
+i: 22 x: 1.259921 value: 1.259921084 
+i: 23 x: 1.259921 value: 1.259921033 
+i: 24 x: 1.259921 value: 1.259921058 
+i: 25 x: 1.259921 value: 1.259921046 
+i: 26 x: 1.259921 value: 1.259921052 
+i: 27 x: 1.259921 value: 1.259921049 
+i: 28 x: 1.259921 value: 1.259921050 
+\end{verbatim}
+
+\item $g(x) = \frac{2x}{3}+ \frac{2}{3x^2}$
+\subsubsection*{Raw Output}
+\begin{verbatim}
+i: 0 x: 1.000000 value: 1.333333333
+i: 1 x: 1.333333 value: 1.263888889
+i: 2 x: 1.263889 value: 1.259933493
+i: 3 x: 1.259933 value: 1.259921050
+\end{verbatim}
+\item $g(x) = x - \alpha(x^3 - 2)$
+\subsubsection*{Raw Output}
+\begin{verbatim}
+i: 0 x: 1.000000 value: 1.250000000
+i: 1 x: 1.250000 value: 1.261718750
+i: 2 x: 1.261719 value: 1.259575441
+i: 3 x: 1.259575 value: 1.259986793
+i: 4 x: 1.259987 value: 1.259908518
+i: 5 x: 1.259909 value: 1.259923438
+i: 6 x: 1.259923 value: 1.259920595
+i: 7 x: 1.259921 value: 1.259921137
+i: 8 x: 1.259921 value: 1.259921033
+i: 9 x: 1.259921 value: 1.259921053
+i: 10 x: 1.259921 value: 1.259921049
+\end{verbatim}
+\end{enumerate}
+
+\section*{Problem 6}
+\subsection*{Root 1: $x  \approx -1.9343$ }
+\subsection*{Root 2: $x \approx -0.12549$}
+\subsection*{Root 3: $x \approx 2.0598$}
+
+\section*{Problem 7}
+
+\section*{Problem 8}
+
+\section*{Problem 9}
+
+\section*{Problem 10}
+\begin{enumerate}[i.)]
+\item
+\item
+\item
+\item
+\item
+\end{enumerate}
+
+
+\end{document}
