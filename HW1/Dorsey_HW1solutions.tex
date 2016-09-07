@@ -7,6 +7,7 @@
 \documentclass[11pt]{article} % use larger type; default would be 10pt
 
 \usepackage[utf8]{inputenc} % set input encoding (not needed with XeLaTeX)
+\usepackage{alltt}
 
 %%% Examples of Article customizations
 % These packages are optional, depending whether you want the features they provide.
@@ -113,7 +114,7 @@ i: 29	a: 1.259921050	b: 1.259921052	value: -0.000000001
 \end{verbatim}
 
 \subsubsection*{Analysis}
-The bisection method took 29 iterations to successfully find the root within an acceptable tolerance.
+The bisection method took 29 iterations to successfully find the root within an error of $10^{-8}$,  which agrees with the error formula for bisection method, $n \geq \frac{\log(2) - \log(10^{-8})}{\log 2} \approx  28$.  The method converges slowly, but very consistently, as expected.
 \subsection*{Secant}
 \subsubsection*{Raw Output}
 \begin{verbatim}
@@ -128,6 +129,11 @@ i: 7	a: 1.259531737	b: 1.259918506	value: -0.000012113
 i: 8	a: 1.259918506	b: 1.259921051	value: 0.000000004
 i: 9	a: 1.259921051	b: 1.259921050	value: -0.000000000
 \end{verbatim}
+
+\subsubsection*{Analysis}
+The secant method took only 9 iterations to successfully find the root within 8 digits of accuracy,
+which considering the method is superlinearly convergent when appropriate initial values are 
+chosen, it is not surprising that it was the the second fastest method to converge.
 \subsection*{False Position}
 \subsubsection*{Raw Output}
 \begin{verbatim}
@@ -159,6 +165,8 @@ i: 24	a: 1.259921049	b: 2.000000000	value: -0.000000004
 i: 25	a: 1.259921050	b: 2.000000000	value: -0.000000001
 i: 26	a: 1.259921050	b: 2.000000000	value: -0.000000001
 \end{verbatim}
+\subsubsection*{Analysis}
+False position performed almost as poorly as bisection method, although the reason for this can be easily seen in the output - the right endpoint remains at the initial value for every iteration to maintain bracketing, which stunts it significantly compared to its' sibling, the secant method. 
 \subsection*{FPI}
 \begin{enumerate}
 \item $g(x) = \frac{x}{2}+ \frac{1}{x^2}$
@@ -194,7 +202,8 @@ i: 26	x: 1.259921046	value: 1.259921052
 i: 27	x: 1.259921052	value: 1.259921049
 i: 28	x: 1.259921049	value: 1.259921050
 \end{verbatim}
-
+\subsubsection*{Analysis}
+This choice of $g(x)$ did converge, but very slowly. This makes intuitive sense, considering that the derivative of $g$, $\frac{1}{2} - \frac{2}{x^3}$, is $-.524$ at $1.25$, near the root.  This is fairly large in absolute value, considering we would like it to be as close to $0$ as possible for fast convergence, and thus our rate of convergence is mediocre at best.
 \item $g(x) = \frac{2x}{3}+ \frac{2}{3x^2}$
 \subsubsection*{Raw Output}
 \begin{verbatim}
@@ -203,7 +212,9 @@ i: 1	x: 1.333333333	value: 1.263888889
 i: 2	x: 1.263888889	value: 1.259933493
 i: 3	x: 1.259933493	value: 1.259921050
 \end{verbatim}
-\item $g(x) = x - \alpha(x^3 - 2)$
+\subsubsection*{Analysis}
+This was by far the fastest convergence of any of the methods, and by examining the value of $g'(x)$ at $1.25$ (near the root), we see why - the value is only $-0.016$, which is relatively close to 0, which would give us quadratic convergence. Thus it managed to outdo even the superlinearly convergent secant method, although it required some lucky choices on our part.
+\item $g(x) = x - .25(x^3 - 2)$
 \subsubsection*{Raw Output}
 \begin{verbatim}
 i: 0	x: 1.000000000	value: 1.250000000
@@ -218,6 +229,8 @@ i: 8	x: 1.259921137	value: 1.259921033
 i: 9	x: 1.259921033	value: 1.259921053
 i: 10	x: 1.259921053	value: 1.259921049
 \end{verbatim}
+\subsubsection*{Analysis}
+This choice of $g(x)$ was superlinear, comparable to the secant method, but clearly not as good as our second choice of $g$. This is again explained by the absolute value of $g'(x)$ at $1.25$ - a respectable but not particularly small $0.1719$.
 \end{enumerate}
 
 \section*{Problem 6}
@@ -230,7 +243,7 @@ the roots.
 \subsection*{Root 1: $x  \approx -1.9343$ }
 \subsubsection*{Raw Output - Initial Guess -2}
  
-\begin{verbatim}
+\begin{alltt}
 
 --------------------------
  FALSE POSITION METHOD G_1
@@ -254,11 +267,14 @@ i: 2	x: -2.523925781	value: -4.144478854
 i: 3	x: -4.144478854	value: -17.922122637
 i: 4	x: -17.922122637	value: -1439.282558733
 i: 5	x: -1439.282558733	value: -745380791.274546146
-i: 6	x: -745380791.274546146	value: -103531998791534679437606912.000000000
-i: 7	x: -103531998791534679437606912.000000000	value: -277436632531150545757823734553975420359675907854414818172644281216326044745728.000000000
-i: 8	x: -277436632531150545757823734553975420359675907854414818172644281216326044745728.000000000	value: -5338649661037961749139249029218884120044021097741612794581340993855618575359718306423820075038864794766104374691444918767173834991285325884453612284250387716704357639249146159480027431914962774780796808037723725177713273312943013888.000000000
-i: 9	x: -5338649661037961749139249029218884120044021097741612794581340993855618575359718306423820075038864794766104374691444918767173834991285325884453612284250387716704357639249146159480027431914962774780796808037723725177713273312943013888.000000000	value: -inf
-
+i: 6	x: -745380791.274546146	value: -103531998791534679437606912.00
+\vdots
+i: 9	x:-5338649661037961749139249029218884120044021
+	   0977416127945813409938556185753597183064238200
+	   750388647947661043746914449187671738349912853258
+	   84453612284250387716704357639249146159480027431914962
+	   774780796808037723725177713273312943013888.000000000	
+value: -inf
 
 --------------------------
  FALSE POSITION METHOD G_3
@@ -274,14 +290,16 @@ i: 5	x: -5.695003010	value: -25.998297789
 i: 6	x: -25.998297789	value: -2209.630166633
 i: 7	x: -2209.630166633	value: -1348556479.545314789
 i: 8	x: -1348556479.545314789	value: -306561373512356053857075200.000000000
-i: 9	x: -306561373512356053857075200.000000000	value: -3601324973280324046443575987143132735405031185648250586653515602256206860648448.000000000
-i: 10	x: -3601324973280324046443575987143132735405031185648250586653515602256206860648448.000000000	value: -5838441740431293736846375112159843378479548958498592641326713918840415288458319616919365577067854597585843267656730675183562270570075310780791649077600094659651591378755325763230752325937701298656699774349701532742109721820722207129600.000000000
-i: 11	x: -5838441740431293736846375112159843378479548958498592641326713918840415288458319616919365577067854597585843267656730675183562270570075310780791649077600094659651591378755325763230752325937701298656699774349701532742109721820722207129600.000000000	value: -inf
-
-\end{verbatim}
+\vdots
+i: 11	x: -5838441740431293736846375112159843378479548958498592641
+32671391884041528845831961691936557706785459758584326765673067
+51835622705700753107807916490776000946596515913787553257632307
+52325937701298656699774349701532742109721820722207129600.000000000	
+value: -inf
+\end{alltt}
 \subsection*{Root 2: $x \approx -0.12549$}
 \subsubsection*{Raw Output - Initial Guess 0}
-\begin{verbatim}
+\begin{alltt}
  
 
 --------------------------
@@ -330,34 +348,17 @@ i: 0	x: 0.000000000	value: -0.062500000
 i: 1	x: -0.062500000	value: -0.093780518
 i: 2	x: -0.093780518	value: -0.109493356
 i: 3	x: -0.109493356	value: -0.117410765
-i: 4	x: -0.117410765	value: -0.121407700
-i: 5	x: -0.121407700	value: -0.123427541
-i: 6	x: -0.123427541	value: -0.124448813
-i: 7	x: -0.124448813	value: -0.124965332
-i: 8	x: -0.124965332	value: -0.125226603
-i: 9	x: -0.125226603	value: -0.125358772
-i: 10	x: -0.125358772	value: -0.125425635
-i: 11	x: -0.125425635	value: -0.125459461
-i: 12	x: -0.125459461	value: -0.125476573
-i: 13	x: -0.125476573	value: -0.125485230
-i: 14	x: -0.125485230	value: -0.125489610
-i: 15	x: -0.125489610	value: -0.125491826
-i: 16	x: -0.125491826	value: -0.125492947
-i: 17	x: -0.125492947	value: -0.125493514
-i: 18	x: -0.125493514	value: -0.125493801
-i: 19	x: -0.125493801	value: -0.125493946
-i: 20	x: -0.125493946	value: -0.125494019
-i: 21	x: -0.125494019	value: -0.125494056
+\vdots
 i: 22	x: -0.125494056	value: -0.125494075
 i: 23	x: -0.125494075	value: -0.125494085
 i: 24	x: -0.125494085	value: -0.125494089
 i: 25	x: -0.125494089	value: -0.125494092
 i: 26	x: -0.125494092	value: -0.125494093
 
-\end{verbatim}
+\end{alltt}
 \subsection*{Root 3: $x \approx 2.0598$}
 \subsubsection*{Raw Output - Initial Guess 2}
-\begin{verbatim}
+\begin{alltt}
  
 
 --------------------------
@@ -407,28 +408,7 @@ i: 4	x: 1.239411117	value: 0.795194169
 i: 5	x: 0.795194169	value: 0.397950600
 i: 6	x: 0.397950600	value: 0.144352965
 i: 7	x: 0.144352965	value: 0.010052482
-i: 8	x: 0.010052482	value: -0.057473632
-i: 9	x: -0.057473632	value: -0.091260547
-i: 10	x: -0.091260547	value: -0.108225281
-i: 11	x: -0.108225281	value: -0.116771092
-i: 12	x: -0.116771092	value: -0.121084575
-i: 13	x: -0.121084575	value: -0.123264197
-i: 14	x: -0.123264197	value: -0.124366209
-i: 15	x: -0.124366209	value: -0.124923550
-i: 16	x: -0.124923550	value: -0.125205468
-i: 17	x: -0.125205468	value: -0.125348081
-i: 18	x: -0.125348081	value: -0.125420226
-i: 19	x: -0.125420226	value: -0.125456724
-i: 20	x: -0.125456724	value: -0.125475189
-i: 21	x: -0.125475189	value: -0.125484530
-i: 22	x: -0.125484530	value: -0.125489256
-i: 23	x: -0.125489256	value: -0.125491646
-i: 24	x: -0.125491646	value: -0.125492856
-i: 25	x: -0.125492856	value: -0.125493468
-i: 26	x: -0.125493468	value: -0.125493777
-i: 27	x: -0.125493777	value: -0.125493934
-i: 28	x: -0.125493934	value: -0.125494013
-i: 29	x: -0.125494013	value: -0.125494053
+\vdots
 i: 30	x: -0.125494053	value: -0.125494074
 i: 31	x: -0.125494074	value: -0.125494084
 i: 32	x: -0.125494084	value: -0.125494089
@@ -436,7 +416,9 @@ i: 33	x: -0.125494089	value: -0.125494092
 i: 34	x: -0.125494092	value: -0.125494093
 
 
-\end{verbatim}
+\end{alltt}
+
+\subsection*{Analysis}
 
 \section*{Problem 7}
 
