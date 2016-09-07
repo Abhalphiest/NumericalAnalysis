@@ -79,13 +79,13 @@ int main()
  scanf("%lf", &x1);
 
  header("FALSE POSITION METHOD 1");
- fpi1 = FPI(&g1,&function,x1);
+ fpi1 = FPI(&g1,x1);
  //FPI 2
  header("FALSE POSITION METHOD 2");
- fpi2 = FPI(&g2,&function,x1);
+ fpi2 = FPI(&g2,x1);
  //FPI 3
  header("FALSE POSITION METHOD 3");
- fpi3 = FPI(&g3,&function,x1);
+ fpi3 = FPI(&g3,x1);
 
  return 0; //exit success
 }

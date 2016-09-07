@@ -12,6 +12,6 @@
 
 double bisection(double(*f)(double),double a, double b);
 double secant(double(*f)(double),double a, double b);
-double FPI(double (*g)(double),double(*f)(double),double a);
+double FPI(double (*g)(double),double a);
 double falseposition(double(*f)(double),double a, double b);
 void header(char* name);
