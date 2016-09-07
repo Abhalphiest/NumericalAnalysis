@@ -198,3 +198,4 @@ TSWLatexianTemp*
 
 #for compiled things
 *.out
+*.exe
