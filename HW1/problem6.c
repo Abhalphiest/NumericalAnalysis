@@ -23,15 +23,15 @@ double function(double x)
 }
 double g1(double x) //for first root
 {
- return x/2.0 + 1/(pow(x,2));
+ return (-1/14.5)*(function(x))+x;
 }
 double g2(double x) //for second root
 {
- return 2*x/3.0 + 2/(3*pow(x,2));
+ return (1/8.0)*(function(x))+x;
 }
 double g3(double x) //for third root
 {
- return x - ALPHA*(pow(x,3) - 2);
+ return (1/17.5)*function(x)+x;
 }
 
 

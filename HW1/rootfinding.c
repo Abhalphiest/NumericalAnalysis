@@ -19,7 +19,7 @@ double bisection(double(*function)(double),double a, double b)
   else
 	b = c;
 
-  printf("i: %d a: %lf b: %lf value: %.9lf \n", i, a, b, f);
+  printf("i: %d/ta: %.9lf/tb: %.9lf/tvalue: %.9lf \n", i, a, b, f);
  }
 
  return c;
@@ -35,7 +35,7 @@ double secant(double(*function)(double),double a, double b)
    f = function(c);
    a = b;
    b = c;
-   printf("i: %d a: %lf b: %lf value: %.9lf\n", i, a, b, f);
+   printf("i: %d/ta: %.9lf/tb: %.9lf/tvalue: %.9lf\n", i, a, b, f);
  }
  return c;
 }
@@ -53,7 +53,7 @@ double falseposition(double(*function)(double),double a, double b)
   	b = c;
   else 
 	a = c;
-  printf("i: %d a: %lf b: %lf value: %.9lf\n", i, a, b, f);
+  printf("i: %d/ta: %.9lf/tb: %.9lf/tvalue: %.9lf\n", i, a, b, f);
  }
  return c;
 }
@@ -66,7 +66,7 @@ double FPI(double (*g)(double),double(*function)(double), double a)
  for(int i = 0; i < MAX_ITER && fabs(c - g(c)) > ACC; i++)
  {
   f = g(c);
-  printf("i: %d x: %lf value: %.9lf\n",i,c,f);
+  printf("i: %d/tx: %.9lf/tvalue: %.9lf\n",i,c,f);
   c = f;
  }
  return c;
