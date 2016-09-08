@@ -419,7 +419,9 @@ i: 34	x: -0.125494092	value: -0.125494093
 \end{alltt}
 
 \subsection*{Analysis}
+$g_1(x)$ is surprisingly stable and useful, converging to two different roots, and converging for all 3 initial values. $g_2(x)$ does a good job of finding the second root, although it diverged for initial value $-2$, it converged to the root it was chosen for in both other cases. Perplexingly, $g_3$, while it does sometimes converge, does not seem to converge towards the third root even when nearby, despite being chosen explicitly to find that root. Fortunately, $g_1$ can find the third root, and thus we do have a function $g_i(x)$ for each root, just not as expected.
 
+\par Ultimately, $g_1$ and $g_2$ together form a good pair of functions for finding the roots of this equation - $g_3$ is fairly slow to converge in all cases, and the root that it finds can be found by $g_2$. The functions are all fairly stable considering the usual instability of fixed point iteration, with $g_2$ and $g_3$ both diverging relatively quickly for the negative initial value, but converging eventually otherwise, and $g_1$ converging when started near any of the 3 real roots.
 \section*{Problem 7}
 
 \section*{Problem 8}
