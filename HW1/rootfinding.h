@@ -14,4 +14,6 @@ double bisection(double(*f)(double),double a, double b);
 double secant(double(*f)(double),double a, double b);
 double FPI(double (*g)(double),double a);
 double falseposition(double(*f)(double),double a, double b);
+double newton1D();
+double newton2d();
 void header(char* name);
