@@ -43,6 +43,7 @@ int main()
  {
 	 	header("SECANT METHOD");
   	        secantResult = secant(&function,x1,x2);
+		
  }
  else
  {
