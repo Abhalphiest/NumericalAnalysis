@@ -37,7 +37,7 @@ int main()
 
  double secantResult;
 
- //bisection, secant, and false position methods
+ //secant method
  if(function(x1) < 0)
  {
 	 	header("SECANT METHOD");

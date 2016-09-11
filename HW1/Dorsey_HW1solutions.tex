@@ -532,49 +532,66 @@ n: 4	value: 61.000000000000
 n: 5	value: 115.000000000000
 
 \vdots
+n: 25	value: 403.428791117540
+n: 26	value: 403.428792950427
 n: 27	value: 403.428793373400
-n: 28	value: 403.428793467395
-n: 29	value: 403.428793487536
-n: 30	value: 403.428793491703
-n: 31	value: 403.428793492537
 \end{alltt}
 
 \begin{alltt}
 Enter the x value to approximate at: -2
 Actual value: 0.002478752177 
+Enter the x value to approximate at: Actual value: 0.002478752177 
 n: 1	value: 1.000000000000
 n: 2	value: -5.000000000000
 n: 3	value: 13.000000000000
 n: 4	value: -23.000000000000
-n: 5	value: 31.000000000000
-n: 6	value: -33.800000000000
 
 \vdots
-n: 29	value: 0.002478755646
-n: 30	value: 0.002478751479
+n: 33	value: 0.002478752181
+n: 34	value: 0.002478752176
 \end{alltt}
 
 \begin{alltt}
 Enter the x value to approximate at: -12
 Actual value: 0.000000000000 
+n: 1	value: 1.000000000000
+n: 2	value: -35.000000000000
+n: 3	value: 613.000000000000
+\vdots
+
+n: 98	value: -0.058785404183
+n: 99	value: -0.023849127767
+n: 100	value: -0.036553228282
 \end{alltt}
 
 \begin{alltt}
-Enter the x value to approximate at: 20
-Actual value: 114200738981568423454048256.000000000000 
+Enter the x value to approximate at: Actual value: 114200738981568423454048256.000000000000 
 n: 1	value: 1.000000000000
 n: 2	value: 61.000000000000
 n: 3	value: 1861.000000000000
+n: 4	value: 37861.000000000000
+n: 5	value: 577861.000000000000
 
 \vdots
 n: 98	value: 114200260606732911767453696.000000000000
 n: 99	value: 114200453117080195064397824.000000000000
 n: 100	value: 114200569790017939393478656.000000000000
+
 \end{alltt}
 
 \begin{alltt}
 Enter the x value to approximate at: -20
 Actual value: 0.000000000000 
+n: 1	value: 1.000000000000
+n: 2	value: -59.000000000000
+n: 3	value: 1741.000000000000
+n: 4	value: -34259.000000000000
+n: 5	value: 505741.000000000000
+\vdots
+
+n: 98	value: -119692383293604823040.000000000000
+n: 99	value: 72817963995076067328.000000000000
+n: 100	value: -43854973755639627776.000000000000
 \end{alltt}
 
 
@@ -665,7 +682,8 @@ n: 177	value: 722745700.930318474770
 \end{alltt}
 
 \subsection*{Analysis}
-\par For positive $x$, the second method is much more accurate - obviously due to finding the answer to $10^{-15}$ precision instead of $10
+\par For positive $x$ and small (in absolute value) negative $x$, the second method is much more accurate - obviously due to finding the answer to $10^{-15}$ precision instead of a smaller relative precision, and also because it is not constrained to only $100$ iterations. However, for large negative $x$, neither method converges - likely because the series is not absolutely convergent, and the extremely large (in absolute value) terms that appear late in the series overflow even 64 bit floating point numbers. Because the second method is only looking for the distance between sums to become small, this floating point overflow actually leads to an incorrect convergene - the first method simply runs out of iterations before it can return an answer at all.
+
 \section*{Problem 9}
 
 \section*{Problem 10}
