@@ -25,7 +25,7 @@ int main(int argc, char** argv)
  double x;
  printf("Enter the x value to approximate at: ");
  scanf("%lf",&x);
- printf("Actual value: %lf \n", exp(3*x));
+ printf("Actual value: %.12lf \n", exp(3*x));
  if(argc > 1) //flag for increased precision
   taylor(x,1);
  else
@@ -47,7 +47,7 @@ void taylor(double x, int opt)
 	sum+=term;
 	n++;
 	term*=3*x/n;
-	printf("n: %d\tvalue: %lf\n",n,sum);
+	printf("n: %d\tvalue: %.12lf\n",n,sum);
   }
  }
  else
@@ -59,7 +59,7 @@ void taylor(double x, int opt)
 	sum+=term;
 	n++;
 	term*=3*x/n;
-	printf("n: %d\tvalue: %lf\n",n,sum);
+	printf("n: %d\tvalue: %.12lf\n",n,sum);
   }
  }
  

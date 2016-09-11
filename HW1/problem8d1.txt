@@ -1,1 +1,1 @@
-Enter the x value to approximate at: Actual value: 0.000000 
+Enter the x value to approximate at: Actual value: 0.000000000000 
