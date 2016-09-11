@@ -42,7 +42,7 @@ void taylor(double x, int opt)
  int n = 0;
  if(opt == 0)
  {
-  while(n < MAXITER && fabs(value - sum) > TOL1)
+  while(n < MAXITER && fabs(value - sum)/fabs(value) > TOL1)
   {
 	sum+=term;
 	n++;
