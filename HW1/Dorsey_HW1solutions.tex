@@ -31,6 +31,7 @@
 \usepackage{paralist} % very flexible & customisable lists (eg. enumerate/itemize, etc.)
 \usepackage{verbatim} % adds environment for commenting out blocks of text & for better verbatim
 \usepackage{subfig} % make it possible to include more than one captioned figure/table in a single float
+\usepackage{amsmath}
 % These packages are all incorporated in the memoir class to one degree or another...
 
 %%% HEADERS & FOOTERS
@@ -52,9 +53,6 @@
 \renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} % No bold!
 
 
-%%% END Article customizations
-
-%%% The "real" document content comes below...
 
 \title{Numerical Analysis Homework 1}
 \author{Margaret Dorsey}
@@ -63,6 +61,66 @@
 
 \begin{document}
 \maketitle
+
+\section*{Problems 1 and 2}
+\par Problems 1 and 2 can be found as problem1.c / problem1.exe and problem2.c / problem2.exe.
+
+\section*{Problem 3}
+\subsection*{Raw Output}
+\begin{alltt}
+Please enter the dimension of the matrix: 4
+Enter your values, row major: 
+2.000000
+3.000000
+1.000000
+5.000000
+1.000000
+0.000000
+3.000000
+1.000000
+0.000000
+2.000000
+-3.000000
+2.000000
+0.000000
+2.000000
+3.000000
+1.000000
+
+18.000000
+-35.000000
+-28.000000
+1.000000
+9.000000
+-18.000000
+-14.000000
+1.000000
+-2.000000
+4.000000
+3.000000
+0.000000
+-12.000000
+24.000000
+19.000000
+-1.000000
+\end{alltt}
+\subsection*{Matrix Form}
+\[
+\begin{bmatrix}
+2&3&1&5\\
+1&0&3&1\\
+0&2&-3&2 \\
+0&2&3&1
+\end{bmatrix}
+^{-1}
+=
+\begin{bmatrix}
+18&-35&-28&1\\
+9&-18&-14&1\\
+-2&4&3&0 \\
+-12&24&19&-1
+\end{bmatrix}
+\]
 
 \section*{Problem 4}
 \begin{enumerate}[a.)]
@@ -81,7 +139,7 @@
 
 \subsection*{Bisection}
 \subsubsection*{Raw Output}
-\begin{verbatim}
+\begin{alltt}
 i: 0	a: 1.000000000	b: 2.000000000	value: -1.000000000 
 i: 1	a: 1.000000000	b: 1.500000000	value: 1.375000000 
 i: 2	a: 1.250000000	b: 1.500000000	value: -0.046875000 
@@ -112,7 +170,7 @@ i: 26	a: 1.259921044	b: 1.259921059	value: 0.000000043
 i: 27	a: 1.259921044	b: 1.259921052	value: 0.000000008 
 i: 28	a: 1.259921048	b: 1.259921052	value: -0.000000010 
 i: 29	a: 1.259921050	b: 1.259921052	value: -0.000000001 
-\end{verbatim}
+\end{alltt}
 
 \subsubsection*{Analysis}
 The bisection method took 29 iterations to successfully find the root within an error of $10^{-8}$,  which agrees with the error formula for bisection method, $n \geq \frac{\log(2) - \log(10^{-8})}{\log 2} \approx  28$.  The method converges slowly, but very consistently, as expected.
@@ -431,11 +489,85 @@ miserably. As the method approaches a root, the secant lines can become near ver
 	The simplest solution to the problem is to shrink our bounds until we avoid the asymptotic behavior - for example, bounds of .2 and .25 are sufficient to find the root quickly, and this would be easily found by experimentation by simply trying each .05 length interval in the original interval, even if we didn't  know where the root was exactly.
 
 \subsection*{Raw Output of Secant Method with [-1,1]}
+\begin{alltt}
+i: 0	a: 1.000000000	b: -0.046482412	value: -3.702651461
+i: 1	a: -0.046482412	b: 0.690415093	value: 1.780384308
+i: 2	a: 0.690415093	b: 0.451138749	value: 3.331354064
+i: 3	a: 0.451138749	b: 0.965084439	value: 1.521238272
+i: 4	a: 0.965084439	b: 1.397009213	value: -2.471275853
+i: 5	a: 1.397009213	b: 1.129657557	value: 1.966787495
+i: 6	a: 1.129657557	b: 1.248138041	value: 4.210222009
+i: 7	a: 1.248138041	b: 1.025787382	value: 1.595297137
 
+\vdots
+i: 42	a: -3937.724726937	b: -5215.963537543	value: 0.000000028
+i: 43	a: -5215.963537543	b: -6909.269396967	value: 0.000000016
+i: 44	a: -6909.269396967	b: -9152.422040822	value: 0.000000009
+i: 45	a: -9152.422040822	b: -12123.966602370	value: 0.000000005
+i: 46	a: -12123.966602370	b: -16060.425023712	value: 0.000000003
+i: 47	a: -16060.425023712	b: -21275.122167236	value: 0.000000002
+i: 48	a: -21275.122167236	b: -28183.125103398	value: 0.000000001
+
+\end{alltt}
 \subsection*{Raw Output of Secant Method with [.2,.25]}
+\begin{alltt}
 
+i: 0	a: 0.200000000	b: 0.243206198	value: 0.195326626
+i: 1	a: 0.243206198	b: 0.244224922	value: -0.014224914
+i: 2	a: 0.244224922	b: 0.244155768	value: 0.000179400
+i: 3	a: 0.244155768	b: 0.244156630	value: 0.000000166
+i: 4	a: 0.244156630	b: 0.244156630	value: -0.000000000
+
+\end{alltt}
 \section*{Problem 8}
+\subsection*{Raw Output}
+\subsubsection*{First Method}
+\begin{alltt}
+Enter the x value to approximate at: 2
+Actual value: 403.428793 
+n: 1	value: 1.000000
+n: 2	value: 7.000000
+n: 3	value: 25.000000
+n: 4	value: 61.000000
+n: 5	value: 115.000000
 
+
+\vdots
+n: 25	value: 403.428791
+n: 26	value: 403.428793
+n: 27	value: 403.428793
+n: 28	value: 403.428793
+n: 29	value: 403.428793
+n: 30	value: 403.428793
+n: 31	value: 403.428793
+\end{alltt}
+
+\begin{alltt}
+Enter the x value to approximate at: -2
+Actual value: 0.002479 
+n: 1	value: 1.000000
+n: 2	value: -5.000000
+n: 3	value: 13.000000
+n: 4	value: -23.000000
+
+\vdots
+n: 26	value: 0.002478
+n: 27	value: 0.002479
+n: 28	value: 0.002479
+n: 29	value: 0.002479
+n: 30	value: 0.002479
+
+\end{alltt}
+
+\begin{alltt}
+
+\end{alltt}
+
+
+
+\subsubsection*{Second Method}
+
+\subsection*{Analysis}
 \section*{Problem 9}
 
 \section*{Problem 10}
