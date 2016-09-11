@@ -25,7 +25,6 @@ double function(double x)
 
 int main()
 {
- printf("%.9lf \n",function(0.244157));
  double x1, x2;
  printf("Enter the x values of the brackets separated by a space: ");
  scanf("%lf %lf", &x1, &x2);
@@ -43,6 +42,7 @@ int main()
  {
 	 	header("SECANT METHOD");
   	        secantResult = secant(&function,x1,x2);
+		
  }
  else
  {

@@ -427,9 +427,12 @@ $g_1(x)$ is surprisingly stable and useful, converging to two different roots, a
 \includegraphics[scale=.5]{problem7plota.png}
 \includegraphics[scale=.5]{problem7plotb.png}
 \par Considering the above graphs of the function $\Omega_1 - \Omega_2$, it is not surprising that the secant method fails
-miserably. As the method approaches a root, the secant lines can become near vertical, leading the method away from the root. In addition, the asymptotic behavior at larger values can trick a numerical method into believing it has found a root at very large positive and very large negative values of $x$.
+miserably. As the method approaches a root, the secant lines can become near vertical, leading to unpredictable results. In addition, the asymptotic behavior at larger values can trick a numerical method into believing it has found a root at very large positive and very large negative values of $x$.
+	The simplest solution to the problem is to shrink our bounds until we avoid the asymptotic behavior - for example, bounds of .2 and .25 are sufficient to find the root quickly, and this would be easily found by experimentation by simply trying each .05 length interval in the original interval, even if we didn't  know where the root was exactly.
 
-\subsection*{Raw Output of Computation}
+\subsection*{Raw Output of Secant Method with [-1,1]}
+
+\subsection*{Raw Output of Secant Method with [.2,.25]}
 
 \section*{Problem 8}
 
