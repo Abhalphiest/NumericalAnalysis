@@ -77,7 +77,7 @@ double newton1D(double(*f)(double),double(*f_prime)(double), double x, int max_i
 	int i = 0; //iteration counter
 	while(fabs(f(x)) > ACC && i < max_iter)
 	{
-		while(f_prime(x) = 0) //avoid problems unless it's constant..
+		while(f_prime(x) == 0) //avoid problems unless it's constant..
 			x += .001;
 		x -= f(x)/f_prime(x);
 		printf("i: %d\tx: %.9lf\tvalue: %.9lf\n",i,x,f(x));
@@ -87,12 +87,12 @@ double newton1D(double(*f)(double),double(*f_prime)(double), double x, int max_i
 }
 
 void newton2D(double(*f)(double, double),double(*f_x)(double, double), double(*f_y)(double, double),
-				double(*g)(double, double),double(*g_x)(double, double),double(*g_x)(double, double),
+				double(*g)(double, double),double(*g_x)(double, double),double(*g_y)(double, double),
 				double x, double y, int max_iter)
 {
 	int i = 0; //iteration counter
 	double d = 0;
-	while(fabs(f(x,y)) > ACC && g(x,y)) > ACC && i < max_iter)
+	while(fabs(f(x,y)) > ACC && g(x,y) > ACC && i < max_iter)
 	{
 		
 		if((d = f_x(x,y)*g_y(x,y) - f_y(x,y)*g_x(x,y)) == 0)
@@ -100,7 +100,7 @@ void newton2D(double(*f)(double, double),double(*f_x)(double, double), double(*f
 		
 		x -= d*g_y(x,y)*f(x,y) - d*f_y(x,y)*g(x,y);
 		y -= d*f_x(x,y)*g(x,y) - d*g_x(x,y)*f(x,y);
-		printf("i: %d\tx: %.9lf\tx: %.lf\ty: %.9lf\nf(x,y): \%.9lf\tg(x,y): \%.9lf\n",i,x,y,f(x,y),g(x,y));
+		printf("i: %d\tx: %.9lf\ty: %.9lf\nf(x,y): %.9lf\tg(x,y): %.9lf\n",i,x,y,f(x,y),g(x,y));
 		i++;
 	}
 }

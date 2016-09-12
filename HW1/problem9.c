@@ -1,12 +1,12 @@
 /* 
- * File:	problem7.c
+ * File:	problem9.c
  * Course:	Math 411 Numerical Analysis Fall 2016
  * Author:	Margaret Dorsey
  *
- * Homework 1 Problem 7
+ * Homework 1 Problem 9
  *
- * This file contains a c program that tries (and fails) to find the
- * intersection of two functions using the secant method.
+ * This file contains a c program that solves a system of equations with two
+ * different implementations of a newton-raphson solver.
  *
  */
 
@@ -39,21 +39,21 @@ double f_2(double v, double w)
 }
 double f_2_v(double x)
 {
-	
+ return 0;	
 }
 double f_2_w(double v, double w)
 {
-	return 
+	return 0;
 }
 
 //from first equation
 double v(double w)
 {
-	return(B*S+w*(Q*w + 2*S)/(w*w*(B+w)*(B+w));
+	return B*S+w*(Q*w + 2*S)/(w*w*(B+w)*(B+w));
 }
 double v_w(double w)
 {
-	
+	return 0;
 }
 //reduced to 1 equation
 double g(double w)
@@ -67,19 +67,7 @@ double g_prime(double w)
 
 int main()
 {
- double x1, x2;
- printf("Enter the x values of the brackets separated by a space: ");
- scanf("%lf %lf", &x1, &x2);
-
- if(function(x1)*function(x2) > 0) //input validation
- {
-  printf("Invalid brackets. \n");
-  return 1; //exit failure
- }
-
- double secantResult;
- header("SECANT METHOD");
-
+ 
 
  return 0; //exit success
 }
