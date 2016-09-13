@@ -91,20 +91,20 @@ void newton2D(double(*f)(double, double),double(*f_x)(double, double),
 		double(*g_x)(double, double),double(*g_y)(double, double),
 		double x, double y, int max_iter)
 {
-	printf("in newton2D\n");
+
 	int i = 0; //iteration counter
 	double d = 0; //for our matrix inversion
-	printf("%lf %lf\n",pow(f(x,y),2),pow(g(x,y),2));
-	while(pow(f(x,y),2) + pow(g(x,y),2) > ACC && i < max_iter)
+	//printf("%lf %lf\n",pow(f(x,y),2),pow(g(x,y),2));
+	while(pow(f(x,y),2) + pow(g(x,y),2) > ACC*ACC && i < max_iter)
 	{
-		d = f_x(x,y)*g_y(x,y) - f_y(x,y)*g_x(x,y);
-		if(d == 0)
-		  break;
-		
-		x -= d*g_y(x,y)*f(x,y) - d*f_y(x,y)*g(x,y);
-		y -= d*f_x(x,y)*g(x,y) - d*g_x(x,y)*f(x,y);
-		printf("i: %d\tx: %.9lf\ty: %.9lf\nf(x,y): %.9lf\tg(x,y): %.9lf\n",i,x,y,f(x,y),g(x,y));
-		i++;
+	 d = f_x(x,y)*g_y(x,y) - f_y(x,y)*g_x(x,y);
+	 if(d == 0)
+	   break;
+	 printf("i:%d\tx: %.9lf\ty: %.9lf\tf(x,y): %.9lf\tg(x,y): %.9lf\n",
+		i,x,y,f(x,y),g(x,y));		
+	 x = x - d*g_y(x,y)*f(x,y) + d*f_y(x,y)*g(x,y);
+	 y = y- d*f_x(x,y)*g(x,y) + d*g_x(x,y)*f(x,y);
+	 i++;
 	}
 }
 

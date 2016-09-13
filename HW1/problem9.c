@@ -28,13 +28,13 @@ double f_1(double v, double w)
 }
 double f_1_v(double v, double w)
 {
-	//derivative of first equation wrt v
-	return (B+w)*(B+w);
+ //derivative of first equation wrt v
+ return (B+w)*(B+w);
 }
 double f_1_w(double v, double w)
 {
-	//derivative of first equation wrt w
-	return 2*(B*v*pow(w,3)+v*pow(w,4)+B*S+S*w)/pow(w,3);
+ //derivative of first equation wrt w
+ return 2*(B*v*pow(w,3)+v*pow(w,4)+B*S+S*w)/pow(w,3);
 }
 double f_2(double v, double w)
 {
