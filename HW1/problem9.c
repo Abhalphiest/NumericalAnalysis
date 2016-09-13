@@ -45,7 +45,7 @@ double f_2_v(double v, double w)
 {
  //derivative of second equation wrt v
  double root = sqrt(1-v);
- return -.25*(2*B*root + 2*W*root-D)/root;	
+ return -.25*(2*B*root + 2*w*root-D)/root;	
 }
 double f_2_w(double v, double w)
 {
@@ -63,7 +63,7 @@ double v(double w)
 double v_w(double w)
 { 
   //differentiated v(w) wrt w
-  return -2*(Q*pow(w,3)+B*B*S+3*B*S*w+3*s*w*w)/(pow(w,3)*pow(B+w,3));
+  return -2*(Q*pow(w,3)+B*B*S+3*B*S*w+3*S*w*w)/(pow(w,3)*pow(B+w,3));
 }
 //reduced to 1 equation
 double g(double w)
@@ -83,8 +83,13 @@ int main()
  double v_0,w_0;
  printf("Enter the initial guess for the 2D system, as \"v w\":");
  scanf("%lf %lf",&v_0,&w_0);
-
+ header("2D Newton's Method");
+ newton2D(&f_1,&f_1_v,&f_1_w,&f_2,&f_2_v,&f_2_w,v_0,w_0,1000);
  
+ printf("Enter the initial guess for the 1D solver:");
+ scanf("%lf",&w_0);
+ header("1D Newton's Method");
+ newton1D(&g,&g_prime,w_0,1000);
 
  return 0; //exit success
 }
