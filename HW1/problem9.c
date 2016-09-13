@@ -85,11 +85,12 @@ int main()
  scanf("%lf %lf",&v_0,&w_0);
  header("2D Newton's Method");
  newton2D(&f_1,&f_1_v,&f_1_w,&f_2,&f_2_v,&f_2_w,v_0,w_0,1000);
- 
+ //printf("%lf %lf \n", f_1(v_0,w_0), f_2(v_0,w_0));
  printf("Enter the initial guess for the 1D solver:");
  scanf("%lf",&w_0);
  header("1D Newton's Method");
- newton1D(&g,&g_prime,w_0,1000);
+ double w =  newton1D(&g,&g_prime,w_0,1000);
+ printf("v: %lf\tw: %lf\n",v(w),w);
 
  return 0; //exit success
 }

@@ -91,13 +91,15 @@ void newton2D(double(*f)(double, double),double(*f_x)(double, double),
 		double(*g_x)(double, double),double(*g_y)(double, double),
 		double x, double y, int max_iter)
 {
+	printf("in newton2D\n");
 	int i = 0; //iteration counter
-	double d = 0;
-	while(fabs(f(x,y)) > ACC && g(x,y) > ACC && i < max_iter)
+	double d = 0; //for our matrix inversion
+	printf("%lf %lf\n",pow(f(x,y),2),pow(g(x,y),2));
+	while(pow(f(x,y),2) + pow(g(x,y),2) > ACC && i < max_iter)
 	{
-		
-		if((d = f_x(x,y)*g_y(x,y) - f_y(x,y)*g_x(x,y)) == 0)
-			break;
+		d = f_x(x,y)*g_y(x,y) - f_y(x,y)*g_x(x,y);
+		if(d == 0)
+		  break;
 		
 		x -= d*g_y(x,y)*f(x,y) - d*f_y(x,y)*g(x,y);
 		y -= d*f_x(x,y)*g(x,y) - d*g_x(x,y)*f(x,y);
