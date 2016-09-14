@@ -1,4 +1,4 @@
-all: problem1 problem2 problem3 problem5 problem6 problem7 problem8 problem9
+all: problem1 problem2 problem3 problem5 problem6 problem7 problem8 problem9 problem10
 
 problem1: problem1.c 
 	gcc -o problem1.exe problem1.c -lm
@@ -16,3 +16,5 @@ problem8: problem8.c
 	gcc -o problem8.exe problem8.c -lm
 problem9: problem9.c rootfinding.c
 	gcc -o problem9.exe problem9.c rootfinding.c -lm
+problem10: problem10.c rootfinding.c
+	gcc -o problem10.exe problem10.c rootfinding.c -lm

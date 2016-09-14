@@ -18,14 +18,14 @@
 double f(double x)
 {
  //first derivative equation
- return -(exp(x)*(x-3)+3)*x^2/pow((exp(x)-1),2);
+ return -(exp(x)*(x-3)+3)*x*x/pow((exp(x)-1),2);
 }
 double f_prime(double x)
 {
  //second derivative equation
- return (2*exp(x)*(exp(x)*(x-3)+3)*x*x)/pow((exp(x)-1),3)-
-		((exp(x)*(x-3)+exp(x))*x^2)/(pow(exp(x)-1),2)-
-		(2*(exp(x)*(x-3)+3)*x)/pow(e^x-1,2);
+ return (2*exp(x)*(exp(x)*(x-3)+3)*x*x)/pow(exp(x)-1,3)-
+		((exp(x)*(x-3)+exp(x))*x*x)/pow(exp(x)-1,2)-
+		(2*(exp(x)*(x-3)+3)*x)/pow(exp(x)-1,2);
 }
 int main()
 {
