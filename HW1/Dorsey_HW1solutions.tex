@@ -684,7 +684,7 @@ n: 177	value: 722745700.930318474770
 \end{alltt}
 
 \subsection*{Analysis}
-\par For positive $x$ and small (in absolute value) negative $x$, the second method is much more accurate - obviously due to finding the answer to $10^{-15}$ precision instead of a smaller relative precision, and also because it is not constrained to only $100$ iterations. However, for large negative $x$, neither method converges - likely because the series is not absolutely convergent, and the extremely large (in absolute value) terms that appear late in the series overflow even 64 bit floating point numbers. Because the second method is only looking for the distance between sums to become small, this floating point overflow actually leads to an incorrect convergene - the first method simply runs out of iterations before it can return an answer at all.
+\par For positive $x$ and small (in absolute value) negative $x$, the second method is much more accurate - obviously due to finding the answer to $10^{-15}$ precision instead of a smaller relative precision, and also because it is not constrained to only $100$ iterations. However, for large negative $x$, neither method converges - likely because the series is not absolutely convergent, and the extremely large (in absolute value) terms that appear late in the series overflow even 64 bit floating point numbers. Because the second method is only looking for the distance between sums to become small, this floating point overflow actually leads to an incorrect convergence - the first method simply runs out of iterations before it can return an answer at all.
 
 \section*{Problem 9}
 \subsection*{1D Newton's Method}
@@ -700,8 +700,14 @@ n: 177	value: 722745700.930318474770
 which simplifies to
 	$$\frac{8\pi v^2kT}{c^3}$$
 which is the Rayleigh-Jeans law.
-\\
-\par
+
+\par The second degree approximation is $e^{\frac{hv}{kT}} \approx 1+\frac{hv}{kT}+\frac{h^2v^2}{2k^2T^2}$, and so we have
+	$$\frac{8\pi hv^3}{c^3}(\frac{1}{\frac{hv}{kT}+\frac{h^2v^2}{2k^2T^2}})$$
+	$$=  \frac{8\pi hv^3}{c^3}(\frac{2k^2T^2}{2kThv + h^2v^2})$$
+	$$= \frac{8\pi k^2 T^2v^2}{c^3}(\frac{1}{2kT+hv})$$
+	$$= \frac{4\pi k Tv^2}{c^3}(\frac{1}{1+\frac{hv}{2kt}})$$
+we can approximate $\frac{1}{1+\frac{hv}{2kt}}$, giving us
+	$$\frac{2 \pi(2kTv^2 - hv^3)}{c^3}$$
 
 \item We have 
 	$$\frac{8\pi h}{\lambda^3}\cdot\frac{1}{e^\frac{hc}{\lambda Tk} - 1}$$ 
