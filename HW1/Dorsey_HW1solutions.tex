@@ -685,10 +685,16 @@ n: 177	value: 722745700.930318474770
 \par For positive $x$ and small (in absolute value) negative $x$, the second method is much more accurate - obviously due to finding the answer to $10^{-15}$ precision instead of a smaller relative precision, and also because it is not constrained to only $100$ iterations. However, for large negative $x$, neither method converges - likely because the series is not absolutely convergent, and the extremely large (in absolute value) terms that appear late in the series overflow even 64 bit floating point numbers. Because the second method is only looking for the distance between sums to become small, this floating point overflow actually leads to an incorrect convergene - the first method simply runs out of iterations before it can return an answer at all.
 
 \section*{Problem 9}
+\subsection*{1D Newton's Method}
+
+\subsection*{2D Newton's Method}
+
+\subsection*{Analysis}
 
 \section*{Problem 10}
 \begin{enumerate}[i.)]
 \item
+
 \item
 \item
 \item
@@ -708,7 +714,57 @@ i: 3	x: 2.821439372	value: 0.000000000
 \end{alltt}
 while if started from a value of greater distance (even to the left!) it will often find that $x \approx 31$ is a root, despite that not being true - the value of $f(x)$ simply is smaller than $10^{-11}$ for sufficiently large $x$.
 \par This, along with the concave down nature of the original function surrounding its maximum, makes it seem like a bracketed method would be more stable for finding the true root reliably. However, because Newton's method worked and worked well, I did not personally use another method - I was lucky enough to stumble upon the initial guess of $2$ through inspection of the function.
-\item -0.712896 1.15746 5.41158
+\item 
+Luckily, the constants in the ratio cancel, leaving us with $$\frac{x^3}{(e^x-1)1.421435472747736735109369433}-0.5$$
+ as our root finding equation.
+\par Outside of $x$  small in absolute value, the function is approximately a scaling of $e^{-x}$ (which will not have a root), and so it was fairly easy to make fairly accurate initial guesses just by trying integers in the range $[-10,10]$. Given that for $x$ small in absolute value the function is very close to the cubic function, and that it is monotone decreasing for other $x$, it is fairly safe to say that it cannot have more than 3 roots and thus we have found all FWHM values.
+\begin{alltt}
+--------------------------
+ Root 1 - Newton
+ -----------------------
+
+
+i: 0	x: -0.839764202	value: 0.233251768
+i: 1	x: -0.760192263	value: 0.080478297
+i: 2	x: -0.728402536	value: 0.025566235
+i: 3	x: -0.717659530	value: 0.007770370
+  \vdots
+i: 16	x: -0.712895519	value: 0.000000001
+i: 17	x: -0.712895519	value: 0.000000000
+
+
+--------------------------
+ Root 2 - Bisection
+ -----------------------
+
+
+i: 0	a: 1.000000000	b: 1.500000000	value: 0.181956454 
+i: 1	a: 1.000000000	b: 1.250000000	value: 0.051751763 
+i: 2	a: 1.125000000	b: 1.250000000	value: -0.018471709 
+i: 3	a: 1.125000000	b: 1.187500000	value: 0.016955829 
+i: 4	a: 1.156250000	b: 1.187500000	value: -0.000688552 
+i: 5	a: 1.156250000	b: 1.171875000	value: 0.008152217 
+i: 6	a: 1.156250000	b: 1.164062500	value: 0.003736325 
+  \vdots
+i: 24	a: 1.157464653	b: 1.157464683	value: -0.000000014 
+i: 25	a: 1.157464668	b: 1.157464683	value: -0.000000006 
+i: 26	a: 1.157464676	b: 1.157464683	value: -0.000000002 
+i: 27	a: 1.157464676	b: 1.157464679	value: 0.000000000 
+
+
+--------------------------
+ Root 3 - Newton
+ -----------------------
+
+
+i: 0	x: 5.279906861	value: 0.030071791
+i: 1	x: 5.371252629	value: 0.009117060
+i: 2	x: 5.399490882	value: 0.002723474
+i: 3	x: 5.407980476	value: 0.000809345
+  \vdots
+i: 14	x: 5.411575120	value: 0.000000001
+i: 15	x: 5.411575124	value: 0.000000000
+\end{alltt}
 \end{enumerate}
 
 
