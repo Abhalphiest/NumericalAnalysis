@@ -93,19 +93,22 @@ void newton2D(double(*f)(double, double),double(*f_x)(double, double),
 {
 
 	int i = 0; //iteration counter
-	double d = 0; //for our matrix inversion
+	double d = 0, tempx, tempy; //for our matrix inversion and assignment
 	//printf("%lf %lf\n",pow(f(x,y),2),pow(g(x,y),2));
 	while(pow(f(x,y),2) + pow(g(x,y),2) > ACC*ACC && i < max_iter)
 	{
 	 d = f_x(x,y)*g_y(x,y) - f_y(x,y)*g_x(x,y);
 	 if(d == 0)
 	   break;
-	 printf("i:%d\tx: %.9lf\ty: %.9lf\tf(x,y): %.9lf\tg(x,y): %.9lf\n",
+	 printf("i:%d\tx: %.9lf\ty: %.9lf\nf(x,y): %.9lf\tg(x,y): %.9lf\n\n",
 		i,x,y,f(x,y),g(x,y));		
-	 x = x - d*g_y(x,y)*f(x,y) + d*f_y(x,y)*g(x,y);
-	 y = y- d*f_x(x,y)*g(x,y) + d*g_x(x,y)*f(x,y);
+	 tempx = x - (1/d)*g_y(x,y)*f(x,y) + (1/d)*f_y(x,y)*g(x,y);
+	 tempy = y - (1/d)*f_x(x,y)*g(x,y) + (1/d)*g_x(x,y)*f(x,y);
+	 x = tempx;
+	 y = tempy;
 	 i++;
 	}
+	printf("v: %.9lf\t w: %.9lf\n",x,y);
 }
 
 
