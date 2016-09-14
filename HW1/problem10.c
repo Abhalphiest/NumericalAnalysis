@@ -27,14 +27,34 @@ double f_prime(double x)
 		((exp(x)*(x-3)+exp(x))*x*x)/pow(exp(x)-1,2)-
 		(2*(exp(x)*(x-3)+3)*x)/pow(exp(x)-1,2);
 }
-int main()
+double u(double x)
 {
- double x_0;
- printf("Enter the initial guess for the root:");
- scanf("%lf",&x_0);
- header("1D Newton's Method");
- double w =  newton1D(&f,&f_prime,x_0,1000);
+ return x*x*x/(exp(x) - 1);
+}
+double fwhm(double x)
+{
+ return u(x)/1.4214354727477 - .5;
 
+}
+int main(int argc, char** argv)
+{
+ if(argc ==1){ //part iv
+  double x_0;
+  printf("Enter the initial guess for the root:");
+  scanf("%lf",&x_0);
+  header("1D Newton's Method");
+  double w =  newton1D(&f,&f_prime,x_0,1000);
+ }
+ 
+ else //part v
+ {
+  header("Root 1 - Newton");
+  newton1D(&fwhm,&f,-1,1000);
+  header("Root 2 - Bisection");
+  bisection(&fwhm,1, 2);
+  header("Root 3 - Newton");
+  newton1D(&fwhm,&f, 5,1000);
+ }
  return 0; //exit success
 }
 
