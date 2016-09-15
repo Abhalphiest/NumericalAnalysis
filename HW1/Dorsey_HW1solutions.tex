@@ -687,11 +687,50 @@ n: 177	value: 722745700.930318474770
 \par For positive $x$ and small (in absolute value) negative $x$, the second method is much more accurate - obviously due to finding the answer to $10^{-15}$ precision instead of a smaller relative precision, and also because it is not constrained to only $100$ iterations. However, for large negative $x$, neither method converges - likely because the series is not absolutely convergent, and the extremely large (in absolute value) terms that appear late in the series overflow even 64 bit floating point numbers. Because the second method is only looking for the distance between sums to become small, this floating point overflow actually leads to an incorrect convergence - the first method simply runs out of iterations before it can return an answer at all.
 
 \section*{Problem 9}
-\subsection*{1D Newton's Method}
+\subsection*{1D Newton's Method Raw Output}
+\begin{alltt}
+Enter the initial guess for the 1D solver: 2
 
-\subsection*{2D Newton's Method}
+--------------------------
+ 1D Newton's Method
+ -----------------------
 
+
+i: 0	x: 2.048570661	value: 0.089009392
+i: 1	x: 2.086422203	value: 0.070220115
+i: 2	x: 2.116060683	value: 0.055507273
+i: 3	x: 2.139352605	value: 0.043944567
+\vdots
+i: 79	x: 2.227867384	value: 0.000000001
+i: 80	x: 2.227867384	value: 0.000000001
+i: 81	x: 2.227867385	value: 0.000000001
+v: 0.016930	w: 2.227867
+\end{alltt}
+\subsection*{2D Newton's Method Raw Output}
+\begin{alltt}
+Enter the initial guess for the 2D system, as "v w": .5 2
+
+--------------------------
+ 2D Newton's Method
+ -----------------------
+
+
+i:0	x: 0.500000000	y: 2.000000000
+f(x,y): 1.923562789	g(x,y): -0.184608616
+
+i:1	x: -0.059149012	y: 2.160628330
+f(x,y): -0.361511993	g(x,y): 0.092238340
+
+i:2	x: 0.021509188	y: 2.224876010
+f(x,y): 0.022522550	g(x,y): -0.002090010
+
+i:3	x: 0.016917514	y: 2.227869548
+f(x,y): -0.000061124	g(x,y): 0.000008626
+
+v: 0.016929818	 w: 2.227867386
+\end{alltt}
 \subsection*{Analysis}
+The 2D solver is much faster at finding the answer than the 1D solver, provided that $v < 1$ for the initial guess (or else the second equation will return NAN). Considering that choosing $v < 1$ and positive and using the formula for $v(w)$ to approximate a corresponding $w$ will lead naturally to a reasonable guess for the 2D solver, it seems like the clear cut winner between the two methods despite the 1D method seeming like a simplified problem.
 
 \section*{Problem 10}
 \begin{enumerate}[i.)]
@@ -704,10 +743,10 @@ which is the Rayleigh-Jeans law.
 \par The second degree approximation is $e^{\frac{hv}{kT}} \approx 1+\frac{hv}{kT}+\frac{h^2v^2}{2k^2T^2}$, and so we have
 	$$\frac{8\pi hv^3}{c^3}(\frac{1}{\frac{hv}{kT}+\frac{h^2v^2}{2k^2T^2}})$$
 	$$=  \frac{8\pi hv^3}{c^3}(\frac{2k^2T^2}{2kThv + h^2v^2})$$
-	$$= \frac{8\pi k^2 T^2v^2}{c^3}(\frac{1}{2kT+hv})$$
-	$$= \frac{4\pi k Tv^2}{c^3}(\frac{1}{1+\frac{hv}{2kt}})$$
+	$$= \frac{16\pi k^2 T^2v^2}{c^3}(\frac{1}{2kT+hv})$$
+	$$= \frac{8\pi k Tv^2}{c^3}(\frac{1}{1+\frac{hv}{2kt}})$$
 we can approximate $\frac{1}{1+\frac{hv}{2kt}}$, giving us
-	$$\frac{2 \pi(2kTv^2 - hv^3)}{c^3}$$
+	$$\frac{4 \pi(2kTv^2 - hv^3)}{c^3}$$
 
 \item We have 
 	$$\frac{8\pi h}{\lambda^3}\cdot\frac{1}{e^\frac{hc}{\lambda Tk} - 1}$$ 
