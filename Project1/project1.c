@@ -35,16 +35,14 @@ double f(double x)
 }
 double f_prime(double x) //for newtons method
 {
- //product rule
- double value = 0, sumterms = 0;
- for(int i = 0; i < M; i++) //two operands for product rule
+
+ double value = 0;
+ for(int i = 0; i < M; i++) 
  {
-  value += (k[i]*n[i])/pow(1+k[i]*x,2);
+  value += (k[i]*n[i])/pow(1+k[i]*x,2); //can differentiate term by term
  }
  value += 1;
- value = value;
-
- return 0;
+ return value;
 }
 double g(double x) //for FPI
 {
