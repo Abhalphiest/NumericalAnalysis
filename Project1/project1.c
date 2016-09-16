@@ -39,12 +39,10 @@ double f_prime(double x) //for newtons method
  double value = 0, sumterms = 0;
  for(int i = 0; i < M; i++) //two operands for product rule
  {
-  value += (k[i]*n[i])/(1+k[i]*x);
-  sumterms += -(k[i]*n[i])/(1+k[i]*x*x); // derivative of the sum terms
+  value += (k[i]*n[i])/pow(1+k[i]*x,2);
  }
  value += 1;
- sumterms *= x;
- value = value + sumterms - E;
+ value = value;
 
  return 0;
 }
