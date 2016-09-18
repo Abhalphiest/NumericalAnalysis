@@ -185,6 +185,19 @@ i: 1	x: -nan	value: -nan
 \subsection*{Test Four Output}
 % guess 1.0, should be nice
 \begin{alltt}
+Enter the intial guess: 1.0
+
+--------------------------
+ Newton
+ -----------------------
+
+
+i: 0	x: -0.428571429	value: -8.928571429
+i: 1	x: -0.146245059	value: -2.859208022
+i: 2	x: 0.048003192	value: -0.493952479
+i: 3	x: 0.096885702	value: -0.019834462
+i: 4	x: 0.099015816	value: -0.000034315
+i: 5	x: 0.099019514	value: -0.000000000
 
 \end{alltt}
 
@@ -194,11 +207,80 @@ i: 1	x: -nan	value: -nan
 
 \par For an initial guess of 1.6, the method successfully converged, however unfortunately it was to the negative root. For 1.499, the method converged (somewhat slowly, for newton's method) to the correct root, however 1.5 leads to division by zero. Examining the graph of f(x), the cause of this behavior becomes fairly apparent - as the positive side of the graph flattens and the slope of the tangent line approaches $0$, Newton's method tends to send $x_{n+1}$ through and across the singularity at $x = -1$, into the negative values of $x$. For $x$ before this jump across the singularity of $f(x)$, such as $1.4999$, the method, although displaced into negative $x$, can self-correct back towards the positive root. As the slope of $f(x)$ gets more and more positive approaching the positive root, Newton's method manages to converge more and more efficiently, as evidenced by the results of initial guess $1.0$.
 
-
+\newpage
 \section*{Algorithm Comparison}
 
 \subsection*{Output Evaluation}
+\begin{alltt}
+--------------------------
+ Bisection
+ -----------------------
 
+
+i: 0	a: 2.000000000	b: 4.000000000	value: -2.343589744 
+i: 1	a: 3.000000000	b: 4.000000000	value: -0.981203008 
+i: 2	a: 3.500000000	b: 4.000000000	value: -0.364898990 
+i: 3	a: 3.750000000	b: 4.000000000	value: -0.066547000 
+i: 4	a: 3.750000000	b: 3.875000000	value: 0.080649333 
+i: 5	a: 3.750000000	b: 3.812500000	value: 0.007204681 
+i: 6	a: 3.781250000	b: 3.812500000	value: -0.029631976 
+i: 7	a: 3.796875000	b: 3.812500000	value: -0.011203954 
+\vdots
+i: 26	a: 3.806382805	b: 3.806382835	value: -0.000000012 
+i: 27	a: 3.806382805	b: 3.806382820	value: 0.000000005 
+i: 28	a: 3.806382813	b: 3.806382820	value: -0.000000003 
+i: 29	a: 3.806382813	b: 3.806382816	value: 0.000000001 
+
+--------------------------
+ Fixed Point Iteration
+ -----------------------
+
+
+i: 0	x: 10.000000000	value: 9.556071251
+i: 1	x: 9.556071251	value: 9.142717834
+i: 2	x: 9.142717834	value: 8.757913091
+i: 3	x: 8.757913091	value: 8.399762914
+i: 4	x: 8.399762914	value: 8.066496782
+i: 5	x: 8.066496782	value: 7.756459426
+i: 6	x: 7.756459426	value: 7.468103079
+i: 7	x: 7.468103079	value: 7.199980270
+i: 8	x: 7.199980270	value: 6.950737133
+i: 9	x: 6.950737133	value: 6.719107200
+i: 10	x: 6.719107200	value: 6.503905636
+i: 11	x: 6.503905636	value: 6.304023891
+i: 12	x: 6.304023891	value: 6.118424739
+i: 13	x: 6.118424739	value: 5.946137680
+i: 14	x: 5.946137680	value: 5.786254664
+i: 15	x: 5.786254664	value: 5.637926132
+i: 16	x: 5.637926132	value: 5.500357326
+\vdots
+i: 234	x: 3.806382850	value: 3.806382848
+i: 235	x: 3.806382848	value: 3.806382845
+i: 236	x: 3.806382845	value: 3.806382843
+i: 237	x: 3.806382843	value: 3.806382841
+i: 238	x: 3.806382841	value: 3.806382839
+i: 239	x: 3.806382839	value: 3.806382837
+i: 240	x: 3.806382837	value: 3.806382835
+i: 241	x: 3.806382835	value: 3.806382834
+i: 242	x: 3.806382834	value: 3.806382832
+i: 243	x: 3.806382832	value: 3.806382831
+i: 244	x: 3.806382831	value: 3.806382830
+i: 245	x: 3.806382830	value: 3.806382829
+i: 246	x: 3.806382829	value: 3.806382828
+
+
+
+--------------------------
+ Newton
+ -----------------------
+
+
+i: 0	x: 3.318702187	value: -0.585022456
+i: 1	x: 3.796734040	value: -0.011370114
+i: 2	x: 3.806379686	value: -0.000003686
+i: 3	x: 3.806382815	value: -0.000000000
+
+\end{alltt}
 \subsection*{Asymptotic Error Constant Calculation}
 
 \subsection*{Test Case Results}
