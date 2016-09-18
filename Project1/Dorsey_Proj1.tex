@@ -93,7 +93,49 @@ which by reasoning analogous to the above argument, is always positive for posit
 
 \subsubsection*{Case Testing}
 %%show it works for case 1, not for case 2
+\begin{alltt}
+Enter the initial guess for the first test: 1 
+
+--------------------------
+ Fixed Point Iteration
+ -----------------------
+
+
+i: 0	x: 1.000000000	value: 2.500000000
+i: 1	x: 2.500000000	value: 2.285714286
+i: 2	x: 2.285714286	value: 2.304347826
+i: 3	x: 2.304347826	value: 2.302631579
+i: 4	x: 2.302631579	value: 2.302788845
+i: 5	x: 2.302788845	value: 2.302774427
+i: 6	x: 2.302774427	value: 2.302775749
+i: 7	x: 2.302775749	value: 2.302775628
+i: 8	x: 2.302775628	value: 2.302775639
+i: 9	x: 2.302775639	value: 2.302775638
+
+Enter the initial guess for the second test:  1
+
+--------------------------
+ Fixed Point Iteration
+ -----------------------
+
+
+i: 0	x: 1.000000000	value: 0.500000000
+i: 1	x: 0.500000000	value: 1.333333333
+i: 2	x: 1.333333333	value: 0.142857143
+i: 3	x: 0.142857143	value: 2.375000000
+i: 4	x: 2.375000000	value: -0.518518519
+i: 5	x: -0.518518519	value: 8.384615385
+i: 6	x: 8.384615385	value: -1.467213115
+\vdots
+i: 54	x: -3.791287852	value: -3.791287845
+i: 55	x: -3.791287845	value: -3.791287849
+i: 56	x: -3.791287849	value: -3.791287846
+i: 57	x: -3.791287846	value: -3.791287848
+i: 58	x: -3.791287848	value: -3.791287847
+\end{alltt}
 %% discuss the problem here
+\par Even though the proposed $g(x)$ converged in both cases, it converged to the negative root in the second case, even though the initial guess
+was closer to the positive root (which is approximately $0.79$). 
 %% use contraction theorem
 
 \subsubsection*{Choosing $\alpha$}
