@@ -16,7 +16,6 @@
 #include"rootfinding.h" //where all the actual rootfinding functions are
 
 
-double alpha; //for FPI
 double* k, *n; //everything is made global for simplicity
 double E;
 int M;
@@ -33,89 +32,40 @@ double f(double x)
  value -= E;
  return value;
 }
-double f_prime(double x) //for newtons method
-{
 
- double value = 0;
- for(int i = 0; i < M; i++) 
- {
-  value += (k[i]*n[i])/pow(1+k[i]*x,2); //can differentiate term by term
- }
- value += 1;
- return value;
-}
 double g(double x) //for FPI
 {
  double value = 0;
  for(int i = 0; i < M; i++)
-   value-= k[i]*n[i]/(1+k[i]*x);
- value += alpha;
+   value-= k[i]*n[i]/(1+k[i]*x);;
  value *= x;
  value += E;
- value *= 1/(1+alpha);
  return value;
 }
 
-void calcalpha() //assumes input has already been processed
-{
- alpha = 0;
- for(int i = 0; i < M; i++)
-  alpha += k[i]*n[i];
- return;
-}
 int main()
 {
- printf("Enter M and E, separated by a space:"); //prompt for input
- scanf("%d %lf",&M,&E);
- k = (double*) malloc(sizeof(double)*M);
- n = (double*) malloc(sizeof(double)*M);
- printf("Enter the k values in order: \n");
- for(int i = 0; i < M; i++)
- {
-   scanf("%lf",&k[i]);
- }
- printf("\nEnter the n values in order: \n");
- for(int i = 0; i < M; i++)
- {
-   scanf("%lf",&n[i]);
- }
- //alpha = 0; //for testing various values of alpha
- calcalpha(); //get our alpha for FPI 
+ k = malloc(sizeof(double));
+ n = malloc(sizeof(double)); //hardcoding everything because it's just 2 test cases..
+ M = 1;
+ E = 3;
+ k[0] = 1;
+ n[0] = 1;
+ double x1;
+ printf("Enter the initial guess for the first test: ");
+ scanf("%lf",&x1);
+ header("Fixed Point Iteration");
+ FPI(&g,x1);
+		
  
- int choice;
- printf("\nEnter 1 for bisection, 2 for fpi, 3 for newton :");
- fseek(stdin,0,SEEK_END); //don't spoil our next scan with old input
- scanf("%d", &choice);
  
- double x1,x2;
- switch(choice)
- {
-  case 1:
-		printf("Enter the brackets separated by a space: ");
-		scanf("%lf %lf",&x1,&x2);
-		header("Bisection");
-		if(f(x1)*f(x2) > 0)
-			return -1; //go die
-		if(x1 < x2)
-			bisection(&f,x1,x2);
-		else
-			bisection(&f,x2,x1);
-		break;
-
-  case 2:
-		printf("Enter the initial guess: ");
+ n[0] = 5; //only thing that needs to change
+ double x1;
+ printf("Enter the initial guess for the second test: ");
 		scanf("%lf",&x1);
 		header("Fixed Point Iteration");
 		FPI(&g,x1);
-		break;
-
-  case 3:
-		printf("Enter the intial guess: ");
-		scanf("%lf",&x1);
-		header("Newton");
-		newton1D(&f,&f_prime,x1, 1000);
-		break;
- }
+ 
  free(k); //clean up our heap
  free(n);
  return 0; //exit success
