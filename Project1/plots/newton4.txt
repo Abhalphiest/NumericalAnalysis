@@ -1,0 +1,17 @@
+Enter M and E, separated by a space:Enter the k values in order: 
+
+Enter the n values in order: 
+
+Enter 1 for bisection, 2 for fpi, 3 for newton :Enter the intial guess: 
+
+--------------------------
+ Newton
+ -----------------------
+
+
+i: 0	x: -0.428571429	value: -8.928571429
+i: 1	x: -0.146245059	value: -2.859208022
+i: 2	x: 0.048003192	value: -0.493952479
+i: 3	x: 0.096885702	value: -0.019834462
+i: 4	x: 0.099015816	value: -0.000034315
+i: 5	x: 0.099019514	value: -0.000000000
