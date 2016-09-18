@@ -60,7 +60,6 @@ int main()
  
  
  n[0] = 5; //only thing that needs to change
- double x1;
  printf("Enter the initial guess for the second test: ");
 		scanf("%lf",&x1);
 		header("Fixed Point Iteration");
