@@ -66,7 +66,10 @@
 \begin{document}
 \maketitle
 
+\section*{Graphical Illustration of the Function}
+
 \section*{Positive Solutions of X}
+
 
 \begin{claim}
 There is exactly one positive solution for $x$.
@@ -135,7 +138,7 @@ i: 58	x: -3.791287848	value: -3.791287847
 \end{alltt}
 %% discuss the problem here
 \par Even though the proposed $g(x)$ converged in both cases, it converged to the negative root in the second case, even though the initial guess
-was closer to the positive root (which is approximately $0.79$). This is because surrounding the positive root, the absolute value of $g'(x)$ is greater than $1$ in the second case, meaning that it cannot converge to that root because as it approaches it, the sequence will begin to diverge rather than converge.
+was closer to the positive root (which is approximately $0.79$). This is because surrounding the positive root, the absolute value of $g'(x)$ is greater than $1$ in the second case, meaning that, by the contration theorem, it cannot converge to that root (because as it approaches it, the sequence will begin to diverge rather than converge).
 %% use contraction theorem
 
 \subsubsection*{Choosing $\alpha$}
@@ -311,7 +314,7 @@ i: 245	x: 3.806382830	value: 3.806382829
 i: 246	x: 3.806382829	value: 3.806382828
 
 
-
+Enter the initial guess: 1 
 --------------------------
  Newton
  -----------------------
@@ -324,8 +327,162 @@ i: 3	x: 3.806382815	value: -0.000000000
 
 \end{alltt}
 \subsection*{Asymptotic Error Constant Calculation}
+First, we verify that the methods are converging at the expected rates (linearly, linearly, and quadratically respectively), and then calcuate their asymptotic error constants.
+
+\subsubsection*{Bisection}
+\subsubsection*{FPI}
+\subsubsection*{Newton's Method}
 
 \subsection*{Test Case Results}
+\subsubsection*{Test Case 1}
+$\xi = 12$, $M = 7$ \\ \\
+\begin{tabular}{||c||c c c c c c c|}
+\hline
+i & 1 & 2 & 3 & 4 & 5 & 6 & 7 \\
+\hline
+k & 2 & 4 & 6 & 8 & 10 & 12 & 14 \\
+\hline
+$\eta$ & 1 & 3 & 5 & 7 & 9 & 11 & 13 \\
+\hline
+\end{tabular}
+
+\begin{alltt}
+Enter the brackets separated by a space:  0 12
+
+--------------------------
+ Bisection
+ -----------------------
+
+
+i: 0	a: 0.000000000	b: 6.000000000	value: 42.073917554 
+i: 1	a: 0.000000000	b: 3.000000000	value: 38.193270272 
+i: 2	a: 0.000000000	b: 1.500000000	value: 35.050610574 
+i: 3	a: 0.000000000	b: 0.750000000	value: 31.401650779 
+i: 4	a: 0.000000000	b: 0.375000000	value: 26.340373048 
+i: 5	a: 0.000000000	b: 0.187500000	value: 19.491743318 
+i: 6	a: 0.000000000	b: 0.093750000	value: 11.426573055 
+i: 7	a: 0.000000000	b: 0.046875000	value: 3.596209203 
+i: 8	a: 0.023437500	b: 0.046875000	value: -2.617682398 
+i: 9	a: 0.023437500	b: 0.035156250	value: 0.771000643 
+i: 10	a: 0.029296875	b: 0.035156250	value: -0.842334991 
+i: 11	a: 0.032226562	b: 0.035156250	value: -0.016903399 
+i: 12	a: 0.032226562	b: 0.033691406	value: 0.381569812 
+i: 13	a: 0.032226562	b: 0.032958984	value: 0.183484060 
+i: 14	a: 0.032226562	b: 0.032592773	value: 0.083580670 
+i: 15	a: 0.032226562	b: 0.032409668	value: 0.033411552 
+i: 16	a: 0.032226562	b: 0.032318115	value: 0.008272347 
+i: 17	a: 0.032272339	b: 0.032318115	value: -0.004310953 
+i: 18	a: 0.032272339	b: 0.032295227	value: 0.001981840 
+\vdots
+i: 45	a: 0.032288018	b: 0.032288018	value: -0.000000000 
+
+
+Enter the initial guess: 1 
+
+--------------------------
+ Fixed Point Iteration
+ -----------------------
+
+
+i: 0	x: 1.000000000	value: 0.934567127
+i: 1	x: 0.934567127	value: 0.869860516
+i: 2	x: 0.869860516	value: 0.805948615
+i: 3	x: 0.805948615	value: 0.742911886
+i: 4	x: 0.742911886	value: 0.680845556
+i: 5	x: 0.680845556	value: 0.619863138
+i: 6	x: 0.619863138	value: 0.560100946
+i: 7	x: 0.560100946	value: 0.501723926
+i: 8	x: 0.501723926	value: 0.444933154
+i: 9	x: 0.444933154	value: 0.389975471
+i: 10	x: 0.389975471	value: 0.337155624
+i: 11	x: 0.337155624	value: 0.286851060
+i: 12	x: 0.286851060	value: 0.239528568
+\vdots
+i: 45	x: 0.032288018	value: 0.032288018
+i: 46	x: 0.032288018	value: 0.032288018
+
+Enter the intial guess: 1
+
+--------------------------
+ Newton
+ -----------------------
+
+
+i: 0	x: -5.188426064	value: 32.946741439
+i: 1	x: -32.060273608	value: 5.118528517
+i: 2	x: -37.150270786	value: 0.003926264
+i: 3	x: -37.154180750	value: 0.000000002
+i: 4	x: -37.154180752	value: 0.000000000
+
+\end{alltt}
+
+
+\subsubsection*{Test Case 2}
+$\xi = 1876$, $M = 4$ \\ \\
+\begin{tabular}{||c||c c c c|}
+\hline
+i & 1 & 2 & 3 & 4 \\
+\hline
+k & 31 & 73 & 5 & 78 \\
+\hline
+$\eta$ & 62 & 81 & 102 & 56 \\
+\hline
+\end{tabular}
+
+\begin{alltt}
+
+\end{alltt}
+
+\subsubsection*{Test Case 3}
+$\xi = 21$, $M = 2$ \\ \\
+\begin{tabular}{||c||c c |}
+\hline
+i & 1 & 2  \\
+\hline
+k & 1 & 8 \\
+\hline
+$\eta$ & 9 & 4 \\
+\hline
+\end{tabular}
+
+\begin{alltt}
+Enter the brackets separated by a space: 0 21
+
+--------------------------
+ Bisection
+ -----------------------
+
+
+i: 0	a: 0.000000000	b: 10.500000000	value: 1.670332481 
+i: 1	a: 5.250000000	b: 10.500000000	value: -4.283023256 
+i: 2	a: 7.875000000	b: 10.500000000	value: -1.201584507 
+i: 3	a: 7.875000000	b: 9.187500000	value: 0.250373142 
+i: 4	a: 8.531250000	b: 9.187500000	value: -0.470774028 
+i: 5	a: 8.859375000	b: 9.187500000	value: -0.109113941 
+i: 6	a: 8.859375000	b: 9.023437500	value: 0.070887801 
+i: 7	a: 8.941406250	b: 9.023437500	value: -0.019046911 
+i: 8	a: 8.941406250	b: 8.982421875	value: 0.025936779 
+i: 9	a: 8.941406250	b: 8.961914062	value: 0.003449043 
+i: 10	a: 8.951660156	b: 8.961914062	value: -0.007797904 
+i: 11	a: 8.956787109	b: 8.961914062	value: -0.002174173 
+i: 12	a: 8.956787109	b: 8.959350586	value: 0.000637499 
+i: 13	a: 8.958068848	b: 8.959350586	value: -0.000768321 
+\vdots
+i: 39	a: 8.958769351	b: 8.958769351	value: -0.000000000 
+
+Enter the intial guess: 1
+
+--------------------------
+ Newton
+ -----------------------
+
+
+i: 0	x: 4.276883997	value: -5.542255721
+i: 1	x: 8.385252241	value: -0.632451741
+i: 2	x: 8.955501144	value: -0.003584694
+i: 3	x: 8.958769256	value: -0.000000105
+i: 4	x: 8.958769351	value: 0.000000000
+\end{alltt}
 
 \subsection*{Conclusions and Preferred Algorithm}
  
