@@ -430,7 +430,62 @@ $\eta$ & 62 & 81 & 102 & 56 \\
 \end{tabular}
 
 \begin{alltt}
+Enter the brackets separated by a space: 0 1876
 
+--------------------------
+ Bisection
+ -----------------------
+
+
+i: 0	a: 938.000000000	b: 1876.000000000	value: -637.025824194 
+i: 1	a: 1407.000000000	b: 1876.000000000	value: -168.017217182 
+i: 2	a: 1407.000000000	b: 1641.500000000	value: 66.485242158 
+i: 3	a: 1524.250000000	b: 1641.500000000	value: -50.765892933 
+i: 4	a: 1524.250000000	b: 1582.875000000	value: 7.859695630 
+i: 5	a: 1553.562500000	b: 1582.875000000	value: -21.453093099 
+\vdots
+i: 39	a: 1575.015380733	b: 1575.015380735	value: 0.000000002 
+i: 40	a: 1575.015380733	b: 1575.015380734	value: 0.000000001 
+i: 41	a: 1575.015380733	b: 1575.015380733	value: 0.000000000 
+i: 42	a: 1575.015380733	b: 1575.015380733	value: 0.000000000 
+i: 43	a: 1575.015380733	b: 1575.015380733	value: 0.000000000 
+i: 44	a: 1575.015380733	b: 1575.015380733	value: -0.000000000 
+i: 45	a: 1575.015380733	b: 1575.015380733	value: 0.000000000 
+
+Enter the initial guess: 1000
+
+--------------------------
+ Fixed Point Iteration
+ -----------------------
+
+
+i: 0	x: 1000.000000000	value: 1000.045227641
+i: 1	x: 1000.045227641	value: 1000.090451724
+i: 2	x: 1000.090451724	value: 1000.135672250
+i: 3	x: 1000.135672250	value: 1000.180889219
+i: 4	x: 1000.180889219	value: 1000.226102632
+i: 5	x: 1000.226102632	value: 1000.271312489
+i: 6	x: 1000.271312489	value: 1000.316518789
+i: 7	x: 1000.316518789	value: 1000.361721534
+i: 8	x: 1000.361721534	value: 1000.406920723
+i: 9	x: 1000.406920723	value: 1000.452116357
+i: 10	x: 1000.452116357	value: 1000.497308437
+i: 11	x: 1000.497308437	value: 1000.542496961
+i: 12	x: 1000.542496961	value: 1000.587681932
+\vdots
+i: 282685	x: 1575.015380606	value: 1575.015380606
+i: 282686	x: 1575.015380606	value: 1575.015380606
+
+
+Enter the intial guess: 1000
+
+--------------------------
+ Newton
+ -----------------------
+
+
+i: 0	x: 1575.010297079	value: -0.005083704
+i: 1	x: 1575.015380733	value: -0.000000000
 \end{alltt}
 
 \subsubsection*{Test Case 3}
@@ -444,6 +499,7 @@ k & 1 & 8 \\
 $\eta$ & 9 & 4 \\
 \hline
 \end{tabular}
+
 
 \begin{alltt}
 Enter the brackets separated by a space: 0 21
@@ -485,6 +541,7 @@ i: 4	x: 8.958769351	value: 0.000000000
 \end{alltt}
 
 \subsection*{Conclusions and Preferred Algorithm}
- 
+ Given that we need no guesswork in choosing brackets, and the function is guaranteed to be continuous between $0$ and $\xi$, the bisection method is a very tempting, stable method for use, and does not converge horribly slowly even for large $\xi$. Newton's method is much, much faster, as anticipated, but as noted in the previous section can fail very badly due to the singularity in the functions, despite a reasonable guess. Although we determined $\alpha$ such that FPI always converges, the rate of convergence depends on the value of $g$ at root $r$, and so as seen by the second test, can be very, very slow to work even though we have improved its stability.
+\par With all of these things in mind, my recommendation would be to try Newton's method to see if educated guesses yield a quick and easy solution, and if a good value proves hard to find, to switch to bisection method where no guess work is necessary. 
 
 \end{document}
