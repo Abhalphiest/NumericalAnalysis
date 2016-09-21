@@ -8,7 +8,7 @@
 #include<math.h>
 
 #define ACC .00000000001 //10 digits
-#define MAX_ITER 50000 //maximum number of iterations we'll allow
+#define MAX_ITER 500000 //maximum number of iterations we'll allow
 
 double bisection(double(*f)(double),double a, double b);
 double secant(double(*f)(double),double a, double b);
