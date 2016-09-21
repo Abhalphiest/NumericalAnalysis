@@ -1,12 +1,12 @@
 /* 
- * File:	project1.c
+ * File:	badg.c
  * Course:	Math 411 Numerical Analysis Fall 2016
  * Author:	Margaret Dorsey
  *
  * Project 1
  *
- * This file contains a c program that tries a variety of root finding
- * methods for a problem arising in chemistry.
+ * This file contains a c program that only exists to test the failure of the 
+ * initial g(x) function we try for FPI
  *
 */
 
