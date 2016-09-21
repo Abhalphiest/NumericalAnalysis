@@ -181,8 +181,20 @@ was closer to the positive root (which is approximately $0.79$). This is because
 
 \begin{claim}
 If $\alpha  = \sum_{j=1}^M k_jn_j$, the FPI always converges.
-\end{claim}
+\end{claim} \\
 \begin{proof}
+First, we note that because $k_j$, $\eta_j$ are positive for all $j$ and we are only discussing the positive root, $\frac{1}{(k_j*x+1)^2}$ is positive and less than $1$, and 
+$$\sum_{j=1}^M k_j\eta_j (1 - \frac{1}{(k_jx+1)^2} < \sum_{j=1}^M k_j \eta_j < 1 +  \sum_{j=1}^M k_j \eta_j $$
+All terms are positive, so we can say that 
+$$|\sum_{j=1}^M k_j\eta_j (1 - \frac{1}{(k_jx+1)^2}| <  1 +  \sum_{j=1}^M k_j \eta_j $$
+as well. We then perform a few elementary manipulations to get
+$$|\sum_{j=1}^M k_j\eta_j - \frac{ k_j\eta_j }{(k_jx+1)^2}| <  1 +  \sum_{j=1}^M k_j \eta_j $$
+$$|\sum_{j=1}^M k_j\eta_j -  \sum_{j=1}^M\frac{ k_j\eta_j }{(k_jx+1)^2}| <  1 +  \sum_{j=1}^M k_j \eta_j $$
+with the second step being valid in a finite sum. Substituting in $\alpha$, we have
+	$$|\alpha  -  \sum_{j=1}^M\frac{ k_j\eta_j }{(k_jx+1)^2}| <  1 + \alpha $$
+and then dividing by $1+\alpha$ (which can be brought in to the absolute value because it is positive), we have
+ $$|\frac{1}{1+\alpha}(\alpha - \sum_{j=1}^M\frac{ k_j\eta_j }{(k_jx+1)^2})| < 1$$
+where the left hand side is equal to $|g_\alpha'(x)|$. Thus, by the contraction theorem, the FPI must always converge because $g'(x)$ is always less than $1$ in absolute value for this choice of $\alpha$.
 \end{proof}
 
 
