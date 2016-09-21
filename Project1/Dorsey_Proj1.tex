@@ -67,7 +67,41 @@
 \maketitle
 
 \section*{Graphical Illustration of the Function}
-
+\begin{center}
+\begin{tabular}[b]{||c||c c c|}
+\multicolumn{2}{c}{$\xi = 9$, $M = 3$} \\ 
+\hline
+i & 1 & 2 & 3 \\
+\hline
+k & 1 & 2 & 6 \\
+\hline
+$\eta$ & 2 & 3 & 1 \\
+\hline
+\end{tabular}
+\includegraphics[scale=.5]{plots/newtongraph2.png}\\
+\begin{tabular}[b]{||c||c c c|}
+\multicolumn{2}{c}{$\xi = 3$, $M = 1$} \\ 
+\hline
+i & 1 & &  \\
+\hline
+k & 1 & & \\
+\hline
+$\eta$ &5  & & \\
+\hline
+\end{tabular}
+\includegraphics[scale=.5]{plots/newtongraph3.png}\\
+\begin{tabular}[b]{||c||c c c|}
+\multicolumn{2}{c}{$\xi = 21$, $M = 2$} \\ 
+\hline
+i & 1 & 2  &  \\
+\hline
+k & 1 & 8 & \\
+\hline
+$\eta$ & 9 & 4 &  \\
+\hline
+\end{tabular}
+\includegraphics[scale=.5]{plots/newtongraph4.png}
+\end{center}
 \section*{Positive Solutions of X}
 
 
@@ -138,7 +172,7 @@ i: 58	x: -3.791287848	value: -3.791287847
 \end{alltt}
 %% discuss the problem here
 \par Even though the proposed $g(x)$ converged in both cases, it converged to the negative root in the second case, even though the initial guess
-was closer to the positive root (which is approximately $0.79$). This is because surrounding the positive root, the absolute value of $g'(x)$ is greater than $1$ in the second case, meaning that, by the contration theorem, it cannot converge to that root (because as it approaches it, the sequence will begin to diverge rather than converge).
+was closer to the positive root (which is approximately $0.79$). This is because surrounding the positive root, the absolute value of $g'(x)$ is greater than $1$, meaning that by the contraction theorem, it cannot converge to that root (because as it approaches it, the sequence will begin to diverge rather than converge).
 %% use contraction theorem
 
 \subsubsection*{Choosing $\alpha$}
@@ -327,12 +361,14 @@ i: 3	x: 3.806382815	value: -0.000000000
 
 \end{alltt}
 \subsection*{Asymptotic Error Constant Calculation}
-First, we verify that the methods are converging at the expected rates (linearly, linearly, and quadratically respectively), and then calcuate their asymptotic error constants.
+First, we verify that the methods are converging at the expected rates (linearly, linearly, and quadratically respectively), and estimate their asymptotic error constants.
 
 \subsubsection*{Bisection}
+Simply by examining the data, it can be seen that the bisection method is converging linearly, with error constant $\frac{1}{2}$, as expected. After all, the distance between the brackets is halved at each interval simply by the construction of the algorithm.
 \subsubsection*{FPI}
+Testing a few iterations ($i = 2, 27, 69, 124$), we find the data set $\{.92811,.920973,.9214266,.9230767\}$ for $\frac{x_{k+1}-r}{x_k - r}$, with $r$ being the root. This, along with the consistency (although slow) of the convergence rate by inspection of the entire output implies linear convergence with an error constant $\approx .92$.
 \subsubsection*{Newton's Method}
-
+Using all of the small number of iterations we have, we obtain a data set of $\{.0619,.0406,.0338\}$ for $|\frac{x_{k+1}-r}{(x_k - r)^2}|$. Because the data is so small and the variation in these values so big, it is hard to decide what the error constant will actually be - although it seems apparent that it is probably less than $.0338$. Additionally, it is fairly obvious with these values that Newton's method did indeed converge quadratically.
 \subsection*{Test Case Results}
 \subsubsection*{Test Case 1}
 $\xi = 12$, $M = 7$ \\ \\
@@ -525,6 +561,39 @@ i: 12	a: 8.956787109	b: 8.959350586	value: 0.000637499
 i: 13	a: 8.958068848	b: 8.959350586	value: -0.000768321 
 \vdots
 i: 39	a: 8.958769351	b: 8.958769351	value: -0.000000000 
+
+Enter the initial guess: 1
+
+--------------------------
+ Fixed Point Iteration
+ -----------------------
+
+
+i: 0	x: 1.000000000	value: 1.284391534
+i: 1	x: 1.284391534	value: 1.546537998
+i: 2	x: 1.546537998	value: 1.791461752
+i: 3	x: 1.791461752	value: 2.022260632
+i: 4	x: 2.022260632	value: 2.241034383
+i: 5	x: 2.241034383	value: 2.449300595
+i: 6	x: 2.449300595	value: 2.648208965
+i: 7	x: 2.648208965	value: 2.838662573
+i: 8	x: 2.838662573	value: 3.021391482
+i: 9	x: 3.021391482	value: 3.196999863
+i: 10	x: 3.196999863	value: 3.365997501
+i: 11	x: 3.365997501	value: 3.528821612
+i: 12	x: 3.528821612	value: 3.685852405
+i: 13	x: 3.685852405	value: 3.837424475
+i: 14	x: 3.837424475	value: 3.983835310
+i: 15	x: 3.983835310	value: 4.125351782
+i: 16	x: 4.125351782	value: 4.262215177
+i: 17	x: 4.262215177	value: 4.394645145
+i: 18	x: 4.394645145	value: 4.522842861
+\vdots
+i: 888	x: 8.958769350	value: 8.958769350
+i: 889	x: 8.958769350	value: 8.958769350
+i: 890	x: 8.958769350	value: 8.958769350
+i: 891	x: 8.958769350	value: 8.958769350
+i: 892	x: 8.958769350	value: 8.958769350
 
 Enter the intial guess: 1
 
