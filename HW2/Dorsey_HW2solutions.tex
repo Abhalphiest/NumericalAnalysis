@@ -95,8 +95,131 @@ with the quadratic formula, we find that the maximum absolute value on $[2,4]$ i
 \par Comparing our value of  $1.1552453$ to the actual value of $\ln 3 \approx 1.0986123$, we have $|f(x) - P_2(x)| = .056630 < .0880255$, as expected.
 \par
 \section*{Problem 3}
-
+Using the formulas $B(0) = P_0$ and $B(1) = P_3$, we obtain $P_0 = (1,1)$ and $P_3 = (9,1)$. We then calculate $B'(t) = (x'(t),y'(t)) = (12t+6t^2,3t^2 - 1)$, and note that because in general $B'(t) = 3(1-t)^2(P_1 - P_0) + 6(1-t)t(P_2-P_1) + 3t^2(P_3 - P_2)$, $B'(0) = 3(P_1 - P_0)$ and $B'(1) = 3(P_3 - P_2)$. Thus we have $P_1 = (1,\frac{2}{3})$ and $P_2 = (3,\frac{1}{3})$. This gives us the complete set of control points for the curve, namely
+$$\{(1,1),  (1,\frac{2}{3}),   (3,\frac{1}{3}), (9,1) \}$$
 \section*{Problem 4}
+\subsection*{Natural Endpoint Condition} 
+$$\begin{bmatrix} 1 & 0 & 0 & 0 \\ x_2 - x_1 & 2(x_3 - x_1) & x_3 - x_2 & 0 
+		 \\ 0 & x_3 - x_2 & 2(x_4 - x_2) & x_4 - x_3 \\ 0 & 0 & 0 & 1
+\end{bmatrix}
+\begin{bmatrix} y_1'' \\ y_2'' \\ y_3'' \\ y_4'' \end{bmatrix} = 
+\begin{bmatrix} 0 \\ 6\left( \frac{y_3 - y_2}{x_3 - x_2} - \frac{y_2-y_1}{x_2 - x_1} \right) \\ 
+			 6\left( \frac{y_4 - y_3}{x_4 - x_3} - \frac{y_3-y_2}{x_3 - x_2} \right) \\ 0\end{bmatrix}$$
+
+$$\begin{bmatrix} 1 & 0 & 0 & 0 \\ 1 - 0 & 2(2 -0) &2 -1 & 0 
+		 \\ 0 & 2 - 1 & 2(3 -1) & 3 - 2 \\ 0 & 0 & 0 & 1
+\end{bmatrix}
+\begin{bmatrix} y_1'' \\ y_2'' \\ y_3'' \\ y_4'' \end{bmatrix} = 
+\begin{bmatrix} 0 \\  6\left( \frac{2 - 5}{2 - 1} - \frac{5-3}{1 - 0} \right) \\ 
+			 6\left( \frac{1 - 2}{3 - 2} - \frac{2-5}{2 - 1} \right) \\ 0\end{bmatrix}$$
+
+$$\begin{bmatrix} 1 & 0 & 0 & 0 \\ 1 & 4 &1 & 0 
+		 \\ 0 & 1 & 4 & 1 \\ 0 & 0 & 0 & 1
+\end{bmatrix}
+\begin{bmatrix} y_1'' \\ y_2'' \\ y_3'' \\ y_4'' \end{bmatrix} = 
+\begin{bmatrix} 0 \\ -30 \\ 12 \\ 0\end{bmatrix}$$
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{Curvature-Adjusted Endpoint Condition}
+$$\begin{bmatrix} 1 & 0 & 0 & 0 \\ x_2 - x_1 & 2(x_3 - x_1) & x_3 - x_2 & 0 
+		 \\ 0 & x_3 - x_2 & 2(x_4 - x_2) & x_4 - x_3 \\ 0 & 0 & 0 & 1
+\end{bmatrix}
+\begin{bmatrix} y_1'' \\ y_2'' \\ y_3'' \\ y_4'' \end{bmatrix} = 
+\begin{bmatrix} k_1 \\ 6\left( \frac{y_3 - y_2}{x_3 - x_2} - \frac{y_2-y_1}{x_2 - x_1} \right) \\ 
+			 6\left( \frac{y_4 - y_3}{x_4 - x_3} - \frac{y_3-y_2}{x_3 - x_2} \right) \\ k_n\end{bmatrix}$$
+
+$$\begin{bmatrix} 1 & 0 & 0 & 0 \\ 1 - 0 & 2(2 -0) &2 -1 & 0 
+		 \\ 0 & 2 - 1 & 2(3 -1) & 3 - 2 \\ 0 & 0 & 0 & 1
+\end{bmatrix}
+\begin{bmatrix} y_1'' \\ y_2'' \\ y_3'' \\ y_4'' \end{bmatrix} = 
+\begin{bmatrix} k_n \\  6\left( \frac{2 - 5}{2 - 1} - \frac{5-3}{1 - 0} \right) \\ 
+			 6\left( \frac{1 - 2}{3 - 2} - \frac{2-5}{2 - 1} \right) \\ k_n\end{bmatrix}$$
+
+$$\begin{bmatrix} 1 & 0 & 0 & 0 \\ 1 & 4 &1 & 0 
+		 \\ 0 & 1 & 4 & 1 \\ 0 & 0 & 0 & 1
+\end{bmatrix}
+\begin{bmatrix} y_1'' \\ y_2'' \\ y_3'' \\ y_4'' \end{bmatrix} = 
+\begin{bmatrix} k_1 \\ -30 \\ 12 \\ k_n\end{bmatrix}$$
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection*{Clamped Endpoint Condition}
+$$\begin{bmatrix} 2 & 1 & 0 & 0 \\ x_2 - x_1 & 2(x_3 - x_1) & x_3 - x_2 & 0 
+		 \\ 0 & x_3 - x_2 & 2(x_4 - x_2) & x_4 - x_3 \\ 0 & 0 & 1 & 2
+\end{bmatrix}
+\begin{bmatrix} y_1'' \\ y_2'' \\ y_3'' \\ y_4'' \end{bmatrix} = 
+\begin{bmatrix} 6\left(  \frac{y_2-y_1}{x_2 - x_1} -c_n  \right)\\ 6\left( \frac{y_3 - y_2}{x_3 - x_2} - \frac{y_2-y_1}{x_2 - x_1} \right) \\ 
+			 6\left( \frac{y_4 - y_3}{x_4 - x_3} - \frac{y_3-y_2}{x_3 - x_2} \right) \\  6\left( c_n - \frac{y_4 - y_3}{x_4 - x_3} \right)\end{bmatrix}$$
+
+$$\begin{bmatrix} 2 & 1 & 0 & 0 \\ 1 - 0 & 2(2 -0) &2 -1 & 0 
+		 \\ 0 & 2 - 1 & 2(3 -1) & 3 - 2 \\ 0 & 0 & 1 & 2
+\end{bmatrix}
+\begin{bmatrix} y_1'' \\ y_2'' \\ y_3'' \\ y_4'' \end{bmatrix} = 
+\begin{bmatrix} 6\left(  \frac{5-3}{1-0} -c_n  \right)\\  6\left( \frac{2 - 5}{2 - 1} - \frac{5-3}{1 - 0} \right) \\ 
+			 6\left( \frac{1 - 2}{3 - 2} - \frac{2-5}{2 - 1} \right) \\  6\left( c_n -  \frac{1 - 2}{3 - 2} \right)\end{bmatrix}$$
+
+$$\begin{bmatrix} 2 & 1 & 0 & 0 \\ 1 & 4 &1 & 0 
+		 \\ 0 & 1 & 4 & 1 \\ 0 & 0 & 1 & 2
+\end{bmatrix}
+\begin{bmatrix} y_1'' \\ y_2'' \\ y_3'' \\ y_4'' \end{bmatrix} = 
+\begin{bmatrix} 12-6c_n \\ -30 \\ 12 \\ 6c_n +1 \end{bmatrix}$$
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\subsection*{Parabolically Terminated Endpoint Condition}
+
+$$\begin{bmatrix} 1 & -1 & 0 & 0 \\ x_2 - x_1 & 2(x_3 - x_1) & x_3 - x_2 & 0 
+		 \\ 0 & x_3 - x_2 & 2(x_4 - x_2) & x_4 - x_3 \\ 0 & 0 & -1 & 1
+\end{bmatrix}
+\begin{bmatrix} y_1'' \\ y_2'' \\ y_3'' \\ y_4'' \end{bmatrix} = 
+\begin{bmatrix} 0 \\ 6\left( \frac{y_3 - y_2}{x_3 - x_2} - \frac{y_2-y_1}{x_2 - x_1} \right) \\ 
+			 6\left( \frac{y_4 - y_3}{x_4 - x_3} - \frac{y_3-y_2}{x_3 - x_2} \right) \\ 0\end{bmatrix}$$
+
+
+$$\begin{bmatrix} 1 & -1 & 0 & 0 \\ 1 & 4 &1 & 0 
+		 \\ 0 & 1 & 4 & 1 \\ 0 & 0 & -1 & 1
+\end{bmatrix}
+\begin{bmatrix} y_1'' \\ y_2'' \\ y_3'' \\ y_4'' \end{bmatrix} = 
+\begin{bmatrix} 0 \\ -30 \\ 12 \\ 0\end{bmatrix}$$
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\subsection*{Not-a-Knot Endpoint Condition}
+
+$$\begin{bmatrix} x_3 - x_2 & -(x_3- x_1) & x_2 - x_1 & 0 \\ x_2 - x_1 & 2(x_3 - x_1) & x_3 - x_2 & 0 
+		 \\ 0 & x_3 - x_2 & 2(x_4 - x_2) & x_4 - x_3 \\ 0 & x_4 - x_3 & -(x_4 - x_2) & x_3 - x_2
+\end{bmatrix}
+\begin{bmatrix} y_1'' \\ y_2'' \\ y_3'' \\ y_4'' \end{bmatrix} = 
+\begin{bmatrix} 0 \\ 6\left( \frac{y_3 - y_2}{x_3 - x_2} - \frac{y_2-y_1}{x_2 - x_1} \right) \\ 
+			 6\left( \frac{y_4 - y_3}{x_4 - x_3} - \frac{y_3-y_2}{x_3 - x_2} \right) \\ 0\end{bmatrix}$$
+
+$$\begin{bmatrix} -3 & 1 & 2 & 0 \\ 1 - 0 & 2(2 -0) &2 -1 & 0 
+		 \\ 0 & 2 - 1 & 2(3 -1) & 3 - 2 \\ 0 &  -1 & 4 & -3
+\end{bmatrix}
+\begin{bmatrix} y_1'' \\ y_2'' \\ y_3'' \\ y_4'' \end{bmatrix} = 
+\begin{bmatrix} 0 \\  6\left( \frac{2 - 5}{2 - 1} - \frac{5-3}{1 - 0} \right) \\ 
+			 6\left( \frac{1 - 2}{3 - 2} - \frac{2-5}{2 - 1} \right) \\ 0\end{bmatrix}$$
+
+$$\begin{bmatrix} -3 & 1 & 2 & 0 \\ 1 & 4 &1 & 0 
+		 \\ 0 & 1 & 4 & 1 \\  0 &  -1 & 4 & -3
+\end{bmatrix}
+\begin{bmatrix} y_1'' \\ y_2'' \\ y_3'' \\ y_4'' \end{bmatrix} = 
+\begin{bmatrix} 0 \\ -30 \\ 12 \\ 0\end{bmatrix}$$
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 \section*{Problem 5}
 \begin{enumerate}[i.)]
