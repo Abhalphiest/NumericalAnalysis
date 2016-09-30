@@ -98,6 +98,27 @@ with the quadratic formula, we find that the maximum absolute value on $[2,4]$ i
 Using the formulas $B(0) = P_0$ and $B(1) = P_3$, we obtain $P_0 = (1,1)$ and $P_3 = (9,1)$. We then calculate $B'(t) = (x'(t),y'(t)) = (12t+6t^2,3t^2 - 1)$, and note that because in general $B'(t) = 3(1-t)^2(P_1 - P_0) + 6(1-t)t(P_2-P_1) + 3t^2(P_3 - P_2)$, $B'(0) = 3(P_1 - P_0)$ and $B'(1) = 3(P_3 - P_2)$. Thus we have $P_1 = (1,\frac{2}{3})$ and $P_2 = (3,\frac{1}{3})$. This gives us the complete set of control points for the curve, namely
 $$\{(1,1),  (1,\frac{2}{3}),   (3,\frac{1}{3}), (9,1) \}$$
 \section*{Problem 4}
+
+We first note that 
+$$\begin{array}{lclcl} A_1 & = &  \frac{x_2 - x}{x_2 - x_1} & = & 1-x \\
+		        A_2 & = & \frac{x_3 - x}{x_3 - x_2} & = & 2-x \\
+		        A_3 & = & \frac{x_4 - x}{x_4 - x_3} & = & 3-x 
+\end{array}$$
+
+$$\begin{array}{lclcl} B_1 & = &  \frac{x - x_2}{x_2 - x_1} & = & x - 1 \\
+		        B_2 & = & \frac{x -x_3}{x_3 - x_2} & = & x - 2 \\
+		        B_3 & = & \frac{x - x_4}{x_4 - x_3} & = & x - 3 
+\end{array}$$
+
+$$\begin{array}{lclcl} C_1 & = &  \frac{(x_2 - x_1)^2}{6}[A_1^3 - A_1] & = & \frac{1}{6}(-x^3 + 3x^2 - 2x) \\
+		        C_2 & =&  \frac{(x_3 - x_2)^2}{6}[A_2^3 - A_2] & = &\frac{1}{6}(-x^3 + 6x^2 - 11x + 6) \\
+		        C_3 & =&  \frac{(x_4 - x_3)^2}{6}[A_3^3 - A_3] & = & \frac{1}{6}(-x^3 + 9x^2 - 26x + 24) 
+\end{array}$$
+
+$$\begin{array}{lclcl} D_1 & = &  \frac{(x_2 - x_1)^2}{6}[B_1^3 - B_1] & = & \frac{1}{6}(x^3 - 3x^2 + 2x) \\
+		        D_2 & =&  \frac{(x_3 - x_2)^2}{6}[B_2^3 - B_2] & = &\frac{1}{6}(x^3 - 6x^2 + 11x - 6) \\
+		        D_3 & =&  \frac{(x_4 - x_3)^2}{6}[B_3^3 - B_3] & = & \frac{1}{6}(x^3 - 9x^2 + 26x - 24) 
+\end{array}$$
 \subsection*{Natural Endpoint Condition} 
 $$\begin{bmatrix} 1 & 0 & 0 & 0 \\ x_2 - x_1 & 2(x_3 - x_1) & x_3 - x_2 & 0 
 		 \\ 0 & x_3 - x_2 & 2(x_4 - x_2) & x_4 - x_3 \\ 0 & 0 & 0 & 1
@@ -119,6 +140,23 @@ $$\begin{bmatrix} 1 & 0 & 0 & 0 \\ 1 & 4 &1 & 0
 \begin{bmatrix} y_1'' \\ y_2'' \\ y_3'' \\ y_4'' \end{bmatrix} = 
 \begin{bmatrix} 0 \\ -30 \\ 12 \\ 0\end{bmatrix}$$
 
+$$
+\begin{bmatrix} y_1'' \\ y_2'' \\ y_3'' \\ y_4'' \end{bmatrix} = 
+\begin{bmatrix} 1 & -\frac{4}{15} & \frac{1}{15} & 0 \\ 0 & \frac{4}{15} & -\frac{1}{15} & 0 
+		 \\ 0 & -\frac{1}{15} & \frac{4}{15} & 0 \\ 0 & \frac{1}{15} & -\frac{4}{15} & 1
+\end{bmatrix}
+\begin{bmatrix} 0 \\ -30 \\ 12 \\ 0\end{bmatrix}$$
+
+$$
+\begin{bmatrix} y_1'' \\ y_2'' \\ y_3'' \\ y_4'' \end{bmatrix} = 
+\begin{bmatrix} \frac{44}{5} \\ -\frac{44}{5} \\ \frac{26}{5} \\ -\frac{26}{5}\end{bmatrix}$$
+
+Using these derived values of $y_i''$ with our $A$,$B$,$C$, and $D$ equations above, we have
+
+$$\begin{array}{lclcl} y^{(cubic)}_1 & = &  y_1A_1 + y_2B_1 + y_1''C_1 + y_2'' D_1 & = &  \\
+		        y^{(cubic)}_2  & = & y_2A_2 + y_3B_2 + y_2''C_2 + y_3'' D_2 & = &  \\
+		        y^{(cubic)}_3  & = & y_3A_3 + y_4B_3 + y_3''C_3 + y_4'' D_3 & = & 
+\end{array}$$
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -145,6 +183,10 @@ $$\begin{bmatrix} 1 & 0 & 0 & 0 \\ 1 & 4 &1 & 0
 
 
 
+$$\begin{array}{lclcl} y^{(cubic)}_1 & = &  \\
+		        y^{(cubic)}_2  & = &  \\
+		        y^{(cubic)}_3  & = & 
+\end{array}$$
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection*{Clamped Endpoint Condition}
@@ -168,7 +210,10 @@ $$\begin{bmatrix} 2 & 1 & 0 & 0 \\ 1 & 4 &1 & 0
 \begin{bmatrix} y_1'' \\ y_2'' \\ y_3'' \\ y_4'' \end{bmatrix} = 
 \begin{bmatrix} 12-6c_n \\ -30 \\ 12 \\ 6c_n +1 \end{bmatrix}$$
 
-
+$$\begin{array}{lclcl} y^{(cubic)}_1 & = &  \\
+		        y^{(cubic)}_2  & = &  \\
+		        y^{(cubic)}_3  & = & 
+\end{array}$$
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -189,7 +234,10 @@ $$\begin{bmatrix} 1 & -1 & 0 & 0 \\ 1 & 4 &1 & 0
 \begin{bmatrix} y_1'' \\ y_2'' \\ y_3'' \\ y_4'' \end{bmatrix} = 
 \begin{bmatrix} 0 \\ -30 \\ 12 \\ 0\end{bmatrix}$$
 
-
+$$\begin{array}{lclcl} y^{(cubic)}_1 & = &  \\
+		        y^{(cubic)}_2  & = &  \\
+		        y^{(cubic)}_3  & = & 
+\end{array}$$
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
