@@ -1,4 +1,5 @@
 #include"approximations.h"
+#include <stdio.h> //for print debugging
 
 double lagrangePoly(int n, Point* points, double xval)
 {
@@ -13,8 +14,8 @@ double lagrangePoly(int n, Point* points, double xval)
 				s = s*(xval-points[j].x);
 				t = t*(points[i].x-points[j].x);
 			}
-			k = k+((s/t)*points[i].y);
 		}
+		k+=((s/t)*points[i].y);
 	}
 	return k;
 	
