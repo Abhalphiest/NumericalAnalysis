@@ -1,4 +1,4 @@
-#include "approximations.h"
+#include"approximations.h"
 
 double lagrangePoly(int n, Point* points, double xval)
 {
@@ -29,7 +29,7 @@ void cubicSpline(int n, int boundcondition, double c1, double c2, Point* points)
 	
 
 	
-  for (i=1; i<n-1; i++) 
+  for (int i=1; i<n-1; i++) 
   {
     RHS[i] = 6.0*((points[i+1].y-points[i].y)/(points[i+1].x-points[i].x)-
 		  (points[i].y-points[i-1].y)/(points[i].x-points[i-1].x));
@@ -53,7 +53,7 @@ void cubicSpline(int n, int boundcondition, double c1, double c2, Point* points)
 	matrix[0] = 1.0;
     RHS[0] = c1;
     matrix[n*n-1] = 1.0;
-    RHS[n-1] = cn;
+    RHS[n-1] = c2;
 	break;
 	
 	case CLAMPED:
@@ -62,7 +62,7 @@ void cubicSpline(int n, int boundcondition, double c1, double c2, Point* points)
     RHS[0]=6.0*((points[1].y-points[0].y)/(points[1].x-points[0].x) - c1);
     matrix[n*n-2] = 1.0;
     matrix[n*n-1] = 2.0;
-    RHS[n-1] = 6.0*(cn - (points[n-1].y-points[n-2].y)/(points[n-1].x-points[n-2].x) );
+    RHS[n-1] = 6.0*(c2 - (points[n-1].y-points[n-2].y)/(points[n-1].x-points[n-2].x) );
 	break;
 	
 	case PARABOLIC:
@@ -97,7 +97,7 @@ void cubicSpline(int n, int boundcondition, double c1, double c2, Point* points)
   gsl_linalg_LU_decomp(&m.matrix,p,&s);
   gsl_linalg_LU_solve(&m.matrix,p,&b.vector,x);
 
-  for (i=0; i<n; i++) {
+  for (int i=0; i<n; i++) {
     solution[i] = gsl_vector_get(x, i);
   }
 
@@ -110,7 +110,7 @@ void cubicSpline(int n, int boundcondition, double c1, double c2, Point* points)
 	
 }
 
-Point bezier(int n, Point* points, double tval)
+Point bezier(int n, Point* points, double t)
 {
 	Point* tmp = (Point*) malloc(sizeof(Point)*n); //this is costly but doesn't matter at this scale
 	memcpy(tmp, points, n*sizeof(Point));
@@ -126,4 +126,9 @@ Point bezier(int n, Point* points, double tval)
 	free(tmp);
 	return result;
 	
+}
+
+double Tnx(int n, double x)
+{
+ return cos(n*acos(x));
 }
