@@ -21,7 +21,8 @@ double lagrangePoly(int n, Point* points, double xval)
 	
 }
 
-void cubicSpline(int n, int boundcondition, double c1, double c2, Point* points)
+double cubicSpline(int n, int boundcondition, 
+		double c1, double c2, Point* points, double xval)
 {
 	
   double* matrix = calloc(n*n, sizeof(double)); //calloc initializes to 0
@@ -111,24 +112,14 @@ void cubicSpline(int n, int boundcondition, double c1, double c2, Point* points)
 	
 }
 
+//de casteljau's algorithm
 Point bezier(int n, Point* points, double t)
 {
-	Point* tmp = (Point*) malloc(sizeof(Point)*n); //this is costly but doesn't matter at this scale
-	memcpy(tmp, points, n*sizeof(Point));
-	for(int i = n - 1; i >  0; i--)
-	{
-		for(int k = 0; k < i; k++)
-		{
-			tmp[k].x = tmp[k].x+t*(tmp[k+1].x - tmp[k].x);
-			tmp[k].y = tmp[k].y+t*(tmp[k+1].y - tmp[k].y);
-		}
-	}
-	Point result = tmp[0];
-	free(tmp);
-	return result;
 	
 }
 
+
+//for chebyshev
 double Tnx(int n, double x)
 {
  return cos(n*acos(x));

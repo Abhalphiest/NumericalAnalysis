@@ -2,16 +2,16 @@
 #include<stdio.h>
 int main()
 {
- Point points[3];
- points[0].x = 1;
- points[0].y = 1;
- points[1].x = 2;
- points[1].y = 4;
- points[2].x = -5;
- points[2].y = 25;
- float xval = 0;
- printf("%lf\n", lagrangePoly(3, points, xval));
- xval = 12;
- printf("%lf\n", lagrangePoly(3, points, xval));
+ Point points[4];
+ points[0].x = 0;
+ points[0].y = 3;
+ points[1].x = 1;
+ points[1].y = 5;
+ points[2].x = 2;
+ points[2].y = 2;
+ points[3].x = 3;
+ points[3].y = 1;
+ 
+ printf("%lf\n", cubicSpline(4, NATURAL, 0, 0, points, -1));
  return 0;
 }
