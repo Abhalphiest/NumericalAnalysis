@@ -21,8 +21,8 @@ double lagrangePoly(int n, Point* points, double xval)
 	
 }
 
-double cubicSpline(int n, int boundcondition, 
-		double c1, double c2, Point* points, double xval)
+double* cubicSpline(int n, int boundcondition, 
+		double c1, double c2, Point* points)
 {
 	
   double* matrix = calloc(n*n, sizeof(double)); //calloc initializes to 0
@@ -99,6 +99,7 @@ double cubicSpline(int n, int boundcondition,
   gsl_linalg_LU_decomp(&m.matrix,p,&s);
   gsl_linalg_LU_solve(&m.matrix,p,&b.vector,x);
 
+  //x has the solution
   for (int i=0; i<n; i++) {
     solution[i] = gsl_vector_get(x, i);
   }
@@ -106,12 +107,34 @@ double cubicSpline(int n, int boundcondition,
   gsl_permutation_free(p);
   gsl_vector_free(x);
 
+  //free our memory before returning
   free(matrix);
-  free(solution);
   free(RHS);
-	
+  return solution;
 }
 
+
+//adapted from algorithm from numerical recipes book
+double splint(double* y_p, int n, Point* points, double xval)
+{
+  int klo, khi, k;
+  float h, b, a;
+  klo = 1;
+  khi = n;
+  while(khi - klo > 1)
+  {
+	  k = (khi - klo) >> 1;
+	  if(points[k].x > xval) khi = k;
+	  else klo = k;
+  }
+  h = points[khi].x - points[klo].x;
+  
+  a = (points[khi].x - xval)/h;
+  b = (xval - points[klo].x)/h;
+  
+  return a*points[klo].y+b*points[khi].y + ((a*a*a-a)*y_p[klo] + (b*b*b-b)*y_p[khi]*(h*h)/6.0;
+   
+}
 //de casteljau's algorithm
 Point bezier(int n, Point* points, double t)
 {
