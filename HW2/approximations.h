@@ -24,9 +24,9 @@
 
 typedef struct point{double x,y;} Point;
 
-double cubicSpline(int n, int boundcondition, 
-		double c1, double c2, Point* points,double xval);
-double splint(double* y_p, int n, Point* points, double x_start, double x_finish, int n_intervals);
+double* cubicSpline(int n, int boundcondition, 
+		double c1, double c2, Point* points);
+double splint(double* y_p, int n, Point* points, double xval);
 
 double Tnx(int n, double x);
 void chebyshev(int n);

@@ -132,7 +132,7 @@ double splint(double* y_p, int n, Point* points, double xval)
   a = (points[khi].x - xval)/h;
   b = (xval - points[klo].x)/h;
   
-  return a*points[klo].y+b*points[khi].y + ((a*a*a-a)*y_p[klo] + (b*b*b-b)*y_p[khi]*(h*h)/6.0;
+  return a*points[klo].y+b*points[khi].y + ((a*a*a-a)*y_p[klo] + (b*b*b-b)*y_p[khi])*(h*h)/6.0;
    
 }
 //de casteljau's algorithm

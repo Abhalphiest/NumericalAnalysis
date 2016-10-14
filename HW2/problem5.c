@@ -1,5 +1,10 @@
 #include "approximations.h"
 #include<stdio.h>
+
+double function(double x)
+{
+ return 1.0/(1+x*x);
+}
 int main()
 {
  Point points[4];
@@ -12,6 +17,14 @@ int main()
  points[3].x = 3;
  points[3].y = 1;
  
- printf("%lf\n", cubicSpline(4, NATURAL, 0, 0, points, -1));
+ double* result =  cubicSpline(4, NATURAL, 0, 0, points);
+
+ for(int i = 0; i < 4; i++)
+	printf("%lf ",result[i]);
+ printf("\n");
+
+ double xval = 1.3;
+ double y = splint(result,4,points,xval);
+ printf("%lf\n",y);
  return 0;
 }
