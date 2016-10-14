@@ -358,11 +358,29 @@ $$\begin{array}{lclcl} y^{(cubic)}_1 & = &  -\frac{14}{11}x^3 - \frac{3}{11}x^2 
 \section*{Problem 7}
 
 \section*{Problem 8}
-\begin{enumerate}[i.)]
-\item
-\item
-\item
-\end{enumerate}
+\subsection*{Lagrange Interpolation}
+$L_8(x) = -10717.01390x^8 + 41523.43743x^7 - 66130.60764x^6 + 55973.20311x^5 - 27150.02639x^4 +7547.542702x^3 - 1112.916584x^2 + 66.38116670x + .302$\\
+\includegraphics[scale=.5]{plots/problem7plot1.png}
+\subsection*{Cubic Spline Interpolation}
+$$
+f(x) = \left\{
+        \begin{array}{ll}
+            .302 - .473x - 2.802x^3 &  x < 0.2 \\
+            .12974+2.11093x-12.91926x^2+18.72996x^3 & x < 0.3 \\
+ 	.47410379-1.3326681x-1.44057x^2+5.975866x^3 & x < 0.4 \\
+ 	-2.430901+20.45487x-55.90942x^2+51.36657x^3 &  x < 0.5 \\
+ 	26.420189-152.651673x+290.3036659x^2-179.442153x^3 &  x < 0.6 \\
+ 	-37.6981566+167.940056x-244.015883x^2+117.40204x^3 & x < 0.7 \\
+ 	5.37168-16.644978x+19.67702x^2-8.1660098x^3 & x < 0.8 \\
+ 	1.257759-1.2177579x+.39299789x^2-.130999x^3 &  x \geq .8 \\
+        \end{array}
+    \right.
+$$
+\includegraphics[scale=.5]{plots/problem7plot2.png}
+
+\subsection*{Analysis}
+The cubic spline interpolation produces a much more convincing interpolation between the data points - the Lagrange polynomial suffers from very erratic behavior
+at the endpoints, and indeed $f(.1) = 0.251906420711722$ is a much more consistent value with the data than $L_8(.1) = 1.14113749$. 
 
 
 
