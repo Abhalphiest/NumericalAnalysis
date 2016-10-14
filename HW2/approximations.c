@@ -157,39 +157,41 @@ double* chebyshev_coeff(double a, double b, int n, double (*f)(double))
   double* points = (double*) malloc(n*sizeof(double));
   double* coefs = (double*) calloc(n,sizeof(double));
 
-  int i,j;
-  double angle, x;
-
-  for(i=0; i<n; i++){
-    angle = (double) (2*i + 1)*pi / (double) (2*n);
-	x = cos(angle);
-	x = (2/(b-a))*(x-(b+a)/2.0; //adjust for different interval
-	points[i] = x;
+  int k,j;
+  double fac, bpa, bma;
+  bma = 0.5*(b-a);
+  bpa = 0.5*(b+a);
+  for(k=0; k < n; k++)
+  {
+   points[k] = cos(pi*(k+.5)/n);
   }
-
-  for(i=0; i<n; i++){
-    for(j=0; j<n; j++) {
-	  angle = (double)((i*(2*j+1))*pi)/(double)(2*n);
-      coefs[i]+=f(points[j])*Tnx(i,points[j]);
-    }
-    //This is the normalization for all terms other than zero
-    coefs[i] *= 2.0/(double)n;
+  fac = 2.0/n;
+  for(j = 0; j < n; j++)
+  {
+   double sum = 0.0;
+   for(k = 0; k < n; k++)
+	sum += f(points[k]*cos(pi*j*(k+.5)/n));
+   coefs[j] = fac*sum;
   }
-  coefs[0] *= .5;
-
   free(points);
   return coefs;
-	
 }
 
 
 //actually gives us an approximation
 double chebyshev(double a, double b, int n, double* c, double x)
 {
-	double y = 0;
-	for(int i = 0; i < n; i++)
-	{
-		y+=c[i]*Tnx(i,x);
-	}
-	return y;
+  float d=0.0,dd=0.0,sv,y,y2;
+  int j;
+
+  x = (2.0*x - a - b)/(b-a);
+  x*=2.0;
+  for(j = n-1; j >= 1; j--)
+  {
+   sv = d;
+   d=x*d-dd+c[j];
+   dd=sv;
+
+  }
+  return y*d-dd+0.5*c[0];
 }
