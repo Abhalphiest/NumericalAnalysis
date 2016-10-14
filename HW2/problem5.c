@@ -5,26 +5,62 @@ double function(double x)
 {
  return 1.0/(1+x*x);
 }
+
+Point* makePoints(double xstart,double xend, int npoints)
+{
+ Point* points = (Point*) malloc(sizeof(Point)*npoints);
+ double dx = (xend - xstart)/(npoints-1);
+ for(int i = 0; i < npoints; i++)
+ {
+  points[i].x = xstart + i*dx;
+  points[i].y = function(points[i].x);
+ }
+ return points;
+}
+Point* findActual(Point* points, int n)
+{
+ Point* actual = (Point*) malloc(sizeof(Point)*(n-1)); //one less midpoint
+ for(int i = 0; i < n-1; i++)
+ {
+  actual[i].x = (points[i].x + points[i+1].x)/2.0;
+  actual[i].y = function(actual[i].x);
+ }
+ return actual;
+}
+void printPoints(Point* points, int n)
+{
+ for(int i = 0; i < n; i++)
+ {
+  if(i%3 == 0) printf("\n");
+  printf("(%lf,%lf) ",points[i].x,points[i].y);
+ }
+ printf("\n\n");
+}
+void evenPoints(double xstart, double xend)
+{
+ printf("5 DATA POINTS \n\n");
+ Point* points = makePoints(xstart,xend,5);
+ printf("Initial Points: \n");
+ printPoints(points, 5);
+
+ Point* actual = findActual(points,5);
+
+ double* result = cubicSpline(5, NATURAL, 0, 0, points);
+
+ for(int i = 0; i < 4; i++) //n-1 midpoints
+ {
+  printf("x:\t\t%lf\nlagrange:\t%lf\ncubic:\t\t%lf\nactual:\t\t%lf\n\n",
+	actual[i].x, lagrangePoly(4,points,actual[i].x), 
+	splint(result, 5, points,actual[i].x), actual[i].y); 
+ }  
+ //cleanup before next set
+ free(points);
+ free(actual);
+ free(result);
+}
+
 int main()
 {
- Point points[4];
- points[0].x = 0;
- points[0].y = 3;
- points[1].x = 1;
- points[1].y = 5;
- points[2].x = 2;
- points[2].y = 2;
- points[3].x = 3;
- points[3].y = 1;
- 
- double* result =  cubicSpline(4, NATURAL, 0, 0, points);
-
- for(int i = 0; i < 4; i++)
-	printf("%lf ",result[i]);
- printf("\n");
-
- double xval = 1.3;
- double y = splint(result,4,points,xval);
- printf("%lf\n",y);
+ evenPoints(-5,5);
  return 0;
 }
