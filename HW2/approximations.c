@@ -163,18 +163,19 @@ double* chebyshev_coeff(double a, double b, int n, double (*f)(double))
   for(i=0; i<n; i++){
     angle = (double) (2*i + 1)*pi / (double) (2*n);
 	x = cos(angle);
-	x = .5 * (a+b) + x* .5 * (b-a) ; //adjust for different interval
-	points[i] = f(x);
+	x = (2/(b-a))*(x-(b+a)/2.0; //adjust for different interval
+	points[i] = x;
   }
 
   for(i=0; i<n; i++){
     for(j=0; j<n; j++) {
 	  angle = (double)((i*(2*j+1))*pi)/(double)(2*n);
-      coefs[i]+=points[j]*cos(angle);
+      coefs[i]+=f(points[j])*Tnx(i,points[j]);
     }
     //This is the normalization for all terms other than zero
     coefs[i] *= 2.0/(double)n;
   }
+  coefs[0] *= .5;
 
   free(points);
   return coefs;
@@ -185,15 +186,10 @@ double* chebyshev_coeff(double a, double b, int n, double (*f)(double))
 //actually gives us an approximation
 double chebyshev(double a, double b, int n, double* c, double x)
 {
-	double di=0.0,dip1=0.0,dip2,y;
-	int i;
-	y = (2.0*x - a - b)/(b-a);
-	for(i = n-1; 0 < i; i--)
+	double y = 0;
+	for(int i = 0; i < n; i++)
 	{
-		dip2 = dip1;
-		dip1 = di;
-		di = 2.0*y * dip1 - dip2 + c[i];
-		
+		y+=c[i]*Tnx(i,x);
 	}
-	return y*di-dip1+0.5*c[0];
+	return y;
 }
