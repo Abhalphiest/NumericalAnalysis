@@ -29,7 +29,8 @@ double* cubicSpline(int n, int boundcondition,
 double splint(double* y_p, int n, Point* points, double xval);
 
 double Tnx(int n, double x);
-double* chebyshev(int n, double (*f)(double));
+double* chebyshev_coeff(double a, double b, int n, double (*f)(double));
+double chebyshev(double a, double b, int n, double* c, double x);
 
 double lagrangePoly(int n, Point* points, double xval);
 

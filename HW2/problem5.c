@@ -48,15 +48,19 @@ void evenPoints(double xstart, double xend)
  double* result = cubicSpline(5, NATURAL, 0, 0, points);
  double* result2 = cubicSpline(5, CURVEADJUSTED, 37.0/4394.0, 37.0/4394.0,
 				points);
+ double* coeffs = chebyshev_coeff(-5,5,5,function); //only need to get the coefficients and spline once per
+													//set of points
  for(int i = 0; i < 4; i++) //n-1 midpoints
  {
-   printf("x:\t\t%lf\nlagrange:\t%lf\ncubic:\t\t%lf\ncurveadj:\t%lf\nactual:\t\t%lf\n\n",
+   printf("x:\t\t%lf\nlagrange:\t%lf\ncubic:\t\t%lf\ncurveadj:\t%lf\nchebyshev:\t%lf\nactual:\t\t%lf\n\n",
 	actual[i].x, lagrangePoly(4,points,actual[i].x), 
 	splint(result,5,points,actual[i].x), 
-	splint(result2, 5, points,actual[i].x), actual[i].y); 
+	splint(result2, 5, points,actual[i].x), 
+	chebyshev(-5,5,5,coeffs,actual[i].x),actual[i].y); 
  }  
  printf("\n\n\n");
  //cleanup before next set
+ free(coeffs);
  free(points);
  free(actual);
  free(result);
@@ -69,16 +73,19 @@ void evenPoints(double xstart, double xend)
  actual = findActual(points,10);
 
  result = cubicSpline(10, NATURAL, 0, 0, points);
- result2 = cubicSpline(10,CURVEADJUSTED, 37.0/4394.0, 37.0/4394.0,points); //37/4394 is the value of the second derivative at both 5 and -5
+ result2 = cubicSpline(10,CURVEADJUSTED, 37.0/4394.0, 37.0/4394.0,points); //37/4394 is the value of the second 
+ coeffs = chebyshev_coeff(-5,5,5,function);								//derivative at both 5 and -5
  for(int i = 0; i < 9; i++) //n-1 midpoints
  {
-  printf("x:\t\t%lf\nlagrange:\t%lf\ncubic:\t\t%lf\ncurveadj:\t%lf\nactual:\t\t%lf\n\n",
+  printf("x:\t\t%lf\nlagrange:\t%lf\ncubic:\t\t%lf\ncurveadj:\t%lf\nchebyshev:\t%lf\nactual:\t\t%lf\n\n",
 	actual[i].x, lagrangePoly(9,points,actual[i].x), 
 	splint(result,10,points,actual[i].x),
-	splint(result2, 10, points,actual[i].x), actual[i].y); 
+	splint(result2, 10, points,actual[i].x), 
+	chebyshev(-5,5,10,coeffs,actual[i].x),actual[i].y); 
  } 
  printf("\n\n\n"); 
  //cleanup before next set
+ free(coeffs);
  free(points);
  free(actual);
  free(result);
@@ -91,16 +98,19 @@ void evenPoints(double xstart, double xend)
  actual = findActual(points,15);
 
  result = cubicSpline(15, NATURAL, 0, 0, points);
- result2 = cubicSpline(15,CURVEADJUSTED, 37.0/4394.0, 37.0/4394.0,points); //37/4394 is the value of the second derivative at both 5 and -5
+ result2 = cubicSpline(15,CURVEADJUSTED, 37.0/4394.0, 37.0/4394.0,points); 
+ coeffs = chebyshev_coeff(-5,5,5,function);	
  for(int i = 0; i < 9; i++) //n-1 midpoints
  {
-  printf("x:\t\t%lf\nlagrange:\t%lf\ncubic:\t\t%lf\ncurveadj:\t%lf\nactual:\t\t%lf\n\n",
+  printf("x:\t\t%lf\nlagrange:\t%lf\ncubic:\t\t%lf\ncurveadj:\t%lf\n\nchebyshev:\t%lf\nactual:\t\t%lf\n\n",
 	actual[i].x, lagrangePoly(14,points,actual[i].x), 
 	splint(result,15,points,actual[i].x),
-	splint(result2, 15, points,actual[i].x), actual[i].y); 
+	splint(result2, 15, points,actual[i].x),
+	chebyshev(-5,5,15,coeffs,actual[i].x), actual[i].y); 
  }  
  printf("\n\n\n");
  //cleanup before next set
+ free(coeffs);
  free(points);
  free(actual);
  free(result);
