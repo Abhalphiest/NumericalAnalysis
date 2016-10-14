@@ -49,14 +49,59 @@ void evenPoints(double xstart, double xend)
 
  for(int i = 0; i < 4; i++) //n-1 midpoints
  {
-  printf("x:\t\t%lf\nlagrange:\t%lf\ncubic:\t\t%lf\nactual:\t\t%lf\n\n",
-	actual[i].x, lagrangePoly(4,points,actual[i].x), 
-	splint(result, 5, points,actual[i].x), actual[i].y); 
+   printf("x:\t\t%lf\nlagrange:\t%lf\ncubic:\t\t%lf\ncurveadj:\t\t%lf\nactual:\t\t%lf\n\n",
+	actual[i].x, lagrangePoly(4,points,actual[i].x), splint(result,5,points,actual[i].x)
+	splint(result2, 5, points,actual[i].x), actual[i].y); 
  }  
+ printf("\n\n\n");
  //cleanup before next set
  free(points);
  free(actual);
  free(result);
+ 
+ printf("10 DATA POINTS \n\n");
+ Point* points = makePoints(xstart,xend,10);
+ printf("Initial Points: \n");
+ printPoints(points, 10);
+
+ Point* actual = findActual(points,10);
+
+ double* result = cubicSpline(10, NATURAL, 0, 0, points);
+ double* result2 = cubicSpline(10,CURVEADJUSTED, 37.0/4394.0, 37.0/4394.0,points); //37/4394 is the value of the second derivative at both 5 and -5
+ for(int i = 0; i < 9; i++) //n-1 midpoints
+ {
+  printf("x:\t\t%lf\nlagrange:\t%lf\ncubic:\t\t%lf\ncurveadj:\t\t%lf\nactual:\t\t%lf\n\n",
+	actual[i].x, lagrangePoly(9,points,actual[i].x), splint(result,10,points,actual[i].x)
+	splint(result2, 10, points,actual[i].x), actual[i].y); 
+ } 
+ printf("\n\n\n"); 
+ //cleanup before next set
+ free(points);
+ free(actual);
+ free(result);
+ 
+  printf("15 DATA POINTS \n\n");
+ Point* points = makePoints(xstart,xend,15);
+ printf("Initial Points: \n");
+ printPoints(points, 15);
+
+ Point* actual = findActual(points,15);
+
+ double* result = cubicSpline(15, NATURAL, 0, 0, points);
+ double* result2 = cubicSpline(15,CURVEADJUSTED, 37.0/4394.0, 37.0/4394.0,points); //37/4394 is the value of the second derivative at both 5 and -5
+ for(int i = 0; i < 9; i++) //n-1 midpoints
+ {
+  printf("x:\t\t%lf\nlagrange:\t%lf\ncubic:\t\t%lf\ncurveadj:\t\t%lf\nactual:\t\t%lf\n\n",
+	actual[i].x, lagrangePoly(14,points,actual[i].x), splint(result,15,points,actual[i].x)
+	splint(result2, 15, points,actual[i].x), actual[i].y); 
+ }  
+ printf("\n\n\n");
+ //cleanup before next set
+ free(points);
+ free(actual);
+ free(result);
+ 
+ return;
 }
 
 int main()
