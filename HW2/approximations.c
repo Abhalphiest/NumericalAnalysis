@@ -1,6 +1,9 @@
 #include"approximations.h"
 #include <stdio.h> //for print debugging
 
+
+#define pi 3.141592653589793
+
 double lagrangePoly(int n, Point* points, double xval)
 {
 	double a, s, t, k = 0.0f;
@@ -166,7 +169,7 @@ double* chebyshev_coeff(double a, double b, int n, double (*f)(double))
 
   for(i=0; i<n; i++){
     for(j=0; j<n; j++) {
-	  angle = (double)(i*(2*j+1))*pi)/(double)(2*n);
+	  angle = (double)((i*(2*j+1))*pi)/(double)(2*n);
       coefs[i]+=points[j]*cos(angle);
     }
     //This is the normalization for all terms other than zero
