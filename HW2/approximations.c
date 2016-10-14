@@ -136,7 +136,7 @@ double splint(double* y_p, int n, Point* points, double xval)
   return a*points[klo].y+b*points[khi].y + ((a*a*a-a)*y_p[klo] + (b*b*b-b)*y_p[khi])*(h*h)/6.0;
    
 }
-//de casteljau's algorithm
+//not implemented yet
 Point bezier(int n, Point* points, double t)
 {
 	
@@ -147,4 +147,31 @@ Point bezier(int n, Point* points, double t)
 double Tnx(int n, double x)
 {
  return cos(n*acos(x));
+}
+
+double* chebyshev(int n, double (*f)(double))
+{
+  double* points = (double*) malloc(n*sizeof(double));
+  double* coefs = (double*) calloc(n,sizeof(double));
+
+  int i,j,k;
+
+  for(i=0; i<n; i++){
+    points[i] = cos((2.0*i-1.0)*M_PI/(2.0*n));
+    coefs[i]=0.;
+  }
+
+  for(i=0; i<n; i++){
+    for(j=0; j<n; j++) {
+      coefs[i]+=f(points[j])*Tnx(i,points[j]);
+    }
+    //This is the normalization for all terms other than zero
+    coefs[i]/=(0.5*n);
+  }
+  //and now we fix that too
+  coefs[0]/=2.0;
+
+  free(points);
+  return coefs;
+	
 }
