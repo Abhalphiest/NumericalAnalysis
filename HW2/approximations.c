@@ -117,16 +117,17 @@ double* cubicSpline(int n, int boundcondition,
 //adapted from algorithm from numerical recipes book
 double splint(double* y_p, int n, Point* points, double xval)
 {
-  int klo, khi, k;
+  int k,klo = 0,khi=n-1;
   float h, b, a;
-  klo = 1;
-  khi = n;
-  while(khi - klo > 1)
+  
+  //bisection search for correct interval
+  while(khi-klo > 1)
   {
-	  k = (khi - klo) >> 1;
-	  if(points[k].x > xval) khi = k;
-	  else klo = k;
+   k = (khi + klo) >> 1; //take midpoint of the indices
+   if(points[k].x > xval) khi = k;
+   else klo = k;
   }
+  
   h = points[khi].x - points[klo].x;
   
   a = (points[khi].x - xval)/h;
