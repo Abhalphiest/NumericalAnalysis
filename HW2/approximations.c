@@ -159,13 +159,15 @@ double* chebyshev_coeff(double a, double b, int n, double (*f)(double))
   int i,j,k;
 
   for(i=0; i<n; i++){
-    points[i] = cos((2.0*i+1.0)*pi/(2.0*n));
+    points[i] = cos((i+.5)*pi/(n));
     coefs[i]=0.;
+    //printf("%lf\n",points[i]);
   }
 
   for(i=0; i<n; i++){
     for(j=0; j<n; j++) {
-      coefs[i]+=f(points[j])*Tnx(i,points[j]);
+      coefs[i]+=f(.5*(a+b) + .5*(b-a)*points[j])*Tnx(i,points[j]);
+     // printf("%lf\n",coefs[i]);
     }
     //This is the normalization for all terms other than zero
     coefs[i]/=(0.5*n);
@@ -180,9 +182,10 @@ double* chebyshev_coeff(double a, double b, int n, double (*f)(double))
 //actually gives us an approximation
 double chebyshev(double a, double b, int n, double* c, double x)
 {
+  double x2 = (x-(a+b)/2)/((b-a)/2);
   double yval=0.;
     for(int i=0; i<n; i++){
-      yval+=c[i]*Tnx(i,x);
+      yval+=c[i]*Tnx(i,x2);
     }
   return yval;
 }
