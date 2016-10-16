@@ -8,8 +8,10 @@
 
 \usepackage[utf8]{inputenc} % set input encoding (not needed with XeLaTeX)
 \usepackage{alltt}
+\usepackage{listings}
 \usepackage{graphicx}
 \usepackage{amsmath}
+\usepackage{float}
 \newcommand*\diff{\mathop{}\!\mathrm{d}}
 
 %%% Examples of Article customizations
@@ -344,35 +346,412 @@ $$\begin{array}{lclcl} y^{(cubic)}_1 & = &  -\frac{14}{11}x^3 - \frac{3}{11}x^2 
 
 
 \section*{Problem 5}
-\begin{enumerate}[i.)]
-\item
-\item
-\item
-\end{enumerate}
+\subsection*{Raw Output}
+\begin{lstlisting}
+
+5 DATA POINTS 
+
+Initial Points: 
+
+(-5.000000,0.038462) (-2.500000,0.137931) (0.000000,1.000000) 
+(2.500000,0.137931) (5.000000,0.038462) 
+
+x:		-3.750000
+lagrange:	-0.162550
+cubic:		-0.039693
+curveadj:	-0.042043
+actual:		0.066390
+
+x:		-1.250000
+lagrange:	0.629062
+cubic:		0.666659
+curveadj:	0.667129
+actual:		0.390244
+
+x:		1.250000
+lagrange:	0.939904
+cubic:		0.666659
+curveadj:	0.667129
+actual:		0.390244
+
+x:		3.750000
+lagrange:	-1.716761
+cubic:		-0.039693
+curveadj:	-0.042043
+actual:		0.066390
 
 
 
 
+10 DATA POINTS 
+
+Initial Points: 
+
+(-5.000000,0.038462) (-3.888889,0.062021) (-2.777778,0.114731) 
+(-1.666667,0.264706) (-0.555556,0.764151) (0.555556,0.764151) 
+(1.666667,0.264706) (2.777778,0.114731) (3.888889,0.062021) 
+(5.000000,0.038462) 
+
+x:		-4.444444
+lagrange:	-0.209264
+cubic:		0.046749
+curveadj:	0.046273
+actual:		0.048186
+
+x:		-3.333333
+lagrange:	0.160420
+cubic:		0.087924
+curveadj:	0.088051
+actual:		0.082569
+
+x:		-2.222222
+lagrange:	0.115474
+cubic:		0.147614
+curveadj:	0.147580
+actual:		0.168399
+
+x:		-1.111111
+lagrange:	0.523247
+cubic:		0.515771
+curveadj:	0.515781
+actual:		0.447514
+
+x:		0.000000
+lagrange:	0.861538
+cubic:		0.857126
+curveadj:	0.857121
+actual:		1.000000
+
+x:		1.111111
+lagrange:	0.523247
+cubic:		0.515771
+curveadj:	0.515781
+actual:		0.447514
+
+x:		2.222222
+lagrange:	0.115474
+cubic:		0.147614
+curveadj:	0.147580
+actual:		0.168399
+
+x:		3.333333
+lagrange:	0.160420
+cubic:		0.087924
+curveadj:	0.088051
+actual:		0.082569
+
+x:		4.444444
+lagrange:	-0.209264
+cubic:		0.046749
+curveadj:	0.046273
+actual:		0.048186
+
+
+
+
+15 DATA POINTS 
+
+Initial Points: 
+
+(-5.000000,0.038462) (-4.285714,0.051633) (-3.571429,0.072700) 
+(-2.857143,0.109131) (-2.142857,0.178832) (-1.428571,0.328859) 
+(-0.714286,0.662162) (0.000000,1.000000) (0.714286,0.662162) 
+(1.428571,0.328859) (2.142857,0.178832) (2.857143,0.109131) 
+(3.571429,0.072700) (4.285714,0.051633) (5.000000,0.038462) 
+
+x:		-4.642857
+lagrange:	2.668349
+cubic:		0.044513
+curveadj:	0.044317
+actual:		0.044334
+
+x:		-3.928571
+lagrange:	-0.301858
+cubic:		0.060808
+curveadj:	0.060861
+actual:		0.060851
+
+x:		-3.214286
+lagrange:	0.180694
+cubic:		0.088163
+curveadj:	0.088149
+actual:		0.088249
+
+x:		-2.500000
+lagrange:	0.101181
+cubic:		0.138115
+curveadj:	0.138119
+actual:		0.137931
+
+x:		-1.785714
+lagrange:	0.259506
+cubic:		0.237467
+curveadj:	0.237466
+actual:		0.238733
+
+x:		-1.071429
+lagrange:	0.451153
+cubic:		0.468041
+curveadj:	0.468041
+actual:		0.465558
+
+x:		-0.357143
+lagrange:	0.891166
+cubic:		0.886911
+curveadj:	0.886911
+actual:		0.886878
+
+x:		0.357143
+lagrange:	0.904422
+cubic:		0.886911
+curveadj:	0.886911
+actual:		0.886878
+
+x:		1.071429
+lagrange:	0.433077
+cubic:		0.468041
+curveadj:	0.468041
+actual:		0.465558
+
+x:		1.785714
+lagrange:	0.293649
+cubic:		0.237467
+curveadj:	0.237466
+actual:		0.238733
+
+x:		2.500000
+lagrange:	0.008506
+cubic:		0.138115
+curveadj:	0.138119
+actual:		0.137931
+
+x:		3.214286
+lagrange:	0.569927
+cubic:		0.088163
+curveadj:	0.088149
+actual:		0.088249
+
+x:		3.928571
+lagrange:	-3.285979
+cubic:		0.060808
+curveadj:	0.060861
+actual:		0.060851
+
+x:		4.642857
+lagrange:	77.271383
+cubic:		0.044513
+curveadj:	0.044317
+actual:		0.044334
+
+
+
+ Chebyshev Approximation 5 Nodes 
+
+x:		-3.847104
+chebyshev:	-0.134899
+actual:		0.063290
+
+x:		-1.469463
+chebyshev:	0.714472
+actual:		0.316524
+
+x:		1.469463
+chebyshev:	0.714472
+actual:		0.316524
+
+x:		3.847104
+chebyshev:	-0.134899
+actual:		0.063290
+
+
+
+
+ Chebyshev Approximation 10 Nodes 
+
+x:		-4.696737
+chebyshev:	0.032438
+actual:		0.043366
+
+x:		-3.995283
+chebyshev:	0.074601
+actual:		0.058954
+
+x:		-2.902743
+chebyshev:	0.077647
+actual:		0.106090
+
+x:		-1.526062
+chebyshev:	0.381200
+actual:		0.300403
+
+x:		0.000000
+chebyshev:	0.730822
+actual:		1.000000
+
+x:		1.526062
+chebyshev:	0.381200
+actual:		0.300403
+
+x:		2.902743
+chebyshev:	0.077647
+actual:		0.106090
+
+x:		3.995283
+chebyshev:	0.074601
+actual:		0.058954
+
+x:		4.696737
+chebyshev:	0.032438
+actual:		0.043366
+
+
+
+
+ Chebyshev Approximation 15 Nodes 
+
+x:		-4.696737
+chebyshev:	-1.346627
+actual:		0.043366
+
+x:		-3.995283
+chebyshev:	1.079891
+actual:		0.058954
+
+x:		-2.902743
+chebyshev:	1.866100
+actual:		0.106090
+
+x:		-1.526062
+chebyshev:	-4.361026
+actual:		0.300403
+
+x:		0.000000
+chebyshev:	4.266356
+actual:		1.000000
+
+x:		1.526062
+chebyshev:	2.565579
+actual:		0.300403
+
+x:		2.902743
+chebyshev:	-6.869444
+actual:		0.106090
+
+x:		3.995283
+chebyshev:	5.599214
+actual:		0.058954
+
+x:		4.696737
+chebyshev:	0.085492
+actual:		0.043366
+
+x:		0.000000
+chebyshev:	4.266356
+actual:		1.000000
+
+x:		0.008421
+chebyshev:	4.167831
+actual:		0.999929
+
+x:		0.324991
+chebyshev:	-0.455012
+actual:		0.904471
+
+x:		-0.576289
+chebyshev:	4.949485
+actual:		0.750690
+
+x:		0.324991
+chebyshev:	-0.455012
+actual:		0.904471
+
+
+
+\end{lstlisting}
+
+\subsection*{RMS Errors}
+{\renewcommand{\arraystretch}{1.3} %<- modify cell height to give data breathing room
+\begin{tabular}{| c | c c c c |}
+\hline
+n & lagrange & natural & curve adjusted & chebyshev\\
+\hline
+5 & .89780 & .04383 & .04421 & \\
+10 & .02010 & .00341 & .00341 &\\
+15 & 427.32136 & .000001&  .000001 &\\
+\hline
+\end{tabular}
+\subsection*{Analysis}
+
+As $n$ increases, the error in the Lagrange approximation explodes due to Runge's phenomenon, despite the error at the interior points improving at a rate consistent with
+with the spline approximation - the magnitude of the error near the endpoints more than overcomes the reduction in error everywhere else. The splines behave consistently better
+overall as $n$ increases due to their piecewise construction which allows them to avoid erratic endpoint behavior. 
+\par Fixing the second derivatives of the splines marginally improves
+accuracy near the endpoints, but makes no marked difference in overall error, at least at these small values of $n$. This makes sense - because splines are piecewise, fixing the endpoint
+behavior will only greatly effect the points near the endpoints, and thus any improvement does not propagate well through the rest of the approximation, where the majority of the 
+error data will be determined.
+\par %Chebyshev goes here
+
+\newpage
 \section*{Problem 6}
-\begin{enumerate}[i.)]
-\item
-\item
-\item
-\end{enumerate}
+\subsection*{Coefficient Table}
+\textbf{Note:} The first $10$ values of $a_n$ are the coefficients for $10$ nodes, so I have not duplicated the data.
+\begin{table}[H]
+\begin{tabular}{| c |c c c |}
+\hline
+$a_n$ & Function 1 & Function 2 & Function 3 \\
+\hline
+$a_0$ & 0.220277& 0 & -0.125724\\
+$a_1$ & 0 &0.449218 & 0\\
+$a_2$ &0.575761 & 0& -0.531218\\
+$a_3$ & 0 &0.776220 & 0\\
+$a_4$ &0.631361 & 0& 0.636758\\
+$a_5$ & 0 &-0.011739& 0\\
+$a_6$ &-0.555377 & 0& 0.183205\\
+$a_7$ & 0 & -0.396909& 0\\
+$a_8$ &0.146591 & 0&  -0.253667\\
+$a_9$ & 0 & 0.298239& 0\\
 
+\hline
+\end{tabular}
+\begin{tabular}{| c |c c c |}
+\hline
+$a_n$ & Function 1 & Function 2 & Function 3 \\
+\hline
+$a_{10}$ &-0.020277 & 0 & 0.135478 \\
+$a_{11}$ &0 & -0.198222& 0\\
+$a_{12}$ &0.001767 & 0 & -0.069607\\
+$a_{13}$ &0 & 0.151939& 0\\
+$a_{14}$ &-0.000107 & 0 & 0.039138\\
+$a_{15}$ &0 & -0.130133& 0\\
+$a_{16}$ &0.000005 & 0 & -0.021989\\
+$a_{17}$ &0 &0.119113 & 0\\
+$a_{18}$ &0 & 0 & 0.010027 \\
+$a_{19}$ &0 & -0.114332& 0\\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection*{Plots}
+
+
+\subsection*{Analysis}
 
 
 
 
 \section*{Problem 7}
-\subsection*{$T_{10}(x)$}
+\subsection*{Data Tables}
 %$$ \begin{array}{l l l}
 %T_{10}(x) &= &512x^{10}-1280x^8+1120x^6-400x^4+50x^2-1\\
 %T'_{10}(x) &= &5120x^9-10240x^7+6720x^5-1600x^3+100x \\
 %T''_{10}(x) &= &46080x^8-71680x^6+33600x^4-4800x^2+100\\
 %\int T_{10}(x) &= &\frac{512}{11}*x^{11}-\frac{1280}{9}x^9+160x^7-80x^5+\frac{50}{3}x^3-x
 %\end{array}$$
-
+{\renewcommand{\arraystretch}{1.1} %<- modify cell height to give data breathing room
+\begin{table}[H]
+\begin{minipage}{.5\linewidth}
+\centering
+\caption*{$T_{10}(x)$}
 \begin{tabular}{| c | c | c | c |}
 \hline 
 $n$ & $a_{T'_{10}}$ & $a_{T''_{10}}$ & $a_{\int T_{10}}$ \\
@@ -391,7 +770,7 @@ $n$ & $a_{T'_{10}}$ & $a_{T''_{10}}$ & $a_{\int T_{10}}$ \\
 11 &  0& 0& $\frac{1}{22}$\\
 \hline
 \end{tabular}
-\subsection*{$T_{15}(x)$}
+\end{minipage} 
 %$$ \begin{array}{l l l}
 %T_{15}(x) &= &16384x^{15}-61440x^{13}+92160x^{11}  -70400x^9+28800x^7-6048x^5+560x^3-15x\\
 %T'_{15}(x) &= &245760x^{14}-798720x^{12}+1013760x^{10}-633600x^8+201600x^6-30240x^4+1680x^2-15\\
@@ -399,6 +778,9 @@ $n$ & $a_{T'_{10}}$ & $a_{T''_{10}}$ & $a_{\int T_{10}}$ \\
 %\int T_{15}(x) &= &1024x^{16}-\frac{30720}{7}x^{14}+7680x^{12}-7040x^{10}+3600x^8-1008x^6+140x^4-\frac{15}{2}x^2
 %\end{array}$$
 
+\begin{minipage}{.5\linewidth}
+\centering
+\caption*{$T_{15}(x)$}
 \begin{tabular}{| c | c | c | c |}
 \hline 
 $n$ & $a_{T'_{15}}$ & $a_{T''_{15}}$ & $a_{\int T_{15}}$ \\
@@ -422,7 +804,8 @@ $n$ & $a_{T'_{15}}$ & $a_{T''_{15}}$ & $a_{\int T_{15}}$ \\
 16 &  0& 0& $\frac{1}{32}$\\
 \hline
 \end{tabular}
-\subsection*{$T_{20}(x)$}
+\end{minipage}
+\end{table}
 %$$ \begin{array}{l l l}
 %T_{20}(x) &= &524288x^{20}-2621440x^{18}+5570560x^{16}-6553600x^{14}+4659200x^{12}-2050048x^{10}+ \\
 %		& &549120x^8-84480x^6+6600x^4-200x^2+1\\
@@ -433,10 +816,13 @@ $n$ & $a_{T'_{15}}$ & $a_{T''_{15}}$ & $a_{\int T_{15}}$ \\
 %\int T_{20}(x) &= & \frac{524288}{21}x^{21}-\frac{2621440}{19}x^{19}+327680x^{17}-\frac{1310720}{3}x^{15}+358400x^{13}-186368x^{11} + \\
 %			& & \frac{183040}{3}x^9-\frac{84480}{7}x^7+1320x^5-\frac{200}{3}x^3+x
 %\end{array}$$
-
+\begin{table}[H]
+\begin{minipage}{.5\linewidth}
+\centering
+\caption*{$T_{20}(x)$}
 \begin{tabular}{| c | c | c | c |}
 \hline 
-$n$ & $a_{T'_{10}}$ & $a_{T''_{10}}$ & $a_{\int T_{10}}$ \\
+$n$ & $a_{T'_{20}}$ & $a_{T''_{20}}$ & $a_{\int T_{20}}$ \\
 \hline \hline
 0 & 0 & 4000 & 0\\
 1 & 40 & 0 & 0\\
@@ -462,6 +848,8 @@ $n$ & $a_{T'_{10}}$ & $a_{T''_{10}}$ & $a_{\int T_{10}}$ \\
 21 &  0& 0& $\frac{1}{42}$\\
 \hline
 \end{tabular}
+\end{minipage}
+\end{table}
 
 \subsection*{Analysis}
 The tables above list the coefficients $a_n$ of $T_n$ for all relevant $n$ for the first two derivatives and integral of each $T_n$. The patterns in the data can be explained by
