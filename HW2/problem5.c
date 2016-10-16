@@ -152,17 +152,16 @@ void evenPoints(double xstart, double xend)
 }
 int cmpfunc(const void * a, const void* b)
 {
- return (*(double*)a - *(double*)b);
+ return (*(double*)a > *(double*)b);
 }
 double* chebyshevMidpoints(double a,double b, int n)
 {
-	double* points = (double*) malloc(sizeof(double)*n);
+  double* points = (double*) malloc(sizeof(double)*n);
   for(int i=0; i<n; i++){
     points[i] = cos((i+.5)*pi/(n));
     points[i] = .5*(a+b) + .5*(b-a)*points[i];
   }
-  qsort(points, n, sizeof(double), cmpfunc);
-  
+  qsort(points, n, sizeof(double), cmpfunc);  
   double* midpoints = (double*) malloc(sizeof(double)*(n-1));
   for(int i = 0; i < n-1; i++)
   {
