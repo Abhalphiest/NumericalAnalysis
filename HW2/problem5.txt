@@ -165,3 +165,126 @@ actual:		0.465558
 
 
 
+
+
+
+ Chebyshev Approximation 5 Nodes 
+
+x:		-3.847104
+chebyshev:	-0.134899
+actual:		0.063290
+
+x:		-1.469463
+chebyshev:	0.714472
+actual:		0.316524
+
+x:		1.469463
+chebyshev:	0.714472
+actual:		0.316524
+
+x:		3.847104
+chebyshev:	-0.134899
+actual:		0.063290
+
+
+
+
+ Chebyshev Approximation 10 Nodes 
+
+x:		-3.995283
+chebyshev:	0.074601
+actual:		0.058954
+
+x:		-4.696737
+chebyshev:	0.032438
+actual:		0.043366
+
+x:		-3.604197
+chebyshev:	0.075228
+actual:		0.071478
+
+x:		-1.526062
+chebyshev:	0.381200
+actual:		0.300403
+
+x:		0.000000
+chebyshev:	0.730822
+actual:		1.000000
+
+x:		1.526062
+chebyshev:	0.381200
+actual:		0.300403
+
+x:		2.902743
+chebyshev:	0.077647
+actual:		0.106090
+
+x:		4.236988
+chebyshev:	0.063756
+actual:		0.052765
+
+x:		4.696737
+chebyshev:	0.032438
+actual:		0.043366
+
+
+
+
+ Chebyshev Approximation 10 Nodes 
+
+x:		-3.995283
+chebyshev:	2.375431
+actual:		0.058954
+
+x:		-4.696737
+chebyshev:	-1.609709
+actual:		0.043366
+
+x:		-3.604197
+chebyshev:	-2.428551
+actual:		0.071478
+
+x:		-1.526062
+chebyshev:	-4.868506
+actual:		0.300403
+
+x:		0.000000
+chebyshev:	5.669263
+actual:		1.000000
+
+x:		1.526062
+chebyshev:	2.058100
+actual:		0.300403
+
+x:		2.902743
+chebyshev:	-7.892923
+actual:		0.106090
+
+x:		4.236988
+chebyshev:	-2.455855
+actual:		0.052765
+
+x:		4.696737
+chebyshev:	-0.177590
+actual:		0.043366
+
+x:		0.000000
+chebyshev:	5.669263
+actual:		1.000000
+
+x:		0.008421
+chebyshev:	5.570349
+actual:		0.999929
+
+x:		0.324991
+chebyshev:	0.405334
+actual:		0.904471
+
+x:		-0.576289
+chebyshev:	4.884405
+actual:		0.750690
+
+x:		0.324991
+chebyshev:	0.405334
+actual:		0.904471
+

@@ -12,27 +12,29 @@ int main()
  double* coeffs = chebyshev_coeff(-5, 5, 5,function);
  double* cPoints = chebyshevMidpoints(-5,5,5);
  printf("\n\n\n Chebyshev Approximation 5 Nodes \n\n");
- for(int i = 0; i < 5; i++)
+ for(int i = 0; i < 4; i++)
  {
-	printf("x:\t%lf\nchebyshev:\t%lf\nactual:\t%lf\n\n",cPoints[i], chebyshev(-5,5,5, coeffs,cPoints[i]), function(cPoints[i]));
+	printf("x:\t\t%lf\nchebyshev:\t%lf\nactual:\t\t%lf\n\n",cPoints[i], chebyshev(-5,5,5, coeffs,cPoints[i]), function(cPoints[i]));
+ }
+ free(coeffs);
+ free(cPoints);
+ coeffs = chebyshev_coeff(-5, 5, 10,function);
+ cPoints = chebyshevMidpoints(-5,5,10);
+
+
+ printf("\n\n\n Chebyshev Approximation 10 Nodes \n\n");
+ for(int i = 0; i < 9; i++)
+ {
+	printf("x:\t\t%lf\nchebyshev:\t%lf\nactual:\t\t%lf\n\n",cPoints[i], chebyshev(-5,5,10, coeffs,cPoints[i]), function(cPoints[i]));
  }
  free(coeffs);
  free(cPoints);
  coeffs = chebyshev_coeff(-5, 5, 10,function);
  cPoints = chebyshevMidpoints(-5,5,10);
  printf("\n\n\n Chebyshev Approximation 10 Nodes \n\n");
- for(int i = 0; i < 10; i++)
+ for(int i = 0; i < 14; i++)
  {
-	printf("x:\t%lf\nchebyshev:\t%lf\nactual:\t%lf\n\n",cPoints[i], chebyshev(-5,5,10, coeffs,cPoints[i]), function(cPoints[i]));
- }
- free(coeffs);
- free(cPoints);
- coeffs = chebyshev_coeff(-5, 5, 10,function);
- cPoints = chebyshevMidpoints(-5,5,10);
- printf("\n\n\n Chebyshev Approximation 10 Nodes \n\n");
- for(int i = 0; i < 15; i++)
- {
-	printf("x:\t%lf\nchebyshev:\t%lf\nactual:\t%lf\n\n",cPoints[i], chebyshev(-5,5,15, coeffs,cPoints[i]),function(cPoints[i]));
+	printf("x:\t\t%lf\nchebyshev:\t%lf\nactual:\t\t%lf\n\n",cPoints[i], chebyshev(-5,5,15, coeffs,cPoints[i]),function(cPoints[i]));
  }
  free(coeffs);
  free(cPoints);
@@ -148,20 +150,24 @@ void evenPoints(double xstart, double xend)
  
  return;
 }
-
-double* chebyshevMidpoints(double xstart,double xend, int n)
+int cmpfunc(const void * a, const void* b)
+{
+ return (*(double*)a - *(double*)b);
+}
+double* chebyshevMidpoints(double a,double b, int n)
 {
 	double* points = (double*) malloc(sizeof(double)*n);
   for(int i=0; i<n; i++){
     points[i] = cos((i+.5)*pi/(n));
-    points[i] = .5*(a+b) + .5*(b-a)*points[i]
+    points[i] = .5*(a+b) + .5*(b-a)*points[i];
   }
+  qsort(points, n, sizeof(double), cmpfunc);
+  
   double* midpoints = (double*) malloc(sizeof(double)*(n-1));
   for(int i = 0; i < n-1; i++)
   {
 	  midpoints[i] = .5*(points[i]+points[i+1]);
   }
   free(points);
-  return midpoints;
-	
+  return midpoints;	
 }

@@ -2,8 +2,6 @@
 #include <stdio.h> //for print debugging
 
 
-#define pi 3.141592653589793
-
 double lagrangePoly(int n, Point* points, double xval)
 {
 	double a, s, t, k = 0.0f;

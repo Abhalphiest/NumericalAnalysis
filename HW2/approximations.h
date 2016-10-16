@@ -11,6 +11,8 @@
 #ifndef APPROXIMATION
 #define APPROXIMATION
 
+#define pi 3.141592653589793
+
 #include<math.h>
 #include<stdlib.h>
 #include <gsl/gsl_linalg.h> //for cubic spline linear algebra solver
