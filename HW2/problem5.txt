@@ -162,6 +162,36 @@ cubic:		0.468041
 curveadj:	0.468041
 actual:		0.465558
 
+x:		1.785714
+lagrange:	0.293649
+cubic:		0.237467
+curveadj:	0.237466
+actual:		0.238733
+
+x:		2.500000
+lagrange:	0.008506
+cubic:		0.138115
+curveadj:	0.138119
+actual:		0.137931
+
+x:		3.214286
+lagrange:	0.569927
+cubic:		0.088163
+curveadj:	0.088149
+actual:		0.088249
+
+x:		3.928571
+lagrange:	-3.285979
+cubic:		0.060808
+curveadj:	0.060861
+actual:		0.060851
+
+x:		4.642857
+lagrange:	77.271383
+cubic:		0.044513
+curveadj:	0.044317
+actual:		0.044334
+
 
 
 
@@ -230,7 +260,7 @@ actual:		0.043366
 
 
 
- Chebyshev Approximation 10 Nodes 
+ Chebyshev Approximation 15 Nodes 
 
 x:		-4.696737
 chebyshev:	-1.346627

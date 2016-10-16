@@ -31,7 +31,7 @@ int main()
  free(cPoints);
  coeffs = chebyshev_coeff(-5, 5, 10,function);
  cPoints = chebyshevMidpoints(-5,5,10);
- printf("\n\n\n Chebyshev Approximation 10 Nodes \n\n");
+ printf("\n\n\n Chebyshev Approximation 15 Nodes \n\n");
  for(int i = 0; i < 14; i++)
  {
 	printf("x:\t\t%lf\nchebyshev:\t%lf\nactual:\t\t%lf\n\n",cPoints[i], chebyshev(-5,5,15, coeffs,cPoints[i]),function(cPoints[i]));
@@ -135,7 +135,7 @@ void evenPoints(double xstart, double xend)
 
  result = cubicSpline(15, NATURAL, 0, 0, points);
  result2 = cubicSpline(15,CURVEADJUSTED, 37.0/4394.0, 37.0/4394.0,points); 
- for(int i = 0; i < 9; i++) //n-1 midpoints
+ for(int i = 0; i < 14; i++) //n-1 midpoints
  {
   printf("x:\t\t%lf\nlagrange:\t%lf\ncubic:\t\t%lf\ncurveadj:\t%lf\nactual:\t\t%lf\n\n",
 	actual[i].x, lagrangePoly(14,points,actual[i].x), 
