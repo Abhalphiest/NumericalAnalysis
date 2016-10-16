@@ -3,8 +3,8 @@
 
 double function(double x)
 {
- // return 1.0/(1+x*x);
- return exp(x);
+ //return 1.0/(1+x*x);
+ return x;
 }
 
 Point* makePoints(double xstart,double xend, int npoints)
@@ -117,11 +117,12 @@ void evenPoints(double xstart, double xend)
 int main()
 {
  //evenPoints(-5,5);
- double* coeffs = chebyshev_coeff(0, 1, 4,function);
- for(int i = 0; i < 5; i++)
-   printf("%lf\n",coeffs[i]);
- //double y = chebyshev(-5,5,5,coeffs,2);
- //printf("ch: %lf act: %lf\n",y, function(2));
+ double* coeffs = chebyshev_coeff(-5, 5, 40,function);
+ for(int i = -5; i < 5; i++)
+ {
+ double y = chebyshev(-1,1,40,coeffs,i);
+ printf("ch: %lf act: %lf\n",y, function(i));
+}
 
  return 0;
 }

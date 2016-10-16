@@ -154,26 +154,29 @@ double Tnx(int n, double x)
 
 double* chebyshev_coeff(double a, double b, int n, double (*f)(double))
 {
-  double* points = (double*) malloc(n*sizeof(double));
+  double* fx = (double*) malloc(n*sizeof(double));
   double* coefs = (double*) calloc(n,sizeof(double));
 
   int k,j;
-  double fac, bpa, bma;
+  double fac,bpa,bma;
+ 
   bma = 0.5*(b-a);
   bpa = 0.5*(b+a);
-  for(k=0; k < n; k++)
+  for(k = 0; k <n; k++)
   {
-   points[k] = cos(pi*(k+.5)/n);
+   double y = cos(pi*(k+0.5)/n);
+   fx[k] = f(y*bma+bpa);
   }
   fac = 2.0/n;
   for(j = 0; j < n; j++)
   {
-   double sum = 0.0;
-   for(k = 0; k < n; k++)
-	sum += f(points[k]*cos(pi*j*(k+.5)/n));
-   coefs[j] = fac*sum;
+    double sum = 0.0;
+    for(k=0;k<n;k++)
+      sum += fx[k]*cos(pi*j*(k+0.5)/n);
+    coefs[j] = fac*sum;
+
   }
-  free(points);
+  free(fx);
   return coefs;
 }
 
@@ -183,13 +186,13 @@ double chebyshev(double a, double b, int n, double* c, double x)
 {
   float d=0.0,dd=0.0,sv,y,y2;
   int j;
-
-  x = (2.0*x - a - b)/(b-a);
-  x*=2.0;
+  
+  y = (2.0*x-a-b)/(b-a);
+  y2 = 2.0*(y);
   for(j = n-1; j >= 1; j--)
   {
    sv = d;
-   d=x*d-dd+c[j];
+   d=y2*d-dd+c[j];
    dd=sv;
 
   }
