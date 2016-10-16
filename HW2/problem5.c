@@ -1,10 +1,46 @@
 #include "approximations.h"
-#include<stdio.h>
+#include"problem5.h"
 
 double function(double x)
 {
  return 1.0/(1+x*x);
 }
+
+int main()
+{
+ evenPoints(-5,5);
+ double* coeffs = chebyshev_coeff(-5, 5, 5,function);
+ double* cPoints = chebyshevMidpoints(-5,5,5);
+ printf("\n\n\n Chebyshev Approximation 5 Nodes \n\n");
+ for(int i = 0; i < 5; i++)
+ {
+	printf("x:\t%lf\nchebyshev:\t%lf\nactual:\t%lf\n\n",cPoints[i], chebyshev(-5,5,5, coeffs,cPoints[i]), function(cPoints[i]));
+ }
+ free(coeffs);
+ free(cPoints);
+ coeffs = chebyshev_coeff(-5, 5, 10,function);
+ cPoints = chebyshevMidpoints(-5,5,10);
+ printf("\n\n\n Chebyshev Approximation 10 Nodes \n\n");
+ for(int i = 0; i < 10; i++)
+ {
+	printf("x:\t%lf\nchebyshev:\t%lf\nactual:\t%lf\n\n",cPoints[i], chebyshev(-5,5,10, coeffs,cPoints[i]), function(cPoints[i]));
+ }
+ free(coeffs);
+ free(cPoints);
+ coeffs = chebyshev_coeff(-5, 5, 10,function);
+ cPoints = chebyshevMidpoints(-5,5,10);
+ printf("\n\n\n Chebyshev Approximation 10 Nodes \n\n");
+ for(int i = 0; i < 15; i++)
+ {
+	printf("x:\t%lf\nchebyshev:\t%lf\nactual:\t%lf\n\n",cPoints[i], chebyshev(-5,5,15, coeffs,cPoints[i]),function(cPoints[i]));
+ }
+ free(coeffs);
+ free(cPoints);
+
+ return 0;
+}
+
+
 
 Point* makePoints(double xstart,double xend, int npoints)
 {
@@ -113,18 +149,19 @@ void evenPoints(double xstart, double xend)
  return;
 }
 
-int main()
+double* chebyshevMidpoints(double xstart,double xend, int n)
 {
- evenPoints(-5,5);
-// double* coeffs = chebyshev_coeff(-5, 5, 40,function);
-// for(int i = 0; i < 40; i++)
-// {
-///  printf("%lf\n",coeffs[i]);
-// }
-// for(float i = -5; i < 5; i+=1)
-// {
-// double y = chebyshev(-5,5,40,coeffs,i);
-// printf("ch: %lf act: %lf\n",y, function(i));
-
- return 0;
+	double* points = (double*) malloc(sizeof(double)*n);
+  for(int i=0; i<n; i++){
+    points[i] = cos((i+.5)*pi/(n));
+    points[i] = .5*(a+b) + .5*(b-a)*points[i]
+  }
+  double* midpoints = (double*) malloc(sizeof(double)*(n-1));
+  for(int i = 0; i < n-1; i++)
+  {
+	  midpoints[i] = .5*(points[i]+points[i+1]);
+  }
+  free(points);
+  return midpoints;
+	
 }
