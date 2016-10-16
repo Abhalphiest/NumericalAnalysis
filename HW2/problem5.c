@@ -118,7 +118,7 @@ int main()
 {
  //evenPoints(-5,5);
  double* coeffs = chebyshev_coeff(-5, 5, 40,function);
- for(int i = -5; i < 5; i++)
+ for(float i = -1; i < 1; i+=.2)
  {
  double y = chebyshev(-1,1,40,coeffs,i);
  printf("ch: %lf act: %lf\n",y, function(i));

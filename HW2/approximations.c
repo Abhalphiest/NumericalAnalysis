@@ -165,7 +165,7 @@ double* chebyshev_coeff(double a, double b, int n, double (*f)(double))
 
   for(i=0; i<n; i++){
     for(j=0; j<n; j++) {
-      coefs[i]+=func(points[j])*Tnx(i,points[j]);
+      coefs[i]+=f(points[j])*Tnx(i,points[j]);
     }
     //This is the normalization for all terms other than zero
     coefs[i]/=(0.5*n);
@@ -181,7 +181,7 @@ double* chebyshev_coeff(double a, double b, int n, double (*f)(double))
 double chebyshev(double a, double b, int n, double* c, double x)
 {
   double yval=0.;
-    for(i=0; i<n; i++){
+    for(int i=0; i<n; i++){
       yval+=c[i]*Tnx(i,x);
     }
   return yval;
