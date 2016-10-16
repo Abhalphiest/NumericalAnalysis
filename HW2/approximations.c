@@ -154,29 +154,25 @@ double Tnx(int n, double x)
 
 double* chebyshev_coeff(double a, double b, int n, double (*f)(double))
 {
-  double* fx = (double*) malloc(n*sizeof(double));
+  double* points = (double*) malloc(n*sizeof(double));
   double* coefs = (double*) calloc(n,sizeof(double));
+  int i,j,k;
 
-  int k,j;
-  double fac,bpa,bma;
- 
-  bma = 0.5*(b-a);
-  bpa = 0.5*(b+a);
-  for(k = 0; k <n; k++)
-  {
-   double y = cos(pi*(k+0.5)/n);
-   fx[k] = f(y*bma+bpa);
+  for(i=0; i<n; i++){
+    points[i] = cos((2.0*i+1.0)*pi/(2.0*n));
+    coefs[i]=0.;
   }
-  fac = 2.0/n;
-  for(j = 0; j < n; j++)
-  {
-    double sum = 0.0;
-    for(k=0;k<n;k++)
-      sum += fx[k]*cos(pi*j*(k+0.5)/n);
-    coefs[j] = fac*sum;
 
+  for(i=0; i<n; i++){
+    for(j=0; j<n; j++) {
+      coefs[i]+=func(points[j])*Tnx(i,points[j]);
+    }
+    //This is the normalization for all terms other than zero
+    coefs[i]/=(0.5*n);
   }
-  free(fx);
+  //and now we fix that too
+  coefs[0]/=2.0;
+  free(points);
   return coefs;
 }
 
@@ -184,17 +180,9 @@ double* chebyshev_coeff(double a, double b, int n, double (*f)(double))
 //actually gives us an approximation
 double chebyshev(double a, double b, int n, double* c, double x)
 {
-  float d=0.0,dd=0.0,sv,y,y2;
-  int j;
-  
-  y = (2.0*x-a-b)/(b-a);
-  y2 = 2.0*(y);
-  for(j = n-1; j >= 1; j--)
-  {
-   sv = d;
-   d=y2*d-dd+c[j];
-   dd=sv;
-
-  }
-  return y*d-dd+0.5*c[0];
+  double yval=0.;
+    for(i=0; i<n; i++){
+      yval+=c[i]*Tnx(i,x);
+    }
+  return yval;
 }
