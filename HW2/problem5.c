@@ -29,8 +29,8 @@ int main()
  }
  free(coeffs);
  free(cPoints);
- coeffs = chebyshev_coeff(-5, 5, 10,function);
- cPoints = chebyshevMidpoints(-5,5,10);
+ coeffs = chebyshev_coeff(-5, 5, 15,function);
+ cPoints = chebyshevMidpoints(-5,5,15);
  printf("\n\n\n Chebyshev Approximation 15 Nodes \n\n");
  for(int i = 0; i < 14; i++)
  {
