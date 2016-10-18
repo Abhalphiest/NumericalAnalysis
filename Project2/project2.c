@@ -27,8 +27,10 @@ double function2(double x){return 1 - x*x;}
 double function3(double x){return sqrt(5-x*x);} 
 Point* generatePoints(double (*f)(double), int n, double a, double b);
 void produceInterpDataSet(Point* points, int n, char* title);
-int main()
+int main(int argc, char** argv)
 {
+  if(argc > 1) //do the standard output for the assignment
+  {
   Point* funcPoints = (Point*) malloc(sizeof(Point)*5);
 //Point* derivPoints = (Point*) malloc(sizeof(Point)*5);
 
@@ -53,6 +55,26 @@ int main()
   funcPoints = generatePoints(function3, 5, -1,1);
   produceInterpDataSet(funcPoints,5,"sqrt(5-x^2)"); 
   free(funcPoints);
+  }
+
+  else //the program required by the assignment
+  {
+   int n;
+   printf("Enter the number of points: ");
+   scanf("%d",&n); //get number of points
+   printf("Enter the x and y coordinates of each point, space delimited.\n");
+   Point* funcPoints = (Point*) malloc(sizeof(Point)*n);
+   for(int i = 0; i < n; i++)
+   {
+    scanf("%lf %lf",&(funcPoints[i].x),&(funcPoints[i].y));
+   }
+   double* coeffs = cubicSpline(n, NATURAL,0,0,funcPoints);
+   printf("Enter the x value to evaluate at: ");
+   double x;
+   scanf("%lf",&x);
+   double result = splint(coeffs,n,funcPoints,x);
+   //need to calculate derivative
+  }
   return 0;
 }
 
