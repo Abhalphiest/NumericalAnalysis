@@ -36,6 +36,4 @@ double chebyshev(double a, double b, int n, double* c, double x);
 
 double lagrangePoly(int n, Point* points, double xval);
 
-Point bezier(int n, Point* points, double t);
-
 #endif

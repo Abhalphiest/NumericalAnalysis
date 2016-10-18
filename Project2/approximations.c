@@ -137,13 +137,6 @@ double splint(double* y_p, int n, Point* points, double xval)
   return a*points[klo].y+b*points[khi].y + ((a*a*a-a)*y_p[klo] + (b*b*b-b)*y_p[khi])*(h*h)/6.0;
    
 }
-//not implemented yet
-Point bezier(int n, Point* points, double t)
-{
-	
-}
-
-
 //for chebyshev
 double Tnx(int n, double x)
 {
