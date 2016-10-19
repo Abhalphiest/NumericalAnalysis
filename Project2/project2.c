@@ -11,6 +11,8 @@
 #include"approximations.h"
 #include<math.h>
 
+
+//for print debugging
 void printarray(double* arr, int n)
 {
  printf("\n");
@@ -23,38 +25,28 @@ void printarray(double* arr, int n)
 
 }
 
+//function declarations for the 3 functions we're concerned with
+double function1(double x) {return -cos(x-0.2);}
 double function2(double x){return 1 - x*x;}
 double function3(double x){return sqrt(5-x*x);} 
+
+//generates n equally spaced points in the [a,b] interval for function f
 Point* generatePoints(double (*f)(double), int n, double a, double b);
+//produces an output friendly data set for the 2nd project
 void produceInterpDataSet(Point* points, int n, char* title);
+//computes data relevant to project 2, not part of main functionality of the program
+void project2data();
+//takes the list of points that were interpolated, the coefficients of the second derivative,
+//and the index of the left endpoint of the spline we want the derivative of, and returns an array of 
+//the coefficients of the derivative - c0 is at index 0, c2 at index 2.
+double calcSplineDerivative(Point* points, int n, double* coeffs, int index, double x);
+
+
 int main(int argc, char** argv)
 {
   if(argc > 1) //do the standard output for the assignment
   {
-  Point* funcPoints = (Point*) malloc(sizeof(Point)*5);
-//Point* derivPoints = (Point*) malloc(sizeof(Point)*5);
-
-  funcPoints[0].x = -1,funcPoints[0]. y = -0.36236;
-  funcPoints[1].x =-0.5,funcPoints[1].y= -0.76484;
-  funcPoints[2].x=0, funcPoints[2].y=-.98007;
-  funcPoints[3].x=0.5,funcPoints[3].y= -0.95534;
-  funcPoints[4].x= 1,funcPoints[4].y= -0.69671;
- 
-  produceInterpDataSet(funcPoints,5, "Data Set 1");
-  //changing one data point to (0,-.24582)
-  funcPoints[2].y = -.24582;
-
-  produceInterpDataSet(funcPoints,5,"Data Set 2");
-
-  //1-x^2
-  free(funcPoints);
-  funcPoints = generatePoints(function2, 5, -1, 1);
-  produceInterpDataSet(funcPoints,5,"1-x^2");
-  free(funcPoints);
-	
-  funcPoints = generatePoints(function3, 5, -1,1);
-  produceInterpDataSet(funcPoints,5,"sqrt(5-x^2)"); 
-  free(funcPoints);
+    project2data();
   }
 
   else //the program required by the assignment
@@ -74,9 +66,37 @@ int main(int argc, char** argv)
    scanf("%lf",&x);
    double result = splint(coeffs,n,funcPoints,x);
    //need to calculate derivative
+   int i = 0; //bisection would be faster because our list is already sorted by x, might change later
+   for(; i < n-1; i++)
+   {
+	if(x >= funcPoints[i].x)
+		break;
+   }
+   double deriv = calcSplineDerivative(funcPoints, n, coeffs, i, x);
+   printf("x:\t%lfy:\t%lf,dx/dy:\t%lf",x,result,deriv);
+	   
   }
   return 0;
 }
+
+double calcSplineDerivative(Point* points, int n, double* y_dp, int index,double x)
+{
+ double splineCoeff[4];
+ double x1 = points[index].x, x2 = points[index+1].x;
+ double y1 = points[index].y, y2 = points[index+1].y;
+ double A = (x2-x)/(x2-x1);
+ double B = 1 - A;
+ double C = (1/6.0)*(A*(A*A) - A)*pow((x2-x1),2);
+ double D = (1/6.0)*(B*(B*B) - B)*pow(x2-x1,2);
+	
+ double y_p = y_dp[index]*(x2-x1)*(3*A*A - 1)/6.0 + y_dp[index+1]*(x2-x1)*(3*B*B - 1)/6.0; //value of the first derivative at x
+	
+ return y_p;
+	
+}
+
+//auxiliary function implementations
+
 
 void produceInterpDataSet(Point* points, int n, char* title)
 {
@@ -104,4 +124,31 @@ Point* generatePoints(double (*f)(double), int n, double a, double b)
   points[i].y = f(a+i*interval);
  }
  return points;
+}
+void project2data()
+{
+  Point* funcPoints = (Point*) malloc(sizeof(Point)*5);
+
+  funcPoints[0].x = -1,funcPoints[0]. y = -0.36236;
+  funcPoints[1].x =-0.5,funcPoints[1].y= -0.76484;
+  funcPoints[2].x=0, funcPoints[2].y=-.98007;
+  funcPoints[3].x=0.5,funcPoints[3].y= -0.95534;
+  funcPoints[4].x= 1,funcPoints[4].y= -0.69671;
+ 
+  produceInterpDataSet(funcPoints,5, "Data Set 1");
+  //changing one data point to (0,-.24582)
+  funcPoints[2].y = -.24582;
+
+  produceInterpDataSet(funcPoints,5,"Data Set 2");
+
+  //1-x^2
+  free(funcPoints);
+  funcPoints = generatePoints(function2, 5, -1, 1);
+  produceInterpDataSet(funcPoints,5,"1-x^2");
+  free(funcPoints);
+	
+  funcPoints = generatePoints(function3, 5, -1,1);
+  produceInterpDataSet(funcPoints,5,"sqrt(5-x^2)"); 
+  free(funcPoints);
+	
 }

@@ -69,7 +69,7 @@
 \section*{Justification of Method}
 	I elected to use cubic splines due to the discrete nature of the data set - because we have no guarantee of consistent, polynomial-like behavior at the data points, it is likely that a single interpolating polynomial would suffer from erratic behavior in between points to accommodate inconsistencies. Although Bezier Curves would likely provide a smooth, appealing interpolation of the data, because they do not necessarily agree with the data points, we would have less fine control over their behavior which is problematic for precise determination of ideal lighting. With  cubic splines, we can make adjustments solely through manipulation of the number, spacing, etc of data points without the need to also tweak control points to get expected behavior.
 % will we need a root finding algorithm to recover the coefficients?
-%\par Additionally, the cubic spline method %makes it relatively easy to compute each %interpolating polynomial. For lagrange %polynomials, we would need to use a root %finding method to determine each coefficient %of the entire polynomial in order to graph it, %because we generally compute them %iteratively, and do not explicitly generate the %polynomial. We do happen to know $c_0$ %ahead of time, though, because one of the %given data points in the set is $0$.
+\par Additionally, the cubic spline method makes it relatively easy to compute each interpolating polynomial. For lagrange polynomials, we would need to use a root finding method to determine each coefficient of the polynomial in order to take the derivative, because we generally compute them iteratively, and do not explicitly generate the polynomial. We do happen to know $c_0$ ahead of time, though, because one of the given data points in the set is $0$.
 
 \subsection*{Computation of Splines}
 
@@ -80,7 +80,6 @@
 \subsubsection*{$\sqrt{5-x^2}$}
 
 \subsection*{RMS Error Table}
-\subsection*{RMS Errors}
 {\renewcommand{\arraystretch}{1.3} %<- modify cell height to give data breathing room
 \begin{tabular}{| c | c |}
 \hline
@@ -92,6 +91,9 @@ $\sqrt{5-x^2}$ & \\
 \hline
 \end{tabular}
 
+\subsection*{Error Bounds}
+
+\subsection*{Accuracy of Derivative Values}
 \end{document}
 
 
