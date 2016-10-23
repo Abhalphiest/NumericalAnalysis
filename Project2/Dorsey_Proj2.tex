@@ -69,7 +69,7 @@
 \section*{Justification of Method}
 	I elected to use cubic splines due to the discrete nature of the data set - because we have no guarantee of consistent, polynomial-like behavior at the data points, it is likely that a single interpolating polynomial would suffer from erratic behavior in between points to accommodate inconsistencies. Although Bezier Curves would likely provide a smooth, appealing interpolation of the data, because they do not necessarily agree with the data points, we would have less fine control over their behavior which is problematic for precise determination of ideal lighting. With  cubic splines, we can make adjustments solely through manipulation of the number, spacing, etc of data points without the need to also tweak control points to get expected behavior.
 % will we need a root finding algorithm to recover the coefficients?
-\par Additionally, the cubic spline method makes it relatively easy to compute each interpolating polynomial. For lagrange polynomials, we would need to use a root finding method to determine each coefficient of the polynomial in order to take the derivative, because we generally compute them iteratively, and do not explicitly generate the polynomial. We do happen to know $c_0$ ahead of time, though, because one of the given data points in the set is $0$.
+\par Additionally, to find $y$ values corresponding to a given $x$ value on a Bezier curve, we would need to find the roots of $x = (1-t)^3*x_0 + 3*(1-t)^2*t*x_1 + 3*(1-t)*t^2*x_2$, giving us the $t$ corresponding to that $x$ value, and then use that to calculate $y(t)$. Although Newton's method is fast and reliable for cubic equations, it is preferable to not do more work.
 
 \subsection*{Computation of Splines}
 

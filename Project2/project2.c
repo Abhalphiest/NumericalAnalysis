@@ -37,9 +37,8 @@ void produceInterpDataSet(Point* points, int n, char* title);
 //computes data relevant to project 2, not part of main functionality of the program
 void project2data();
 //takes the list of points that were interpolated, the coefficients of the second derivative,
-//and the index of the left endpoint of the spline we want the derivative of, and returns an array of 
-//the coefficients of the derivative - c0 is at index 0, c2 at index 2.
-double calcSplineDerivative(Point* points, int n, double* coeffs, int index, double x);
+//and an x value and returns the value of the first derivative at that value
+double calcSplineDerivative(Point* points, int n, double* coeffs,  double x);
 
 
 int main(int argc, char** argv)
@@ -66,21 +65,21 @@ int main(int argc, char** argv)
    scanf("%lf",&x);
    double result = splint(coeffs,n,funcPoints,x);
    //need to calculate derivative
-   int i = 0; //bisection would be faster because our list is already sorted by x, might change later
-   for(; i < n-1; i++)
-   {
-	if(x >= funcPoints[i].x)
-		break;
-   }
-   double deriv = calcSplineDerivative(funcPoints, n, coeffs, i, x);
+   double deriv = calcSplineDerivative(funcPoints, n, coeffs, x);
    printf("x:\t%lfy:\t%lf,dx/dy:\t%lf",x,result,deriv);
 	   
   }
   return 0;
 }
 
-double calcSplineDerivative(Point* points, int n, double* y_dp, int index,double x)
+double calcSplineDerivative(Point* points, int n, double* y_dp, double x)
 {
+ int index = 0;
+ for(index; index < n-1; index++)
+   {
+	if(x >= points[index].x)
+		break;
+   }
  double splineCoeff[4];
  double x1 = points[index].x, x2 = points[index+1].x;
  double y1 = points[index].y, y2 = points[index+1].y;
@@ -108,7 +107,7 @@ void produceInterpDataSet(Point* points, int n, char* title)
   for(int i = -20; i < 21; i+=2)
   {
    double x = i/21.0;
-   printf("(%lf, %lf)\n",x,splint(funcCoeffs,5,points,x));
+   printf("(%lf, %lf)\n dy/dx:\t%lf\n",x,splint(funcCoeffs,5,points,x),calcSplineDerivative(points,n,funcCoeffs,x));
   }
   free(funcCoeffs);
 }
