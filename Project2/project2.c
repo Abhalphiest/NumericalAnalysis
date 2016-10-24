@@ -82,7 +82,7 @@ int main(int argc, char** argv)
 double calcSplineDerivative(Point* points, int n, double* y_dp, double x)
 {
  int index = 0;
- for(index; index < n-1; index++)
+ for(; index < n-1; index++)
    {
 	if(x >= points[index].x)
 		break;
@@ -95,7 +95,7 @@ double calcSplineDerivative(Point* points, int n, double* y_dp, double x)
  double C = (1/6.0)*(A*(A*A) - A)*pow((x2-x1),2);
  double D = (1/6.0)*(B*(B*B) - B)*pow(x2-x1,2);
 	
- double y_p = y_dp[index]*(x2-x1)*(3*A*A - 1)/6.0 + y_dp[index+1]*(x2-x1)*(3*B*B - 1)/6.0; //value of the first derivative at x
+ double y_p = -y_dp[index]*(x2-x1)*(3*A*A - 1)/6.0 + y_dp[index+1]*(x2-x1)*(3*B*B - 1)/6.0 + (y2 - y1)/(x2-x1); //value of the first derivative at x
 	
  return y_p;
 	
