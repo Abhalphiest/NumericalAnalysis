@@ -72,7 +72,66 @@
 \par Additionally, to find $y$ values corresponding to a given $x$ value on a Bezier curve, we would need to find the roots of $x = (1-t)^3*x_0 + 3*(1-t)^2*t*x_1 + 3*(1-t)*t^2*x_2$, giving us the $t$ corresponding to that $x$ value, and then use that to calculate $y(t)$. Although Newton's method is fast and reliable for cubic equations, it is preferable to not do more work.
 
 \subsection*{Computation of Splines}
+\subsubsection*{Raw Output for Data Set 1}
+\begin{alltt}
+Coefficients for Data Set 1
 
+0.000000	0.892633	0.923469	1.172533	0.000000	
+
+ Values of Cubic Interpolant for Data Set 1
+(-0.952381, -0.404201)
+(-0.857143, -0.487113)
+(-0.761905, -0.567712)
+(-0.666667, -0.644455)
+(-0.571429, -0.715801)
+(-0.476190, -0.780210)
+(-0.380952, -0.836615)
+(-0.285714, -0.884856)
+(-0.190476, -0.924882)
+(-0.095238, -0.956637)
+(0.000000, -0.980070)
+(0.095238, -0.995064)
+(0.190476, -1.001251)
+(0.285714, -0.998202)
+(0.380952, -0.985485)
+(0.476190, -0.962672)
+(0.571429, -0.929503)
+(0.666667, -0.887225)
+(0.761905, -0.837856)
+(0.857143, -0.783424)
+(0.952381, -0.725952)
+\end{alltt}
+
+
+\subsubsection*{Raw Output for Data Set 2}
+\begin{alltt}
+Coefficients for Data Set 2
+
+0.000000	8.444919	-11.663674	8.724819	0.000000	
+
+ Values of Cubic Interpolant for Data Set 2
+(-0.952381, -0.433899)
+(-0.857143, -0.569682)
+(-0.761905, -0.683580)
+(-0.666667, -0.761003)
+(-0.571429, -0.787360)
+(-0.476190, -0.748191)
+(-0.380952, -0.644578)
+(-0.285714, -0.507793)
+(-0.190476, -0.372577)
+(-0.095238, -0.273673)
+(0.000000, -0.245820)
+(0.095238, -0.312099)
+(0.190476, -0.448947)
+(0.285714, -0.621138)
+(0.380952, -0.793448)
+(0.476190, -0.930652)
+(0.571429, -1.001062)
+(0.666667, -1.003772)
+(0.761905, -0.953724)
+(0.857143, -0.865992)
+(0.952381, -0.755650)
+\end{alltt}
 \subsection*{Plots of Output}
 \subsubsection*{Data Set 1}
 \subsubsection*{Data Set 2}
