@@ -101,6 +101,7 @@ double calcSplineDerivative(Point* points, int n, double* y_dp, double x)
 	
 }
 
+
 //auxiliary function implementations
 
 

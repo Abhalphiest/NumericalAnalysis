@@ -134,25 +134,77 @@ Coefficients for Data Set 2
 \end{alltt}
 \subsection*{Plots of Output}
 \subsubsection*{Data Set 1}
+\includegraphics[scale=.5]{plots/dataset1approx.png}
 \subsubsection*{Data Set 2}
+\includegraphics[scale=.5]{plots/dataset2approx.png}
+\subsubsection*{Propagation of Error}
+In order to maintain agreement in the first and second derivative, all of the data points changed, at least
+slightly, when the center input point was changed signficantly (from $-.980070 $ to $-.245820$). However, the change in a 
+given point becomes less and less the further away from the incorrect data the point is, so the error does not propagate
+completely throughout, although it does effect the entire output set.
+
+\subsection*{Testing and Maximum Error Bound}
+\subsubsection*{$-\cos(x-.2)$}
+\includegraphics[scale=.3]{plots/dataset1approx.png}
+$$
+y(x) = \left\{
+        \begin{array}{ll}
+            -.94416178+0.01328678x+.297544285714286*x^3+.892632857x^2 &  x < -.5 \\
+            -.9800700-.20216250x+.4617342857x^2+0.01027857x^3 & x < 0 \\
+ 	-.98007000-.20216250x+.4617342857x^2+0.083021x^3 &  x < 0.5 \\
+ 	-.9208367857-.5575617857x+1.172532857x^2-.3908442857x^3 &  x \geq .5 \\
+        \end{array}
+    \right.
+$$
+
+The maximum error on the interval $[-1,1]$, $|-\cos(x-.2) - y(x)|$, is $0.00877438285370491$ at $x = .809398143755132$.
 \subsubsection*{$1-x^2$}
+\includegraphics[scale=.3]{plots/dataset3approx.png}
+$$
+y(x) = \left\{
+        \begin{array}{ll}
+            -.857142857142857*x+.857142857142857-.857142857142857*x^3-2.57142857142857*x^2 &  x < -.5 \\
+           1.00000000000000-.857142857142857*x^2+.285714285714286*x^3 & x < 0 \\
+ 	1.-.857142857142857*x^2-.285714285714286*x^3 &  x < 0.5 \\
+ 	.857142857142857+.857142857142857*x-2.57142857142857*x^2+.857142857142857*x^3 &  x \geq .5 \\
+        \end{array}
+    \right.
+$$
+
+The maximum error on the interval $[-1,1]$, $|1-x^2 - y(x)|$, is $0.0240658925870171$ at $x = -.811419518230411$.
 \subsubsection*{$\sqrt{5-x^2}$}
+\includegraphics[scale=.3]{plots/dataset4approx.png}
+$$
+y(x) = \left\{
+        \begin{array}{ll}
+            2.19686285714286-.235230857142857*x-.216046857142857*x^3-.648140571428571*x^2 &  x < -.5 \\
+           2.23606800000000-.177678857142857*x^2+0.975942857142857e-1*x^3 & x < 0 \\
+ 	2.23606800000000+1.38777878078145*10^(-17)*x-.177678857142857*x^2-0.975942857142857e-1*x^3 &  x < 0.5 \\
+ 	2.19686285714286+.235230857142857*x-.648140571428571*x^2+.216046857142857 &  x \geq .5 \\
+        \end{array}
+    \right.
+$$
 
-\subsection*{RMS Error Table}
-{\renewcommand{\arraystretch}{1.3} %<- modify cell height to give data breathing room
-\begin{tabular}{| c | c |}
-\hline
-Interpolated Function & RMS Error \\
-\hline
-$- \cos(x - 0.2)$ &  \\
-$1 - x^2$ & \\
-$\sqrt{5-x^2}$ & \\
-\hline
-\end{tabular}
+The maximum error on the interval $[-1,1]$, $|-\sqrt{5-x^2} - y(x)|$, is $0.00723274707416888$ at $x = -.812835264258024$.
 
-\subsection*{Error Bounds}
-
+\subsubsection*{Conclusions}
+\par In short, the program approximated all three functions fairly well, producing convincing graphs and relatively small maximum errors on the interval.
 \subsection*{Accuracy of Derivative Values}
+\subsubsection*{$-\cos(x-.2)$}
+\begin{alltt}
+
+\end{alltt}
+\subsubsection*{$1-x^2$}
+\begin{alltt}
+
+
+\end{alltt}
+\subsubsection*{$\sqrt{5-x^2}$}
+\begin{alltt}
+
+
+\end{alltt}
+
 \end{document}
 
 
