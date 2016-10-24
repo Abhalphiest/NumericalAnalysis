@@ -24,7 +24,14 @@ void printarray(double* arr, int n)
  printf("\n");
 
 }
+void printpoints(Point* arr, int n)
+{
+ printf("\n");
+ for(int i = 0; i < n; i++)
+	printf("(%lf, %lf)\n",arr[i].x, arr[i].y);
+ printf("\n");
 
+}
 //function declarations for the 3 functions we're concerned with
 double function1(double x) {return -cos(x-0.2);}
 double function2(double x){return 1 - x*x;}
@@ -66,7 +73,7 @@ int main(int argc, char** argv)
    double result = splint(coeffs,n,funcPoints,x);
    //need to calculate derivative
    double deriv = calcSplineDerivative(funcPoints, n, coeffs, x);
-   printf("x:\t%lfy:\t%lf,dx/dy:\t%lf",x,result,deriv);
+   printf("x:\t%lfy:\t%lf,dx/dy:\t%lf \n",x,result,deriv);
 	   
   }
   return 0;
@@ -107,7 +114,7 @@ void produceInterpDataSet(Point* points, int n, char* title)
   for(int i = -20; i < 21; i+=2)
   {
    double x = i/21.0;
-   printf("(%lf, %lf)\n dy/dx:\t%lf\n",x,splint(funcCoeffs,5,points,x),calcSplineDerivative(points,n,funcCoeffs,x));
+   printf("(%lf, %lf)\n dy/dx:\t%lf\n\n",x,splint(funcCoeffs,5,points,x),calcSplineDerivative(points,n,funcCoeffs,x));
   }
   free(funcCoeffs);
 }
@@ -133,20 +140,26 @@ void project2data()
   funcPoints[2].x=0, funcPoints[2].y=-.98007;
   funcPoints[3].x=0.5,funcPoints[3].y= -0.95534;
   funcPoints[4].x= 1,funcPoints[4].y= -0.69671;
- 
+  printf("Data Set 1\n");
+  printpoints(funcPoints,5); 
   produceInterpDataSet(funcPoints,5, "Data Set 1");
   //changing one data point to (0,-.24582)
   funcPoints[2].y = -.24582;
-
+  printf("Data Set 2\n");
+  printpoints(funcPoints,5);
   produceInterpDataSet(funcPoints,5,"Data Set 2");
 
   //1-x^2
   free(funcPoints);
   funcPoints = generatePoints(function2, 5, -1, 1);
+  printf("Data Set 3\n");
+  printpoints(funcPoints,5);
   produceInterpDataSet(funcPoints,5,"1-x^2");
   free(funcPoints);
 	
   funcPoints = generatePoints(function3, 5, -1,1);
+  printf("Data Set 4\n");
+  printpoints(funcPoints,5);
   produceInterpDataSet(funcPoints,5,"sqrt(5-x^2)"); 
   free(funcPoints);
 	
