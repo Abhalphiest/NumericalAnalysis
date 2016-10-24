@@ -84,7 +84,7 @@ double calcSplineDerivative(Point* points, int n, double* y_dp, double x)
  int index = 0;
  for(; index < n-1; index++)
    {
-	if(x >= points[index].x)
+	if(x >= points[index].x && x <= points[index+1].x)
 		break;
    }
  double splineCoeff[4];
