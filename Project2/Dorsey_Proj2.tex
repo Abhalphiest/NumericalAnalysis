@@ -69,7 +69,7 @@
 \section*{Justification of Method}
 	I elected to use cubic splines due to the discrete nature of the data set - because we have no guarantee of consistent, polynomial-like behavior at the data points, it is likely that a single interpolating polynomial would suffer from erratic behavior in between points to accommodate inconsistencies. Although Bezier Curves would likely provide a smooth, appealing interpolation of the data, because they do not necessarily agree with the data points, we would have less fine control over their behavior which is problematic for precise determination of ideal lighting. With  cubic splines, we can make adjustments solely through manipulation of the number, spacing, etc of data points without the need to also tweak control points to get expected behavior.
 % will we need a root finding algorithm to recover the coefficients?
-\par Additionally, to find $y$ values corresponding to a given $x$ value on a Bezier curve, we would need to find the roots of $x = (1-t)^3*x_0 + 3*(1-t)^2*t*x_1 + 3*(1-t)*t^2*x_2$, giving us the $t$ corresponding to that $x$ value, and then use that to calculate $y(t)$. Although Newton's method is fast and reliable for cubic equations, it is preferable to not do more work.
+\par Additionally, to find $y$ values corresponding to a given $x$ value on a Bezier curve, we would need to find the roots of $x = (1-t)^3x_0 + 3(1-t)^2tx_1 + 3(1-t)t^2x_2$, giving us the $t$ corresponding to that $x$ value, and then use that to calculate $y(t)$. Although Newton's method is fast and reliable for cubic equations, it is still preferable to not do more work.
 
 \subsection*{Computation of Splines}
 \subsubsection*{Raw Output for Data Set 1}
@@ -149,7 +149,7 @@ completely throughout, although it does effect the entire output set.
 $$
 y(x) = \left\{
         \begin{array}{ll}
-            -.94416178+0.01328678x+.297544285714286*x^3+.892632857x^2 &  x < -.5 \\
+            -.94416178+0.01328678x+.297544285714286x^3+.892632857x^2 &  x < -.5 \\
             -.9800700-.20216250x+.4617342857x^2+0.01027857x^3 & x < 0 \\
  	-.98007000-.20216250x+.4617342857x^2+0.083021x^3 &  x < 0.5 \\
  	-.9208367857-.5575617857x+1.172532857x^2-.3908442857x^3 &  x \geq .5 \\
@@ -163,10 +163,10 @@ The maximum error on the interval $[-1,1]$, $|-\cos(x-.2) - y(x)|$, is $0.008774
 $$
 y(x) = \left\{
         \begin{array}{ll}
-            -.857142857142857*x+.857142857142857-.857142857142857*x^3-2.57142857142857*x^2 &  x < -.5 \\
-           1.00000000000000-.857142857142857*x^2+.285714285714286*x^3 & x < 0 \\
- 	1.-.857142857142857*x^2-.285714285714286*x^3 &  x < 0.5 \\
- 	.857142857142857+.857142857142857*x-2.57142857142857*x^2+.857142857142857*x^3 &  x \geq .5 \\
+            -.8571428571x+.8571428571-.8571428571x^3-2.571428571x^2 &  x < -.5 \\
+           1.00000000000000-.8571428571x^2+.28571428571x^3 & x < 0 \\
+ 	1.-.8571428571x^2-.28571428571x^3 &  x < 0.5 \\
+ 	.8571428571+.8571428571x-2.571428571x^2+.8571428571x^3 &  x \geq .5 \\
         \end{array}
     \right.
 $$
@@ -177,10 +177,10 @@ The maximum error on the interval $[-1,1]$, $|1-x^2 - y(x)|$, is $0.024065892587
 $$
 y(x) = \left\{
         \begin{array}{ll}
-            2.19686285714286-.235230857142857*x-.216046857142857*x^3-.648140571428571*x^2 &  x < -.5 \\
-           2.23606800000000-.177678857142857*x^2+0.975942857142857e-1*x^3 & x < 0 \\
- 	2.23606800000000+1.38777878078145*10^(-17)*x-.177678857142857*x^2-0.975942857142857e-1*x^3 &  x < 0.5 \\
- 	2.19686285714286+.235230857142857*x-.648140571428571*x^2+.216046857142857 &  x \geq .5 \\
+            2.1968628571-.2352308571x-.2160468571x^3-.648140571x^2 &  x < -.5 \\
+           2.2360680-.1776788571x^2+0.09759428571x^3 & x < 0 \\
+ 	2.23606800+1.387778780781\times10^{-17}x-.1776788571x^2-0.09759428571*x^3 &  x < 0.5 \\
+ 	2.1968628571+.2352308571x-.648140571x^2+.2160468571 &  x \geq .5 \\
         \end{array}
     \right.
 $$
@@ -189,10 +189,13 @@ The maximum error on the interval $[-1,1]$, $|-\sqrt{5-x^2} - y(x)|$, is $0.0072
 
 \subsubsection*{Conclusions}
 \par In short, the program approximated all three functions fairly well, producing convincing graphs and relatively small maximum errors on the interval.
+
+\newpage
 \subsection*{Accuracy of Derivative Values}
 \subsubsection*{$-\cos(x-.2)$}
 \begin{alltt}
  Values of Cubic Interpolant for -cos(x-.2)
+
 (-0.952381, -0.404201)
  dy/dx:	-0.877322
 
@@ -209,85 +212,90 @@ The maximum error on the interval $[-1,1]$, $|-\sqrt{5-x^2} - y(x)|$, is $0.0072
  dy/dx:	-0.715393
 
 (-0.476190, -0.780210)
- dy/dx:	-0.634429
+ dy/dx:	-0.634917
 
 (-0.380952, -0.836615)
- dy/dx:	-0.537271
+ dy/dx:	-0.549485
 
 (-0.285714, -0.884856)
- dy/dx:	-0.423921
+ dy/dx:	-0.463493
 
 (-0.190476, -0.924882)
- dy/dx:	-0.294378
+ dy/dx:	-0.376943
 
 (-0.095238, -0.956637)
- dy/dx:	-0.148642
+ dy/dx:	-0.289832
 
 (0.000000, -0.980070)
- dy/dx:	0.013287
+ dy/dx:	-0.202162
 
 (0.095238, -0.995064)
- dy/dx:	0.191409
+ dy/dx:	-0.111954
 
 (0.190476, -1.001251)
- dy/dx:	0.385723
+ dy/dx:	-0.017227
 
 (0.285714, -0.998202)
- dy/dx:	0.596231
+ dy/dx:	0.082017
 
 (0.380952, -0.985485)
- dy/dx:	0.822931
+ dy/dx:	0.185780
 
 (0.476190, -0.962672)
- dy/dx:	1.065824
+ dy/dx:	0.294062
 
 (0.571429, -0.929503)
- dy/dx:	1.324911
+ dy/dx:	0.399608
 
 (0.666667, -0.887225)
- dy/dx:	1.600190
+ dy/dx:	0.484690
 
 (0.761905, -0.837856)
- dy/dx:	1.891662
+ dy/dx:	0.548501
 
 (0.857143, -0.783424)
- dy/dx:	2.199326
+ dy/dx:	0.591042
 
 (0.952381, -0.725952)
- dy/dx:	2.523184
+ dy/dx:	0.612312
 \end{alltt}
 
 \renewcommand{\arraystretch}{1.3} %<- modify cell height to give data breathing room
-\begin{tabular}{| c | c c c |}
+\begin{tabular}{| c | c c |}
 \hline
-$x$ & Spline Derivative & Actual Derivative & RMS Error\\
+$x$ & Spline Derivative & Actual Derivative \\
 \hline
--0.952381 & -0.877322 &  & \\
--0.857143 &-0.861129  &  & \\
--0.761905 & -0.780165 & &  \\
--0.666667 & 	-0.715393 & &  \\
--0.571429 &  -0.634429& &  \\
--0.476190 &-0.537271 & &  \\
--0.380952 &-0.423921  & &  \\
--0.285714 & -0.294378 & &  \\
--0.190476 & -0.148642 & &  \\
--0.095238 & 0.013287  & &  \\
-0.000000 & 	0.191409 & &  \\
-0.190476 & 0.385723 & &  \\
-0.285714 & 0.596231& &  \\
-0.380952 & 	0.822931 & &  \\
-0.476190 & 1.065824 & &  \\
-0.571429 & 1.324911 & &  \\
-0.666667 &  1.600190& &  \\
-0.761905 & 	1.891662 & &  \\
-0.857143 & 2.199326 & &  \\
-0.857143 & 2.523184 & &  \\
+-0.952381 & -0.877322 &-.9137339606   \\
+-0.857143 &-0.861129  & -.8709552164  \\
+-0.761905 & -0.828743 & -.8202826368   \\
+-0.666667 &-0.780165 & -.7621754887   \\
+-0.571429 &  -0.715393& -.6971604219   \\
+-0.476190 &	-0.634917 & -.6258259153   \\
+-0.380952 &-0.549485  & -.5488200008   \\
+-0.285714 &-0.463493 & -.4668398985   \\
+-0.190476 &-0.376943 & -.3806286287 \\
+-0.095238 &-0.289832 & -.2909675608   \\
+0.000000 & -0.202162 & -.1986693308  \\
+0.095238 & -0.111954  & -.1045704766 \\
+0.190476 & -0.017227 &  -0.009523856019   \\
+0.285714 & 0.082017& 0.08560908333   \\
+0.380952 & 0.185780 & 0.1799661114   \\
+0.476190 & 0.294062 & 0.2726920304   \\
+0.571429 & 0.399608 & 0.3629473581   \\
+0.666667 &  0.484690& 0.4499121782   \\
+0.761905 & 	0.548501 & 0.5327992541  \\
+0.857143 & 0.591042 &0.6108573450   \\
+0.952381 &0.612312 & 0.6833789774   \\
 
 \hline
-\end{tabular}
+\end{tabular} \\
+
+\includegraphics[scale=1]{plots/deriv1plot.png}
+\newpage
+
 \subsubsection*{$1-x^2$}
 \begin{alltt}
-Values of Cubic Interpolant for 1-x^2
+ Values of Cubic Interpolant for 1-x^2
 (-0.952381, 0.081540)
  dy/dx:	1.708455
 
@@ -304,83 +312,85 @@ Values of Cubic Interpolant for 1-x^2
  dy/dx:	1.241983
 
 (-0.476190, 0.774785)
- dy/dx:	1.008746
+ dy/dx:	1.010690
 
 (-0.380952, 0.859812)
- dy/dx:	0.728863
+ dy/dx:	0.777454
 
 (-0.285714, 0.923365)
- dy/dx:	0.402332
+ dy/dx:	0.559767
 
 (-0.190476, 0.966927)
- dy/dx:	0.029155
+ dy/dx:	0.357629
 
 (-0.095238, 0.991979)
- dy/dx:	-0.390671
+ dy/dx:	0.171040
 
 (0.000000, 1.000000)
- dy/dx:	-0.857143
+ dy/dx:	0.000000
 
 (0.095238, 0.991979)
- dy/dx:	-1.370262
+ dy/dx:	-0.171040
 
 (0.190476, 0.966927)
- dy/dx:	-1.930029
+ dy/dx:	-0.357629
 
 (0.285714, 0.923365)
- dy/dx:	-2.536443
+ dy/dx:	-0.559767
 
 (0.380952, 0.859812)
- dy/dx:	-3.189504
+ dy/dx:	-0.777454
 
 (0.476190, 0.774785)
- dy/dx:	-3.889213
+ dy/dx:	-1.010690
 
 (0.571429, 0.667222)
- dy/dx:	-4.635569
+ dy/dx:	-1.241983
 
 (0.666667, 0.539683)
- dy/dx:	-5.428571
+ dy/dx:	-1.428571
 
 (0.761905, 0.396594)
- dy/dx:	-6.268222
+ dy/dx:	-1.568513
 
 (0.857143, 0.242399)
- dy/dx:	-7.154519
+ dy/dx:	-1.661808
 
 (0.952381, 0.081540)
- dy/dx:	-8.087464
+ dy/dx:	-1.708455
 
 \end{alltt}
 
-\begin{tabular}{| c | c c c |}
+\begin{tabular}{| c | c c |}
 \hline
-$x$ & Spline Derivative & Actual Derivative & RMS Error\\
+$x$ & Spline Derivative & Actual Derivative\\
 \hline
--0.952381 &  &  & \\
--0.857143 &  &  & \\
--0.761905 &  & &  \\
--0.666667 &  & &  \\
--0.571429 &  & &  \\
--0.476190 & & &  \\
--0.380952 &  & &  \\
--0.285714 &  & &  \\
--0.190476 &  & &  \\
--0.095238 &  & &  \\
-0.000000 &  & &  \\
-0.190476 &  & &  \\
-0.285714 & & &  \\
-0.380952 &  & &  \\
-0.476190 &  & &  \\
-0.571429 &  & &  \\
-0.666667 &  & &  \\
-0.761905 &  & &  \\
-0.857143 &  & &  \\
-0.857143 &  & &  \\
+-0.952381 & 1.708455 &  1.904762 \\
+-0.857143 & 1.661808 &  1.714286\\
+-0.761905 & 1.568513 &   1.523810\\
+-0.666667 & 1.428571 &  1.333334  \\
+-0.571429 & 1.241983 &  1.142858 \\
+-0.476190 & 1.010690 &  .952380 \\
+-0.380952 &  0.777454&  .761904 \\
+-0.285714 & 0.559767 &  .571428  \\
+-0.190476 & 0.357629 &   .380952 \\
+-0.095238 & 0.171040 &   0.190476\\
+0.000000 &  0.000000&   0.000000 \\
+0.095238 & -0.171040 & - 0.190476\\
+0.190476 & -0.357629 &  -.380952 \\
+0.285714 & -0.559767&  -.571428\\
+0.380952 & -0.777454&  -.761904 \\
+0.476190 & -1.010690 & -.952380  \\
+0.571429 &-1.241983 &   -1.142858\\
+0.666667 & -1.428571  &  -1.333334 \\
+0.761905 &-1.568513 & -1.523810  \\
+0.857143 & -1.661808 & -1.714286   \\
+0.952381 &-1.708455 & -1.904762  \\
 
 \hline
-\end{tabular}
-
+\end{tabular} \\
+\includegraphics[scale=1]{plots/deriv2plot.png}
+\newpage
 \subsubsection*{$\sqrt{5-x^2}$}
 \begin{alltt}
  Values of Cubic Interpolant for sqrt(5-x^2)
@@ -400,86 +410,91 @@ $x$ & Spline Derivative & Actual Derivative & RMS Error\\
  dy/dx:	0.293864
 
 (-0.476190, 2.185240)
- dy/dx:	0.235075
+ dy/dx:	0.235608
 
 (-0.380952, 2.204887)
- dy/dx:	0.164528
+ dy/dx:	0.177863
 
 (-0.285714, 2.219288)
- dy/dx:	0.082223
+ dy/dx:	0.125430
 
 (-0.190476, 2.228947)
- dy/dx:	-0.011839
+ dy/dx:	0.078308
 
 (-0.095238, 2.234372)
- dy/dx:	-0.117660
+ dy/dx:	0.036498
 
 (0.000000, 2.236068)
- dy/dx:	-0.235238
+ dy/dx:	0.000000
 
 (0.095238, 2.234372)
- dy/dx:	-0.364573
+ dy/dx:	-0.036498
 
 (0.190476, 2.228947)
- dy/dx:	-0.505667
+ dy/dx:	-0.078308
 
 (0.285714, 2.219288)
- dy/dx:	-0.658518
+ dy/dx:	-0.125430
 
 (0.380952, 2.204887)
- dy/dx:	-0.823128
+ dy/dx:	-0.177863
 
 (0.476190, 2.185240)
- dy/dx:	-0.999495
+ dy/dx:	-0.235608
 
 (0.571429, 2.159955)
- dy/dx:	-1.187620
+ dy/dx:	-0.293864
 
 (0.666667, 2.129635)
- dy/dx:	-1.387502
+ dy/dx:	-0.340895
 
 (0.761905, 2.095396)
- dy/dx:	-1.599143
+ dy/dx:	-0.376168
 
 (0.857143, 2.058358)
- dy/dx:	-1.822541
+ dy/dx:	-0.399684
 
 (0.952381, 2.019639)
- dy/dx:	-2.057697
+ dy/dx:	-0.411442
 
 \end{alltt}
 
-\begin{tabular}{| c | c c c |}
+\begin{tabular}{| c | c c |}
 \hline
-$x$ & Spline Derivative & Actual Derivative & RMS Error\\
+$x$ & Spline Derivative & Actual Derivative\\
 \hline
--0.952381 &  &  & \\
--0.857143 &  &  & \\
--0.761905 &  & &  \\
--0.666667 &  & &  \\
--0.571429 &  & &  \\
--0.476190 & & &  \\
--0.380952 &  & &  \\
--0.285714 &  & &  \\
--0.190476 &  & &  \\
--0.095238 &  & &  \\
-0.000000 &  & &  \\
-0.190476 &  & &  \\
-0.285714 & & &  \\
-0.380952 &  & &  \\
-0.476190 &  & &  \\
-0.571429 &  & &  \\
-0.666667 &  & &  \\
-0.761905 &  & &  \\
-0.857143 &  & &  \\
-0.857143 &  & &  \\
+-0.952381 & 0.411442 &  0.4707511819  \\
+-0.857143 & 0.399684 & 0.4150287594 \\
+-0.761905 & 0.376168 &  0.3624217197  \\
+-0.666667 & 0.340895  & 0.3123476952  \\
+-0.571429 & 0.293864 & 0.2643276522  \\
+-0.476190 & 0.235608 & 0.2179583417  \\
+-0.380952 & 0.177863 & 0.1728945111  \\
+-0.285714 & 0.125430 & 0.1288311943  \\
+-0.190476 & 0.078308 & 0.08549420399  \\
+-0.095238 & 0.036498 &  0.04263041293 \\
+0.000000 & 0.000000 &  0.000000  \\
+0.095238 & -0.036498 & -0.04263041293\\
+0.190476 & -0.078308  &  -0.08549420399 \\
+0.285714 &  -0.125430 & -.1288311943  \\
+0.380952 & -0.177863  &  -.1728945111 \\
+0.476190 & -0.235608 &  -.2179583417 \\
+0.571429 &-0.293864  & -.2643276522  \\
+0.666667 & -0.340895  &  -.3123476952 \\
+0.761905 & -0.376168 &  -.3624217197  \\
+0.857143 & -0.399684 &  -.4150287594 \\
+0.952381 & -0.411442 &  -.4707511819 \\
 
 \hline
-\end{tabular}
+\end{tabular} \\
 
-
+\includegraphics[scale=1]{plots/deriv3plot.png}
 \subsubsection*{Analysis}
-
+Without even calculating the error, it is clear from the plots that the derivative approximation is less accurate than
+the approximation of the function itself. One cause of this is our natural endpoint condition - the first derivative of the spline
+at the endpoints is affected by the second derivative going to $0$ - we could reduce this error by setting the second derivative
+at the endpoints to the actual value of the second derivative.
+\par The more pathological problem is that the derivative of an interpolating cubic is necessarily a quadratic - and parabolic approximations simply are not very flexible. Derivative functions that are well approximated by a parabola, like $-\sin$, have relatively little error in their approximation, while more error is induced by less suitable derivatives. This error is unavoidable when using cubic splines, and would have to be kept in mind when using them to approximate both the function and the first derivative.
 \end{document}
 
 
