@@ -10,4 +10,4 @@
 double fiveptStencil(double* x, double* y, int n);
 double simpson(double* x, double* y, int n);
 double trapezoid(double* x, double* y,  int n);
-double romberg();
+double romberg(double (*f)(double), double a, double b, int n, int m);
