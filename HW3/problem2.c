@@ -11,7 +11,16 @@
 #include<numericalcalc.h>
 #define PI 3.14159265359
 
+const double a = 0;
+const double b = PI;
+const double h;
+
 double f(double x){return sin(x)*exp(cos(x));}
+
+double g(double x)
+{
+ 
+}
 
 double* constructData(int n, double left, double right);
 int main ()

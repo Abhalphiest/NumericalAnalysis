@@ -4,10 +4,13 @@
 //
 // Author:	Margaret Dorsey
 //
-// MATH 411 Numerical Analysis Homework 2
+// MATH 411 Numerical Analysis Homework 3
 //
 
-double fiveptStencil(double* x, double* y, int n);
-double simpson(double* x, double* y, int n);
-double trapezoid(double* x, double* y,  int n);
+#include<math.h>
+#include<stdio.h>
+
+void fiveptStencil(double* x, double* y, int n);
+double simpson(double (*f)(double), double a, double b, int n);
+double trapezoid(double (*f) (double), double a, double b, int n);
 double romberg(double (*f)(double), double a, double b, int n, int m);
