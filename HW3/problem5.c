@@ -25,7 +25,7 @@ int main()
  cresult = romberg(f3, 1, 4, 3, 3);
  dresult = romberg(f4, CONST_E, 2*CONST_E,3,3);
 
- printf("a.) %lf\n b.) %lf\n c.) %lf\n d.) %lf\n",
+ printf("a.) %lf\nb.) %lf\nc.) %lf\nd.) %lf\n",
 	aresult,bresult,cresult,dresult);
  return 0; 
 
@@ -33,4 +33,4 @@ int main()
 
 
 
-}
+
