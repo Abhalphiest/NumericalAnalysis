@@ -10,7 +10,7 @@
 #include"numericalcalc.h"
 #include<stdlib.h>
 //prints its own output for now, for simplicity
-void fiveptStencil(double* x, double* y, int n)
+void fivePointStencil(double* x, double* y, int n)
 {
  if(n < 5) return; //can't do anything
  double h = fabs(x[1] - x[0]); //evenly spaced points
