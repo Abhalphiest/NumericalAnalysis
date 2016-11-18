@@ -23,6 +23,21 @@ void fivePointStencil(double* x, double* y, int n)
  return;
 }
 
+void fivePointStencil2(double*x, double* y, int n)
+{
+ if(n<5) return;
+ double h = fabs(x[1]-x[0]);
+ double fprime;
+ for(int i = 2; i + 2 < n; i++)
+ {
+  fprime = (-y[i+2]+16*y[i+1] - 30*y[i]  + 16*y[i-1] - y[i-2])/(12*h*h);
+  printf("x:\t %lf \t f(x): \t %lf \t f''(x) \t %lf \n",x[i],y[i],fprime);
+ }
+
+ 
+
+}
+
 double simpson(double (*f)(double), double a, double b, int n)
 {
   if(n%2)
@@ -77,7 +92,7 @@ double romberg(double (*f)(double), double a, double b, int n, int m)
   
   for(int j = 1; j <= m; j++)
   {
-   T[i][j] = T[i][j-1] + (T[i][j-1] - T[i-1][j-1])*(1/((2<<m+1)-1));
+   T[i][j] = T[i][j-1] + (T[i][j-1] - T[i-1][j-1])*(1/((2<<(m+1))-1));
   }
   sumupper*=2;
  }

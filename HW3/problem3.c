@@ -10,15 +10,29 @@
 #include"approximations.h"
 #include<stdio.h>
 
-double* magToLuminosity(double* x, double* y, int n);
+double* magToLuminosity( double* y, int n);
+
+double* x;
+double* y;
+int n;
+
+double f(double val)
+{
+ for(int i = 0; i < n; i++)
+ {
+  if(fabs(val-x[i]) < .00001)
+	return y[i];
+ }
+ //shouldn't ever fire ideally
+ printf("non-data value requested \n");
+ return 0; //garbage value
+}
 
 int main()
 {
  //get data
- int n;
  printf("n: ");
  scanf("%d", &n);
- double* x, y;
  x = (double*) malloc(sizeof(double)*n);
  y = (double*) malloc(sizeof(double)*n);
  for(int i = 0; i < n; i++)
@@ -28,8 +42,8 @@ int main()
 
  //numerically integrate
  double simpresult, trapresult;
- simpresult = simpson(x,y,n);
- trapresult = trapezoid(x,y,n);
+ simpresult = simpson(f,0,1,5);
+ trapresult = trapezoid(f,0,1,10);
 
  printf("Simpson's: %lf \t Trapezoid: %lf \n");
 
@@ -37,18 +51,22 @@ int main()
 
 
 
- //print out spline function
+ //integrate numerically
+ 
 
+ //convert to luminosity
 
+ 
  //convert data to luminosities
  double* luminosities;
- luminosities = magtoLuminosity(x,y,n);
+ luminosities = magtoLuminosity(y,n);
  
 
  //make cubic spline
 
 
- //print out spline function
+ //integrate numerically
 
-
+ 
+ //print results
 }

@@ -8,6 +8,7 @@
 #include<stdio.h>
 #include<stdlib.h> //for rand
 #include<math.h> //for trig
+#include<time.h> //for random
 #include"numericalcalc.h"
 #define PI 3.14159265359
 
@@ -42,7 +43,8 @@ int main ()
  }
  printf("Five Point Stencil Differentiation: \n");
  fivePointStencil(data, data+n, n);
-
+ printf("\n\n Five Point Stencil Second Derivative: \n"); 
+ fivePointStencil2(data,data+n,n);
  free(data);
  return 0;
 }
@@ -52,10 +54,15 @@ double* constructData(int n, double left, double right)
  double h = (right - left)/n;
  double* data = (double*)malloc(sizeof(double)*2*n);
  double x = left;
+ srand(time(NULL));
  for(int i = 0; i < n; i++)
  {
   data[i] = x;
-  data[i+n] = f(x)+rand();
+  double frand = ((float)rand()/(float)RAND_MAX)/(5.0*10*10); //gives us from 0
+							   //to 2/10^3
+  frand -= 1.0/(10*10*10); //center our random numbers around 0
+  //printf("%lf\n",frand);
+  data[i+n] = f(x)+frand;
   x+=h;
  }
  return data;
