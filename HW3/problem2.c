@@ -19,11 +19,13 @@ double f(double x){return sin(x)*exp(cos(x));}
 
 double g(double x) //kind of a hacky way to add noise, but..
 {
- for(int i = 0; i < n; i++) 
+ for(int i = 0; i <= n; i++) 
  {
   if(fabs(x - data[i]) < .0000001) //account for floating point error
-	return data[i+n];
+	return data[i+n+1];
  }
+ //shouldn't happen
+ printf("Non-data value requested, %lf\n",x);
  return f(x); //we weren't at any of the noisy data points
 }
 
@@ -42,9 +44,9 @@ int main ()
   return -1;
  }
  printf("Five Point Stencil Differentiation: \n");
- fivePointStencil(data, data+n, n);
+ fivePointStencil(data, data+n+1, n+1);
  printf("\n\n Five Point Stencil Second Derivative: \n"); 
- fivePointStencil2(data,data+n,n);
+ fivePointStencil2(data,data+n+1,n+1);
  free(data);
  return 0;
 }
@@ -52,10 +54,10 @@ int main ()
 double* constructData(int n, double left, double right)
 {
  double h = (right - left)/n;
- double* data = (double*)malloc(sizeof(double)*2*n);
+ double* data = (double*)malloc(sizeof(double)*2*(n+1));
  double x = left;
  srand(time(NULL));
- for(int i = 0; i < n; i++)
+ for(int i = 0; i <= n; i++)
  {
   data[i] = x;
   double frand = ((float)rand()/(float)RAND_MAX)/(5.0*10*10); //gives us from 0

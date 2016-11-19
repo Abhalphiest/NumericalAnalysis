@@ -6,5 +6,8 @@ problem2: problem2.c numericalcalc.c approximations.c
 problem3: problem3.c numericalcalc.c approximations.c
 	gcc -o problem3.exe problem3.c numericalcalc.c approximations.c -lgsl -lgslcblas -lm
 
+problem2error: problem2error.c
+	gcc -o prob2err problem2error.c -lm
+
 problem5: problem5.c numericalcalc.c
 	 gcc -o problem5.exe problem5.c numericalcalc.c -lm

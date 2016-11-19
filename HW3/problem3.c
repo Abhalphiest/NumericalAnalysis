@@ -43,6 +43,13 @@ double lumf(double val)
  return splint(luminosityspline,n,luminosities,val);
 }
 
+
+void printinput()
+{
+ for(int i = 0; i < n; i++)
+  printf("x:\t%lf y:\t%lf\n",x[i],y[i]);
+
+}
 int main()
 {
  //get data
@@ -54,10 +61,10 @@ int main()
  {
    scanf("%lf %lf",x+i,y+i);
  }
-
+ // printinput();
  //numerically integrate
  double simpresult, trapresult;
- simpresult = simpson(f,0,1,5);
+ simpresult = simpson(f,0,1,10);
  trapresult = trapezoid(f,0,1,10);
 
  printf("Simpson's: %lf \t Trapezoid: %lf \n",simpresult, trapresult);

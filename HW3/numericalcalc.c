@@ -61,8 +61,10 @@ double trapezoid(double (*f)(double),double a, double b, int n)
 {
  double h = (b-a)/n;
  double s = f(a)+f(b);
- for(int i = 1; i < n-1; i++)
-	s+=f(a+i*h);
+ for(int i = 1; i < n; i++)
+ {
+	s+=2*f(a+i*h);
+ }
  s*= h/2;
  return s;
 }

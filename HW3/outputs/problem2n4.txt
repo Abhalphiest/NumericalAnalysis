@@ -1,0 +1,2 @@
+n: Simpson's Method: 1.606199 
+Need at least 5 points to use 5 point stencil
