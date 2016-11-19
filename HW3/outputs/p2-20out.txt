@@ -1,0 +1,48 @@
+val: 2.214582 estimate: 1.671256
+val: 1.669497 estimate: 1.042747
+val: 1.040937 estimate: 0.420856
+val: 0.420037 estimate: -0.115129
+val: -0.120102 estimate: -0.539680
+val: -0.535203 estimate: -0.811071
+val: -0.811110 estimate: -0.956329
+val: -0.957795 estimate: -1.002447
+val: -1.000000 estimate: -0.962617
+val: -0.968040 estimate: -0.895405
+val: -0.890932 estimate: -0.799074
+val: -0.792517 estimate: -0.689376
+val: -0.690164 estimate: -0.588591
+val: -0.595187 estimate: -0.515004
+val: -0.514098 estimate: -0.454290
+val: -0.450083 estimate: -0.402928
+val: -0.404316 estimate: -0.406978
+
+
+First Derivative 
+
+Average Absolute Error: 0.223943
+Average Relative Error: 0.445905
+
+
+val: -3.005663  estimate: -3.781536
+val: -3.836621  estimate: -4.126340
+val: -4.067624  estimate: -3.712590
+val: -3.759220  estimate: -3.077193
+val: -3.070962  estimate: -2.293389
+val: -2.199960  estimate: -1.182526
+val: -1.324623  estimate: -0.693501
+val: -0.570278  estimate: 0.086248
+val: -0.000001  estimate: 0.370911
+val: 0.375731  estimate: 0.477985
+val: 0.580625  estimate: 0.732428
+val: 0.654067  estimate: 0.642534
+val: 0.637265  estimate: 0.624652
+val: 0.565277  estimate: 0.321997
+val: 0.463942  estimate: 0.453654
+val: 0.349980  estimate: 0.189104
+val: 0.232638  estimate: -0.039708
+
+
+Second Derivative 
+
+Average Absolute Error: 0.383601
+Average Relative Error: 22255.208023

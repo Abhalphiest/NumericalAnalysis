@@ -32,7 +32,7 @@ int main(int argc, char** argv)
  }
  printf("\n\nFirst Derivative \n\n");
  printf("Average Absolute Error: %lf\n",absErrorSum/count);
- printf("Average Relative Error: %lf\n",relErrorSum/count);
+ printf("Average Relative Error: %lf\n\n\n",relErrorSum/count);
 
  absErrorSum = 0, relErrorSum=0;
  for(int i = 0; i < count; i++)

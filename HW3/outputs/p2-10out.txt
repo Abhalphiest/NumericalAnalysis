@@ -1,0 +1,28 @@
+val: 1.040937 estimate: -0.108147
+val: -0.120102 estimate: -0.801580
+val: -0.811110 estimate: -0.997949
+val: -1.000000 estimate: -0.894805
+val: -0.890932 estimate: -0.693388
+val: -0.690164 estimate: -0.515544
+val: -0.514098 estimate: -0.437590
+
+
+First Derivative 
+
+Average Absolute Error: 0.367324
+Average Relative Error: 1.105306
+
+
+val: -4.067624  estimate: -3.052325
+val: -3.070962  estimate: -1.331089
+val: -1.324623  estimate: -0.006120
+val: -0.000001  estimate: 0.563779
+val: 0.580625  estimate: 0.654338
+val: 0.637265  estimate: 0.451502
+val: 0.463942  estimate: 0.141036
+
+
+Second Derivative 
+
+Average Absolute Error: 0.745691
+Average Relative Error: 82151.805057
