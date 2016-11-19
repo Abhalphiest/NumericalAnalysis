@@ -50,7 +50,7 @@ double calcSplineDerivative(Point* points, int n, double* coeffs,  double x);
 
 int main(int argc, char** argv)
 {
-  if(argc > 1) //do the standard output for the assignment
+  if(argc > 1) //do the standard output for the assignment if there is a command line arg
   {
     project2data();
   }
@@ -95,7 +95,9 @@ double calcSplineDerivative(Point* points, int n, double* y_dp, double x)
  double C = (1/6.0)*(A*(A*A) - A)*pow((x2-x1),2);
  double D = (1/6.0)*(B*(B*B) - B)*pow(x2-x1,2);
 	
- double y_p = -y_dp[index]*(x2-x1)*(3*A*A - 1)/6.0 + y_dp[index+1]*(x2-x1)*(3*B*B - 1)/6.0 + (y2 - y1)/(x2-x1); //value of the first derivative at x
+ double y_p = -y_dp[index]*(x2-x1)*(3*A*A - 1)/6.0 
+ + y_dp[index+1]*(x2-x1)*(3*B*B - 1)/6.0 + (y2 - y1)/(x2-x1); //value of the first derivative at x
+																//calculated with chain rule on A,B,C,D
 	
  return y_p;
 	

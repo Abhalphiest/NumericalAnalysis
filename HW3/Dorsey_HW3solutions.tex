@@ -1,4 +1,4 @@
-% !TEX TS-program = pdflatex
+                                                                                                                                                                                                        % !TEX TS-program = pdflatex
 % !TEX encoding = UTF-8 Unicode
 
 % This is a simple template for a LaTeX document using the "article" class.
@@ -75,13 +75,32 @@
 \subsection*{5 Point Stencils}
 
 \subsection*{Simpson's Rule}
+Actual value of $\int_{0}^{\pi} \sin x \cdot e^{\cos x} dx$ : 2.350402.
 
+\begin{tabular}{c | c | c }
+n & Simpson's Result & Absolute Error \\
+\hline
+4 & 1.606199 & .744203 \\
+10 & 2.215001 & .135401 \\
+20 & 2.315927&  .034475\\
+30 & 2.334574&  .015828\\
+100 & 2.349178 & .001224 \\
+200 & 2.350407 & .000005 \\
+\end{tabular}
+
+\includegraphics[scale=.5]{plots/problem2simpsonplot.png}
+\subsection*{Analysis}
+Simpson's method remained fairly stable despite the noise, with the error showing a clear exponential decay as $n$ increased,
+and achieving $10^{-5}$ accuracy at $n=200$.
 \section*{Problem 3}
-\subsection*{Trapezoid Method}
+\begin{tabular}{c c}
+Simpson's Method Integration & 0.316200 \\
+Trapezoid Method Integration & 0.318500 \\
+Total Emitted Energy from Magnitude Spline & $64.469777\cdot L_\odot$\\
+Total Emitted Energy from Luminosity Spline & $64.476557\cdot L_\odot$\\
+\end{tabular}\\
 
-\subsection*{Simpson's Rule}
 
-\subsection*{Cubic Spline Approximation}
 \section*{Problem 4}
 
 \subsection*{Median Photon Energy}
@@ -91,10 +110,21 @@
 
 \section*{Problem 5}
 \begin{enumerate}[a.)]
-\item
-\item
-\item
-\item
+\item $\int_{-1}^{1} \cos^2xdx$\\
+Actual value: 1.4546 \\
+Romberg 3,3 Value: .868757
+
+\item $\int_{-\frac{3}{4}}^{\frac{3}{4}} x \ln(x+1) dx$\\
+Actual value: .324332 \\
+Romberg 3,3 Value: .270399
+
+\item $\int_{1}^{4} \sin^2x - 2x\sin x +1 dx$\\
+Actual value: 1.3668 \\
+Romberg 3,3 Value: 
+
+\item $\int_{e}^{2e} \frac{1}{x\ln x}dx$\\
+Actual value: .52659\\
+Romberg 3,3 Value: .382850
 \end{enumerate}
 
 \section*{Problem 6}

@@ -21,10 +21,10 @@ int main(int argc, char** argv)
  if(argc < 2) return -1;
  int count = (int) strtol(argv[1],NULL,10);
  double absErrorSum=0, relErrorSum=0;
- double x, f_x, estimate, val;
+ double x, estimate, val;
  for(int i = 0; i < count; i++)
  {
-  scanf("x:\t %lf \t f(x): \t %lf \t f'(x) \t %lf \n",&x, &f_x,&estimate);
+  scanf("%lf %lf",&x,&estimate);
   val = firstderiv(x);
   absErrorSum += fabs(val-estimate);
   relErrorSum += fabs((estimate-val)/val);
@@ -37,7 +37,7 @@ int main(int argc, char** argv)
  absErrorSum = 0, relErrorSum=0;
  for(int i = 0; i < count; i++)
  {
-  scanf("x:\t %lf \t f(x): \t %lf \t f''(x) \t %lf \n",&x,&f_x,&estimate);
+  scanf("%lf %lf",&x,&estimate);
   val = secondderiv(x);
   absErrorSum += fabs(val-estimate);
   relErrorSum += fabs((estimate-val)/val);
