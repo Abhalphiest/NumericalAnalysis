@@ -73,7 +73,29 @@
 
 \section*{Problem 2}
 \subsection*{5 Point Stencils}
-
+\subsubsection*{First Derivative}
+\begin{tabular}{c | c | c }
+n & Average Absolute Error & Average Relative Error \\
+\hline
+10 & 0.367324 & 1.105306 \\
+20 & 0.223943& 0.445905\\
+30 &0.152942&  0.289964\\
+100 & 0.048564 & 0.136987 \\
+200 &0.038970 &0.084145\\
+\end{tabular}\\
+\includegraphics[scale=.5]{plots/problem2firstderivplot.png}
+\subsubsection*{Second Derivative}
+\begin{tabular}{c | c | c }
+n & Average Absolute Error & Average Relative Error \\
+\hline
+10 & 0.745691 & 82151.805057 \\
+20 & 2.315927& 22255.208023\\
+30 & 0.312447& 16943.067463\\
+100 & 1.473741 & 10594.331845 \\
+200 & 6.611830 & 40690.086618 \\
+\end{tabular}\\
+\includegraphics[scale=.5]{plots/problem2secondderivplot1.png}
+\includegraphics[scale=.5]{plots/problem2secondderivplot2.png}
 \subsection*{Simpson's Rule}
 Actual value of $\int_{0}^{\pi} \sin x \cdot e^{\cos x} dx$ : 2.350402.
 
@@ -92,6 +114,13 @@ n & Simpson's Result & Absolute Error \\
 \subsection*{Analysis}
 Simpson's method remained fairly stable despite the noise, with the error showing a clear exponential decay as $n$ increased,
 and achieving $10^{-5}$ accuracy at $n=200$.
+
+The first derivative using stencils did a little worse, with the error not only not decreasing as quickly with increasing $n$, but also seeming to level out in its decay as $n$ becomes large.
+
+The second derivative suffered from huge relative error as the true value of the second derivative became small, and regardless of $n$, it seems as though the error in the second derivative approximation stayed consistent with (and amplified) the behavior of the noise.
+
+Raw data for this problem can be found in the outputs directory.
+
 \section*{Problem 3}
 \begin{tabular}{c c}
 Simpson's Method Integration & 0.316200 \\
@@ -100,6 +129,8 @@ Total Emitted Energy from Magnitude Spline & $64.469777\cdot L_\odot$\\
 Total Emitted Energy from Luminosity Spline & $64.476557\cdot L_\odot$\\
 \end{tabular}\\
 
+\subsection*{Analysis}
+Given the number of points, the results of Simpson's Method and the Trapezoid Method are fairly comparable. Converting to luminosity before splining rather than after does not seem to have had a tremendous impact on the approximated result.
 
 \section*{Problem 4}
 
