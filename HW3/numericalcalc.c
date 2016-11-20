@@ -94,7 +94,7 @@ double romberg(double (*f)(double), double a, double b, int n, int m)
   
   for(int j = 1; j <= m; j++)
   {
-   T[i][j] = T[i][j-1] + (T[i][j-1] - T[i-1][j-1])*(1/((2<<(m+1))-1));
+   T[i][j] = T[i][j-1] + (T[i][j-1] - T[i-1][j-1])*(1/((2<<(j+1))-1));
   }
   sumupper*=2;
  }
