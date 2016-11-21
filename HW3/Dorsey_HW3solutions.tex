@@ -4,7 +4,7 @@
 % This is a simple template for a LaTeX document using the "article" class.
 % See "book", "report", "letter" for other types of document.
 
-\documentclass[11pt]{article} % use larger type; default would be 10pt
+\documentclass[11pt,fleqn]{article} % use larger type; default would be 10pt
 
 \usepackage[utf8]{inputenc} % set input encoding (not needed with XeLaTeX)
 \usepackage{alltt}
@@ -68,8 +68,36 @@
 
 \section*{Problem 1}
 \subsection*{Computation}
-
-\subsection*{Verifying Correctness}
+\begin{align*}
+&(A+B+C+D)\cdot f_{0} = 0 \\
+&A+B+C+D  = 0 \\
+\end{align*}
+\begin{align*}
+&(A+C)(R-r)\cos\theta + (B+D)(R+r)\cos\theta = 0 \\
+&(B+D-A-C) = 0 \\
+&B+D = A+C \\
+&B+D = 0 \\
+&B = -D \\
+&A = -C\\
+\end{align*}
+\begin{align*}
+&(B+A-C-D)R\cos(\theta) + (B+C-A-D)r\cos\theta = 0\\
+&(2B + 2A)R+(2B-2A)r = 0\\
+&(B+A)R + A(R-r) = 0\\
+&B = -\frac{A(R-r)}{R+r}\\
+\end{align*}
+\begin{align*}
+&(A-C+B-D)R^2 + (C-A+B-D)2Rr + (A-C+B-D)r^2 = \frac{1}{\sin\theta\cos\theta}\\
+&(A+B)R^2 + (B-A)2Rr + (A+B)r^2 = \frac{1}{2\sin\theta\cos\theta}\\
+&A(R-r)^2 - \frac{A(R-r)}{R+r}(R+r)^2 = \frac{1}{2\sin\theta\cos\theta}\\
+&A(R-r)(-2Rr + 2r^2) = \frac{1}{2\sin\theta\cos\theta}\\
+\end{align*}
+\begin{align*}
+&A=  \frac{1}{2\sin\theta\cos\theta(R-r)(-2Rr + 2r^2) }\\
+&B = -\frac{A(R-r)}{R+r}\\
+&C = -A\\
+&D = -B\\
+\end{align*}
 
 \section*{Problem 2}
 \subsection*{5 Point Stencils}
@@ -133,11 +161,24 @@ Total Emitted Energy from Luminosity Spline & $64.476557\cdot L_\odot$\\
 Given the number of points, the results of Simpson's Method and the Trapezoid Method are fairly comparable. Converting to luminosity before splining rather than after does not seem to have had a tremendous impact on the approximated result.
 
 \section*{Problem 4}
-
+\subsection*{Integration}
+First we define $\hat\nu = \frac{h\nu}{kT}$, with $\frac{d\hat\nu}{d\nu} = \frac{h}{kT}$. Thus we have
+$$\frac{8\pi}{c^3} \int_{0}^{\infty} \frac{\nu^2kT}{(e^{\frac{h\nu}{kT}}-1)h}\cdot \frac{h}{kT} d\nu  = \frac{8\pi k^3T^3}{c^3h^3} \int_{0}^{\infty} \frac{\hat\nu^2}{e^{\hat\nu}-1} d\hat\nu$$ 
+Then through another coordinate change, with $x = \frac{\hat\nu}{\hat\nu + 1}$ and $\frac{dx}{d\hat\nu} = \frac{1}{(\hat\nu + 1)^2}$, we have 
+$$ \frac{8\pi k^3T^3}{c^3h^3} \int_{0}^{\infty} \frac{\hat\nu^2(\hat\nu+1)^2}{e^{\hat\nu}-1} \cdot \frac{1}{(\hat\nu + 1)^2} d\hat\nu =  \frac{8\pi k^3T^3}{c^3h^3} \int_{0}^{1} \frac{(\frac{x}{1-x})^2(\frac{x}{1-x} + 1)^2}{e^{\frac{x}{1-x}}-1}dx$$ 
+which can be integrated numerically with Simpson's method.
+\\
+With the bounds set to $.0000001$ and $.9999999$ with $40$ intervals, Simpson's method yields $\frac{8\pi k^3T^3}{c^3h^3} \cdot 2.404073$ as an approximation of the improper integral.
 \subsection*{Median Photon Energy}
+Using a bisection - like method to test possible values (see problem4.c), the median photon energy is approximately $x_{1/2} =\frac{8\pi k^3T^3}{c^3h^3} \cdot  .702091$, $\nu_{1/2} = \frac{8\pi k^3T^3}{c^3h^3} \cdot 2.356729$.
 \subsection*{Mean Photon Energy}
+The mean photon energy is $\bar x =\frac{8\pi k^3T^3}{c^3h^3} \cdot .666550$, $\bar\nu = \frac{8\pi k^3T^3}{c^3h^3} \cdot1.998950$.
+\\
+Through similar changes of variables as above, we find 
+$\int_0^\infty \eta_\lambda d\lambda = -\frac{8\pi h^2 c^2}{kT}  \int_0^\infty \frac{1}{(e^{\hat\lambda}-1) \hat\lambda^2} d\hat\lambda$, which is equivalent to $ -\frac{8\pi h^2 c^2}{kT}  \int_0^1 \frac{(\frac{y}{1-y}+1)^2}{(e^{\frac{y}{1-y}} -1)\frac{y}{1-y}} dy$ where $y = \frac{\hat\lambda}{\hat\lambda +1}$.
+\par As $y$ approaches $0$, the value of the total wavelength goes to infinity due to the $\frac{1}{\lambda^4}$ term in the original expression. This does not happen nearly as quickly in the $\lambda \eta_\lambda$ expression, and so the mean wavelength tends to $0$ as our computational bounds approach $0$ and $1$. $0$ certainly does not multiply to $c$ with any number.
 \subsection*{Standard Deviation in Wavelength}
-
+The standard deviation in wavelength, $\int_0^1 \frac{(\frac{x}{1-x} - \bar\nu)^2 \eta_x}{\eta_x} dx$, evaluates to $\sigma_x =\frac{8\pi k^3T^3}{c^3h^3} 2.680589$, $\sigma_\nu =  \frac{8\pi k^3T^3}{c^3h^3} \cdot 1.595029480$.
 
 \section*{Problem 5}
 \begin{enumerate}[a.)]
@@ -159,9 +200,37 @@ Romberg 3,3 Value: .525648
 \end{enumerate}
 
 \section*{Problem 6}
-
-
-
+\begin{align*}
+&\int_{-1}^1 f(x) dx = af(-1)+bf(0)+c(1)+df'(-1)+ef'(1) \\
+&\int_{-1}^1 k_4x^4 + k_3x^3 + k_2x^2 + k_1x + k_0 dx =& a(k_4 - k_3 + k_2 - k_1 + k_0)\\ &&+bk_0 \\&&+c(k_4+k_3+k_2+k_1+k_0)\\& &+d(-4k_4+3k_3-2k_2+k_1)\\ &&+e(4k_4+3k_3+2k_2+k_1)\\
+\end{align*}
+\begin{align*}
+\frac{1}{2}k_3+k_1 =& a(k_4 - k_3 + k_2 - k_1 + k_0) +bk_0+c(k_4+k_3+k_2+k_1+k_0)\\ &+d(-4k_4+3k_3-2k_2+k_1)+e(4k_4+3k_3+2k_2+k_1)&\\ 
+\end{align*}
+\begin{align*}
+&a+c-4d+4e = 0 \\
+&-a+c+3d+3e = \frac{1}{2} \\
+&a+c-2d+2e = 0 \\
+&-a+c+d+e = 1 \\
+&a+b+c = 0 \\
+\end{align*}
+\begin{align*}
+a = c\\
+b = 0\\
+d = e\\
+\\
+2c+2d = 1 \\
+2c+6d=\frac{1}{2}\\
+-4d = \frac{1}{2}\\
+d = \frac{1}{8}\\ c = \frac{3}{8}\\
+\end{align*}
+\begin{align*}
+a = -\frac{3}{8}\\
+b = 0\\
+c = -\frac{3}{8}\\
+d = \frac{1}{8}\\
+e = \frac{1}{8}\\
+\end{align*}
 
 
 
