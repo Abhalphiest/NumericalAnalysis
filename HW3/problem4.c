@@ -17,19 +17,31 @@ double f_x(double x) //transformed for improper integral
 
 double g_x(double x) //for mean photon energy
 {
+ double val = x/(1-x);
  return x*f_x(x);
 }
 
 double f_y(double y)
 {
- double val = y/(y-1);
- return ((val+1)*(val+1))/(exp(val)*val);
+ double val = y/(1-y);
+ 
+// printf("val:%lf f:%lf\n",val,((val+1)*(val*1))/((exp(val)-1)*val));
+ return ((val+1)*(val+1))/((exp(val)-1)*val);
 
 }
 double g_y(double y)
 {
- return y*f_y(y);
+ double val = y/(1-y);
+ return val*f_y(y);
 }
+double mean;
+double f_dev(double x)
+{
+ double val = x/(1-x);
+ return (val-mean)*(val-mean)*f_x(x);
+
+}
+
 
 int main()
 {
@@ -65,7 +77,7 @@ int main()
  } 
  printf("\n\nmedian: %lf\n",median);
 
- double mean = simpson(g_x,lowerbound,upperbound,n);
+ mean = simpson(g_x,lowerbound,upperbound,n);
  mean /= result;
  printf("mean photon energy: %lf\n",mean);
 
@@ -74,4 +86,9 @@ int main()
  wavmean /= wavresult;
  printf("total wavelength: %lf\n",wavresult);
  printf("mean wavelength: %lf\n",wavmean);
+
+ double stddev = simpson(f_dev,lowerbound,upperbound,n);
+ stddev/=result;
+ stddev = sqrt(stddev);
+ printf("Standard deviation in wavelength: %lf\n",stddev);
 }
