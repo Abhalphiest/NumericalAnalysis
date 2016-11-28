@@ -1,6 +1,6 @@
 #include"ODE.h"
-
-double Euler(double(*f)(double),double x0, double y0, double t, double h)
+#include<stdio.h>
+double Euler(double(*f)(double,double),double x0, double y0, double t, double h)
 {
  double x = x0, y = y0, k;
  while(x <= t)
@@ -8,11 +8,12 @@ double Euler(double(*f)(double),double x0, double y0, double t, double h)
   k=h*f(x,y);
   y = y+k;
   x = x+h;
+  //printf("%lf %lf\n",x,y);
  }
  return y;
 }
 
-double RK2(double (*f)(double), double x0, double y0, double x, double h)
+double RK2(double (*f)(double,double), double x0, double y0, double x, double h)
 {
  int n = (int)((x-x0)/h);
  double k1,k2,k3;
@@ -22,10 +23,11 @@ double RK2(double (*f)(double), double x0, double y0, double x, double h)
   k1 = h*f(x0,y);
   k2 = h*f(x0+.5*h,y+.5*k1);
   y += k2;
+  x0+=h;
  }
  return y;
 }
-double RK4(double (*f)(double), double x0, double y0, double x, double h)
+double RK4(double (*f)(double,double), double x0, double y0, double x, double h)
 {
  int n = (int) ((x-x0)/h);
  double k1,k2,k3,k4,k5;
@@ -48,7 +50,7 @@ double RK4(double (*f)(double), double x0, double y0, double x, double h)
  return y;
 }
 
-double AdamsBashforth(double(*f)(double),double x0,double y0, double x, double h)
+double AdamsBashforth(double(*f)(double,double),double x0,double y0, double x, double h)
 {
  double k1, k2, k3, k4, k5, y;
  while(x0 < x)
@@ -68,14 +70,14 @@ double AdamsBashforth(double(*f)(double),double x0,double y0, double x, double h
  return y;
 }
 
-double AdamsMoulton(double(*f)(double),double x0, double y0, double y1, double x, double h)
+double AdamsMoulton(double(*f)(double,double),double x0, double y0, double x, double h)
 {
- double k0,k1,k2,k3,k4,y = y0;
- while(x0 < x)
- {
+ double k1,k2,k3,k4,k5,c0,c1,c2,c3,c4,y = y0;
+ //while(x0 < x)
+ //{ 
+	 
 
-
- }
+ //}
  return y;
 
 }
