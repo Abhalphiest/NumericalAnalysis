@@ -10,16 +10,24 @@
 
 #include<math.h>
 #include<stdio.h>
-
+#include<stdlib.h>
 
 //global for simplicity
 double n;
+
+#define THETA 0
+#define ETA 1
+#define MHAT 2
+#define IHAT 3
+#define OMEGAHAT 4
 
 //fourth order Runge Kutta
 double RK4(double (*f)(double,double), double x0, double y0, double x, double h);
 //runge kutta solver for second order eqn split into a first order system
 double RK4_2(void (*f)(double,double,double,double*,double*), double x0, double y0, double yp0, double x, double h);
-
+ //runge kutta solver for full system of eqns for lane emden
+double RK4_Sys(void (*f)(double,double*, double*), double xi0, double theta0, double eta0, double mhat0, double ihat0,
+				double omegahat0, double x, double h);
 
 void laneEmden(double xi, double theta, double eta, double* x, double* y)
 {
@@ -33,6 +41,23 @@ void laneEmden(double xi, double theta, double eta, double* x, double* y)
 	*y = -2*eta/xi-pow(theta,n);
 }
 
+void laneEmdenSystem(double xi, double inputs[], double outputs[])
+{
+	if(xi == 0) 
+	{
+		outputs[THETA] = inputs[ETA];
+		outputs[ETA] = 0;
+		outputs[MHAT] = 0;
+		outputs[IHAT] = 0;
+		outputs[OMEGAHAT] = 0;
+		return;
+	}
+	outputs[THETA] = inputs[ETA]; //derivative of theta with respect to xi is eta
+	outputs[ETA] = -2*inputs[ETA]/xi-pow(inputs[THETA],n);
+	outputs[MHAT] = 4*PI*pow(inputs[THETA],n)*pow(xi,2);
+	outputs[IHAT] = (8.0/3.0)*PI*pow(inputs[THETA],n)*pow(xi,4);
+	outputs[OMEGAHAT] = 4*PI*inputs[MHAT]*pow(inputs[THETA],n)*xi;
+}
 
 
 
@@ -99,6 +124,42 @@ double RK4(double (*f)(double,double), double x0, double y0, double x, double h)
   else y = temp;
   yp = yp + (h/6.0)*(m1 + 2*m2 + 2*m3 + m4);
   x0 = x0+h;
+	 
+ }
+ return y;
+} 
+
+ //runge kutta solver for full system of eqns for lane emden
+ double* RK4_Sys(void (*f)(double,double[], double[]), double xi0, double theta0, double eta0, double mhat0, double ihat0,
+				double omegahat0, double x, double h)
+ {
+ int n = (int) ((x-x0)/h);
+ double* y = (double*) malloc(sizeof(double)*5);
+ double y1[5], y2[5], y3[5], k1[5],k2[5],k3[5],k4[5];
+ double temp;
+ y[THETA] = theta0, y[ETA] = eta0, y[MHAT] = mhat0, y[IHAT] = ihat0, y[OMEGAHAT] = omegahat0;
+ for(int i = 1; i <=n; i++)
+ {
+  f(xi0,y,k1);
+  y1[THETA] = theta0+0.5*h*k1[THETA], y1[ETA] = eta0+0.5*h*k1[ETA], y1[MHAT] = mhat0+0.5*h*k1[MHAT], 
+			y1[IHAT] = ihat0+0.5*h*k1[IHAT], y1[OMEGAHAT] = omegahat0+0.5*h*k1[OMEGAHAT];
+  f(xi0+.5*h,y1,k2);
+  y2[THETA] = theta0+0.5*h*k2[THETA], y2[ETA] = eta0+0.5*h*k2[ETA], y2[MHAT] = mhat0+0.5*h*k2[MHAT], 
+			y2[IHAT] = ihat0+0.5*h*k2[IHAT], y2[OMEGAHAT] = omegahat0+0.5*h*k2[OMEGAHAT];
+  f(xi0+0.5*h, y2,k3);
+  y3[THETA] = theta0+h*k3[THETA], y3[ETA] = eta0+h*k3[ETA], y3[MHAT] = mhat0+h*k3[MHAT], 
+			y3[IHAT] = ihat0+h*k3[IHAT], y3[OMEGAHAT] = omegahat0+h*k3[OMEGAHAT];
+  f(xi0+h,y3,k4);
+
+  //update next value of all our systems
+  temp  = y[THETA] + (h/6.0)*(k1[THETA] + 2*k2[THETA] + 2*k3[THETA] + k4[THETA]);
+  if(temp < 0) break; //stop after we leave the star
+  else y[THETA] = temp;
+  y[ETA] = y[ETA] + (h/6.0)*(k1[ETA] + 2*k2[ETA] + 2*k3[ETA] + k4[ETA]);
+  y[MHAT] = y[MHAT] + (h/6.0)*(k1[MHAT] + 2*k2[MHAT] + 2*k3[MHAT] + k4[MHAT]);
+  y[IHAT] = y[IHAT] + (h/6.0)*(k1[IHAT] + 2*k2[IHAT] + 2*k3[IHAT] + k4[IHAT]);
+  y[ETA] = y[OMEGAHAT] + (h/6.0)*(k1[OMEGAHAT] + 2*k2[OMEGAHAT] + 2*k3[OMEGAHAT] + k4[OMEGAHAT]);
+  xi0 = xi0+h;
 	 
  }
  return y;
