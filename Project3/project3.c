@@ -15,6 +15,8 @@
 //global for simplicity
 double n;
 
+#define PI 3.14159265359
+
 #define THETA 0
 #define ETA 1
 #define MHAT 2
@@ -37,8 +39,14 @@ void laneEmden(double xi, double theta, double eta, double* x, double* y)
 		*y = 0;
 		return;
 	}
-	*x = eta; //derivative of xi with respect to theta is eta
+	*x = eta; //derivative of theta with respect to xi  is eta
 	*y = -2*eta/xi-pow(theta,n);
+}
+
+void printArray(double* arr)
+{
+ printf("%lf %lf %lf %lf %lf\n",arr[0],arr[1],arr[2],arr[3],arr[4]);
+
 }
 
 void laneEmdenSystem(double xi, double inputs[], double outputs[])
@@ -85,7 +93,7 @@ int main()
 	int flag = 0;
 	while(x < 5.0)
 	{
-		printf("(%lf,%lf)\n",x,RK4_2(laneEmden,0,1,0,x,h,&flag));
+		printf("[%lf,%lf]\n",x,RK4_2(laneEmden,0,1,0,x,h,&flag));
 		if(flag == 1) break;
 		x+= step;
 	}
@@ -93,14 +101,20 @@ int main()
 		return 0;
 	double surface = x;
 	x = 0; //reset for another round
+	printf("Enter number of points for system: ");
+	scanf("%d",&numpoints);
+	step = 5.0/numpoints;
 	printf("\n\n");
 	double* results = (double*) malloc(sizeof(double)*5);
 	while(x < 5.0)
 	{
 		RK4_Sys(laneEmdenSystem,0,1,0,0,0,0,x,h,results);
+                if(results[MHAT] != 0)
+		{
 		results[IHAT] = results[IHAT]/(results[MHAT]*pow(surface,2)); //make dimensionless
 		results[OMEGAHAT] =  results[OMEGAHAT]*surface/pow(results[MHAT],2);
-		printResults(results);
+		}
+		printResults(results,x);
 		x+= step;
 	}
 	free(results); 
@@ -153,36 +167,54 @@ double RK4(double (*f)(double,double), double x0, double y0, double x, double h)
 
  //runge kutta solver for full system of eqns for lane emden
  void RK4_Sys(void (*f)(double,double[], double[]), double xi0, double theta0, double eta0, double mhat0, double ihat0,
-				double omegahat0, double x, double h, double* y)
+				double omegahat0, double x, double h, double* y1)
  {
- int n = (int) ((x-x0)/h);
+ int n = (int) ((x-xi0)/h);
  double y1[5], y2[5], y3[5], k1[5],k2[5],k3[5],k4[5];
  double temp; //for checking if theta has become negative, ie we have left the star.
- y[THETA] = theta0, y[ETA] = eta0, y[MHAT] = mhat0, y[IHAT] = ihat0, y[OMEGAHAT] = omegahat0;
+ y[THETA] = theta0,
+ y[ETA] = eta0, 
+ y[MHAT] = mhat0, 
+ y[IHAT] = ihat0, 
+ y[OMEGAHAT] = omegahat0;
  
  //do our four steps
  for(int i = 1; i <=n; i++)
  {
   f(xi0,y,k1);
-  y1[THETA] = theta0+0.5*h*k1[THETA], y1[ETA] = eta0+0.5*h*k1[ETA], y1[MHAT] = mhat0+0.5*h*k1[MHAT], 
-			y1[IHAT] = ihat0+0.5*h*k1[IHAT], y1[OMEGAHAT] = omegahat0+0.5*h*k1[OMEGAHAT];
+  y1[THETA] = y[THETA]+0.5*h*k1[THETA], 
+  y1[ETA] = y[ETA]+0.5*h*k1[ETA], 
+  y1[MHAT] = y[MHAT]+0.5*h*k1[MHAT], 
+  y1[IHAT] = y[IHAT]+0.5*h*k1[IHAT], 
+  y1[OMEGAHAT] = y[OMEGAHAT]+0.5*h*k1[OMEGAHAT];
+
   f(xi0+.5*h,y1,k2);
-  y2[THETA] = theta0+0.5*h*k2[THETA], y2[ETA] = eta0+0.5*h*k2[ETA], y2[MHAT] = mhat0+0.5*h*k2[MHAT], 
-			y2[IHAT] = ihat0+0.5*h*k2[IHAT], y2[OMEGAHAT] = omegahat0+0.5*h*k2[OMEGAHAT];
+  y2[THETA] = y[THETA]+0.5*h*k2[THETA],
+		y2[ETA] = y[ETA]+0.5*h*k2[ETA], 
+		y2[MHAT] = y[MHAT]+0.5*h*k2[MHAT], 
+		y2[IHAT] = y[IHAT]+0.5*h*k2[IHAT], 
+		y2[OMEGAHAT] = y[OMEGAHAT]+0.5*h*k2[OMEGAHAT];
   f(xi0+0.5*h, y2,k3);
-  y3[THETA] = theta0+h*k3[THETA], y3[ETA] = eta0+h*k3[ETA], y3[MHAT] = mhat0+h*k3[MHAT], 
-			y3[IHAT] = ihat0+h*k3[IHAT], y3[OMEGAHAT] = omegahat0+h*k3[OMEGAHAT];
+  y3[THETA] = y[THETA]+h*k3[THETA], 
+		y3[ETA] = y[ETA]+h*k3[ETA], 
+		y3[MHAT] = y[MHAT]+h*k3[MHAT], 
+		y3[IHAT] = y[IHAT]+h*k3[IHAT], 
+		y3[OMEGAHAT] = y[OMEGAHAT]+h*k3[OMEGAHAT];
   f(xi0+h,y3,k4);
 
   //update next value of all our systems
-  temp  = y[THETA] + (h/6.0)*(k1[THETA] + 2*k2[THETA] + 2*k3[THETA] + k4[THETA]);
+  temp  = y[THETA] + 
+	(h/6.0)*(k1[THETA] + 2*k2[THETA] + 2*k3[THETA] + k4[THETA]);
   if(temp < 0) break; //stop after we leave the star
-  else y[THETA] = temp;
+  y[THETA] = temp;
   y[ETA] = y[ETA] + (h/6.0)*(k1[ETA] + 2*k2[ETA] + 2*k3[ETA] + k4[ETA]);
-  y[MHAT] = y[MHAT] + (h/6.0)*(k1[MHAT] + 2*k2[MHAT] + 2*k3[MHAT] + k4[MHAT]);
-  y[IHAT] = y[IHAT] + (h/6.0)*(k1[IHAT] + 2*k2[IHAT] + 2*k3[IHAT] + k4[IHAT]);
-  y[ETA] = y[OMEGAHAT] + (h/6.0)*(k1[OMEGAHAT] + 2*k2[OMEGAHAT] + 2*k3[OMEGAHAT] + k4[OMEGAHAT]);
-  xi0 = xi0+h;
-	 
+  y[MHAT] = y[MHAT] + 
+	(h/6.0)*(k1[MHAT] + 2*k2[MHAT] + 2*k3[MHAT] + k4[MHAT]);
+  y[IHAT] = y[IHAT] + 
+	(h/6.0)*(k1[IHAT] + 2*k2[IHAT] + 2*k3[IHAT] + k4[IHAT]);
+  y[OMEGAHAT] = y[OMEGAHAT] + 
+	(h/6.0)*(k1[OMEGAHAT] + 2*k2[OMEGAHAT] + 2*k3[OMEGAHAT] 
+	+ k4[OMEGAHAT]);
+  xi0 = xi0+h;	 
  }
 } 
