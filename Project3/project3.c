@@ -14,7 +14,7 @@
 
 //global for simplicity
 double n;
-
+double surface_eta;
 #define PI 3.14159265359
 
 #define THETA 0
@@ -79,34 +79,41 @@ void printResults(double* results, double xi)
 
 int main()
 {
-	int numpoints;
+	double step;
 	double h;
 	printf("Enter n for Lane-Emden: ");
 	scanf("%lf",&n);
-	printf("Enter number of points to generate: ");
-	scanf("%d",&numpoints);
+	printf("Enter step size for the points: ");
+	scanf("%lf",&step);
 	printf("Enter stepsize: ");
 	scanf("%lf", &h);
 	
-	double step = 5.0/numpoints;
 	double x = 0;
 	int flag = 0;
-	while(x < 5.0)
+	double theta;
+	//find big xi, the end of the star
+	while(flag != 1)
 	{
-		printf("[%lf,%lf]\n",x,RK4_2(laneEmden,0,1,0,x,h,&flag));
+	 theta = RK4_2(laneEmden,0,1,0,x,h,&flag);
+	 x+= .0001; //small step size to try to get high precision
+	}
+	double surface = x;
+
+	x = 0; 
+	printf("Big Xi: %lf Eta at Surface: %lf\n",surface,surface_eta);
+	printf("\ntheta(xi) \t\ttheta^n(xi)\n");
+	while(x < surface)
+	{
+		theta = RK4_2(laneEmden,0,1,0,x,h,&flag);
+		printf("[%lf,%lf] \t [%lf,%lf]\n",x,theta,x,pow(theta,n));
 		if(flag == 1) break;
 		x+= step;
 	}
-	if(flag != 1) //we didn't make it out of the star for whatever reason..
-		return 0;
-	double surface = x;
 	x = 0; //reset for another round
-	printf("Enter number of points for system: ");
-	scanf("%d",&numpoints);
-	step = 5.0/numpoints;
+
 	printf("\n\n");
 	double* results = (double*) malloc(sizeof(double)*5);
-	while(x < 5.0)
+	while(x < surface)
 	{
 		RK4_Sys(laneEmdenSystem,0,1,0,0,0,0,x,h,results);
                 if(results[MHAT] != 0)
@@ -156,7 +163,7 @@ double RK4(double (*f)(double,double), double x0, double y0, double x, double h)
 
   //update next value of y
   temp  = y + (h/6.0)*(k1 + 2*k2 + 2*k3 + k4);
-  if(temp < 0) {*flag = 1; break;}
+  if(temp < 0) {*flag = 1; surface_eta = yp; break;}
   else y = temp;
   yp = yp + (h/6.0)*(m1 + 2*m2 + 2*m3 + m4);
   x0 = x0+h;
@@ -166,8 +173,9 @@ double RK4(double (*f)(double,double), double x0, double y0, double x, double h)
 } 
 
  //runge kutta solver for full system of eqns for lane emden
- void RK4_Sys(void (*f)(double,double[], double[]), double xi0, double theta0, double eta0, double mhat0, double ihat0,
-				double omegahat0, double x, double h, double* y1)
+ void RK4_Sys(void (*f)(double,double[], double[]), double xi0, 
+	double theta0, double eta0, double mhat0, double ihat0,
+	double omegahat0, double x, double h,double*y)
  {
  int n = (int) ((x-xi0)/h);
  double y1[5], y2[5], y3[5], k1[5],k2[5],k3[5],k4[5];
