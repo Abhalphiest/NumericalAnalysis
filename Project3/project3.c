@@ -24,10 +24,10 @@ double n;
 //fourth order Runge Kutta
 double RK4(double (*f)(double,double), double x0, double y0, double x, double h);
 //runge kutta solver for second order eqn split into a first order system
-double RK4_2(void (*f)(double,double,double,double*,double*), double x0, double y0, double yp0, double x, double h);
+double RK4_2(void (*f)(double,double,double,double*,double*), double x0, double y0, double yp0, double x, double h, int* flag);
  //runge kutta solver for full system of eqns for lane emden
-double RK4_Sys(void (*f)(double,double*, double*), double xi0, double theta0, double eta0, double mhat0, double ihat0,
-				double omegahat0, double x, double h);
+void RK4_Sys(void (*f)(double,double*, double*), double xi0, double theta0, double eta0, double mhat0, double ihat0,
+				double omegahat0, double x, double h, double* results);
 
 void laneEmden(double xi, double theta, double eta, double* x, double* y)
 {
@@ -60,7 +60,13 @@ void laneEmdenSystem(double xi, double inputs[], double outputs[])
 }
 
 
-
+void printResults(double* results, double xi)
+{
+	printf("xi:\t %lf \t theta:\t %lf\n",xi,results[THETA]);
+	printf("mhat:\t %lf \t ihat:\t %lf \t omegahat:\t %lf\n",results[MHAT],results[IHAT],results[OMEGAHAT]);
+	printf("\n");
+	
+}
 
 
 int main()
@@ -76,13 +82,28 @@ int main()
 	
 	double step = 5.0/numpoints;
 	double x = 0;
-	
+	int flag = 0;
 	while(x < 5.0)
 	{
-		printf("(%lf,%lf)\n",x,RK4_2(laneEmden,0,1,0,x,h));
+		printf("(%lf,%lf)\n",x,RK4_2(laneEmden,0,1,0,x,h,&flag));
+		if(flag == 1) break;
 		x+= step;
 	}
-	return 0;
+	if(flag != 1) //we didn't make it out of the star for whatever reason..
+		return 0;
+	double surface = x;
+	x = 0; //reset for another round
+	printf("\n\n");
+	double* results = (double*) malloc(sizeof(double)*5);
+	while(x < 5.0)
+	{
+		RK4_Sys(laneEmdenSystem,0,1,0,0,0,0,x,h,results);
+		results[IHAT] = results[IHAT]/(results[MHAT]*pow(surface,2)); //make dimensionless
+		results[OMEGAHAT] =  results[OMEGAHAT]*surface/pow(results[MHAT],2);
+		printResults(results);
+		x+= step;
+	}
+	free(results); 
 }
 
 //fourth order Runge Kutta
@@ -105,8 +126,9 @@ double RK4(double (*f)(double,double), double x0, double y0, double x, double h)
  }
 } 
  //runge kutta solver for second order eqn split into a first order system
- double RK4_2(void (*f)(double,double,double, double*, double*), double x0, double y0, double yp0, double x, double h)
+ double RK4_2(void (*f)(double,double,double, double*, double*), double x0, double y0, double yp0, double x, double h, int* flag)
  {
+ *flag = 0;
  int n = (int) ((x-x0)/h);
  double k1,k2,k3,k4,m1,m2,m3,m4;
  double temp;
@@ -120,7 +142,7 @@ double RK4(double (*f)(double,double), double x0, double y0, double x, double h)
 
   //update next value of y
   temp  = y + (h/6.0)*(k1 + 2*k2 + 2*k3 + k4);
-  if(temp < 0) break;
+  if(temp < 0) {*flag = 1; break;}
   else y = temp;
   yp = yp + (h/6.0)*(m1 + 2*m2 + 2*m3 + m4);
   x0 = x0+h;
@@ -130,14 +152,15 @@ double RK4(double (*f)(double,double), double x0, double y0, double x, double h)
 } 
 
  //runge kutta solver for full system of eqns for lane emden
- double* RK4_Sys(void (*f)(double,double[], double[]), double xi0, double theta0, double eta0, double mhat0, double ihat0,
-				double omegahat0, double x, double h)
+ void RK4_Sys(void (*f)(double,double[], double[]), double xi0, double theta0, double eta0, double mhat0, double ihat0,
+				double omegahat0, double x, double h, double* y)
  {
  int n = (int) ((x-x0)/h);
- double* y = (double*) malloc(sizeof(double)*5);
  double y1[5], y2[5], y3[5], k1[5],k2[5],k3[5],k4[5];
- double temp;
+ double temp; //for checking if theta has become negative, ie we have left the star.
  y[THETA] = theta0, y[ETA] = eta0, y[MHAT] = mhat0, y[IHAT] = ihat0, y[OMEGAHAT] = omegahat0;
+ 
+ //do our four steps
  for(int i = 1; i <=n; i++)
  {
   f(xi0,y,k1);
@@ -162,5 +185,4 @@ double RK4(double (*f)(double,double), double x0, double y0, double x, double h)
   xi0 = xi0+h;
 	 
  }
- return y;
 } 
