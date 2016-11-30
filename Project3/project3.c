@@ -21,11 +21,11 @@ double RK4(double (*f)(double,double), double x0, double y0, double x, double h)
 double RK4_2(void (*f)(double,double,double,double*,double*), double x0, double y0, double yp0, double x, double h);
 
 
-void laneEmden(double theta, double xi, double eta, double* x, double* y)
+void laneEmden(double xi, double theta, double eta, double* x, double* y)
 {
 	if(xi == 0) 
 	{
-		*x = 0;
+		*x = eta;
 		*y = 0;
 		return;
 	}
@@ -54,7 +54,7 @@ int main()
 	
 	while(x < 5.0)
 	{
-		printf("(%lf,%lf)\n",x,RK4_2(laneEmden,0,0,1,x,h));
+		printf("(%lf,%lf)\n",x,RK4_2(laneEmden,0,1,0,x,h));
 		x+= step;
 	}
 	return 0;
@@ -64,7 +64,7 @@ int main()
 double RK4(double (*f)(double,double), double x0, double y0, double x, double h)
 {
  int n = (int) ((x-x0)/h);
- double k1,k2,k3,k4,k5;
+ double k1,k2,k3,k4;
  double y = y0;
  for(int i = 1; i <=n; i++)
  {
@@ -83,7 +83,8 @@ double RK4(double (*f)(double,double), double x0, double y0, double x, double h)
  double RK4_2(void (*f)(double,double,double, double*, double*), double x0, double y0, double yp0, double x, double h)
  {
  int n = (int) ((x-x0)/h);
- double k1,k2,k3,k4,k5,m1,m2,m3,m4,m5;
+ double k1,k2,k3,k4,m1,m2,m3,m4;
+ double temp;
  double y = y0,yp=yp0; //two things to keep track of now that we're second order
  for(int i = 1; i <=n; i++)
  {
@@ -93,7 +94,9 @@ double RK4(double (*f)(double,double), double x0, double y0, double x, double h)
   f(x0+h,y+h*k3,yp+h*m3,&k4,&m4);
 
   //update next value of y
-  y = y + (h/6.0)*(k1 + 2*k2 + 2*k3 + k4);
+  temp  = y + (h/6.0)*(k1 + 2*k2 + 2*k3 + k4);
+  if(temp < 0) break;
+  else y = temp;
   yp = yp + (h/6.0)*(m1 + 2*m2 + 2*m3 + m4);
   x0 = x0+h;
 	 
