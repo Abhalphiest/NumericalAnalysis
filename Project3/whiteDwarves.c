@@ -1,11 +1,11 @@
 //
-// File:	project3.c
+// File:	whiteDwarves.c
 // Author:	Margaret Dorsey
 //
 // MATH 411 Numerical Analysis Project 3
 //
 // This program assists in the analysis of stellar approximations, 
-// specifically the Lane-Emden Equation and it's analogue for White Dwarves.
+// specifically of White Dwarf stars
 //
 
 #include<math.h>
