@@ -195,6 +195,7 @@ P_c &= 2.346387 \times 10^9 \rho_c^{4/3} &&\\
  \frac{dV}{ds} &= \frac{2V}{s} - \frac{V^2G'}{G} - \frac{\theta}{G} &&\\
 \end{flalign*}
 \subsection*{Integrations for Selected Values of $\theta(0)$}
+Full data outputs are available in the outputs directory.
 \begin{tabular}{ | c c c |}
 
 \multicolumn{3}{c}{ $\theta(0) = .05$ } \\
@@ -302,8 +303,22 @@ s & $\theta$ & $\hat M$\\
 \includegraphics[scale=.5]{plots/wd8.png}\\
 
 
-\subsection*{Dimensionless Mass}
 
 \subsection*{Mass-Radius Relation}
-
+\textbf{Note:} The exact values here might be slightly off, due to $s_{max}$ being found with relatively low precision. This should not effect overall behavior.\\
+\begin{tabular}{| c | c c |}
+\hline
+$\theta(0)$ & $\ln(M)$ & $\ln(R)$ \\
+\hline
+.05 & 74.07760638 & 21.68482052\\
+.5 &75.78284118 & 21.35664709\\
+5 &77.67307233 &20.97969715 \\
+50 &79.78437413 & 20.32205666\\
+500 & 82.06174514 & 20.17177446\\
+5000 & 84.35951482& 20.15542532 \\
+50000 &86.66107865 & 20.15267429 \\
+500000 & 87.35412304& 20.15267429\\
+\hline
+\end{tabular}\\
+\includegraphics{plots/wdmassrad.png}
 \end{document}
