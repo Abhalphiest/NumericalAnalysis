@@ -1,4 +1,7 @@
-Enter n for Lane-Emden: Enter step size for the points: Enter stepsize: Big Xi: 6.897200 Eta at Surface: -0.042440
+Enter n for Lane-Emden: 3
+Enter step size for the points: .1
+Enter stepsize: .001
+Big Xi: 6.897200 Eta at Surface: -0.042440
 
 theta(xi) 		theta^n(xi)
 [0.000000,1.000000] 	 [0.000000,1.000000]
