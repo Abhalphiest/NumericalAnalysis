@@ -75,7 +75,7 @@ void whiteDwarfSystem(double s, double inputs[], double outputs[])
 
 void printResults(double* results, double s)
 {
-	printf("s:\t %lf \t theta:\t %lf \t mhat: %lf\n",s,results[THETA],results[MHAT]);
+	printf("[%lf,%lf]  \t mhat: %lf\n",s,results[THETA],results[MHAT]);
 	printf("\n");
 	
 }
@@ -83,14 +83,27 @@ void printResults(double* results, double s)
 
 int main()
 {
-	double theta0;
-	double h;
+	double theta0,step,h;
+	
 	printf("Enter initial value for theta: ");
 	scanf("%lf",&theta0);
+	printf("Enter stepsize for the points: ");
+	scanf("%lf",&step);
 	printf("Enter stepsize: ");
 	scanf("%lf", &h);
 	
-	
+	double* results = (double*) malloc(sizeof(double)*3);
+	double s = 0;
+	do
+	{
+	 RK4_Sys(whiteDwarfSystem,0,theta0,0,0,s,h,results);
+	 printResults(results,s);
+	 s+= step;
+
+	}	
+	while(results[THETA]/theta0 > .001);
+
+	free(results);
 }
 
 //fourth order Runge Kutta
