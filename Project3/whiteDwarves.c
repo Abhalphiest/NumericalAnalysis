@@ -22,18 +22,30 @@ double RK4(double (*f)(double,double), double x0, double y0, double x, double h)
 //runge kutta solver for second order eqn split into a first order system
 double RK4_2(void (*f)(double,double,double,double*,double*), double x0, double y0, double yp0, double x, double h, int* flag);
  //runge kutta solver for full system of eqns
-double RK4_Sys(void (*f)(double,double*, double*), double s0, double theta0, double v0, double mhat0, double x, double h);
+void RK4_Sys(void (*f)(double,double*, double*), double s0, double theta0, double v0, double mhat0, double x, double h, double* y);
 
+double g(double theta)
+{
+ return (pow(theta,1.0/3.0)*
+	(4*pow(theta,2.0/3.0)+5))/(3*pow(pow(theta,2.0/3.0)+1,3.0/2.0));
+}
+
+double gprime(double theta)
+{
+ return -1*(8+16*pow(theta,-2.0/3.0)+
+	5*pow(theta,-4.0/3.0))/(9*pow(1+pow(theta,2.0/3.0),5.0/2.0));
+
+}
 void whiteDwarf(double s, double theta, double v, double* x, double* y)
 {
-	//if(xi == 0) 
-	//{
-	//	*x = v;
-	//	*y = 0;
-	//	return;
-	//}
-	//*x = ; //derivative of theta with respect to xi  is eta
-	//*y = -2*eta/xi-pow(theta,n);
+	if(s == 0) 
+	{
+		*x = v;
+		*y = 0;
+		return;
+	}
+	*x = v; //derivative of theta with respect to s  is v
+	*y = -2*v/s-v*v*gprime(theta)/g(theta)-theta/g(theta);
 }
 
 void printArray(double* arr)
@@ -44,17 +56,19 @@ void printArray(double* arr)
 
 void whiteDwarfSystem(double s, double inputs[], double outputs[])
 {
-	//if(s == 0) 
-	//{
-		//outputs[THETA] = inputs[ETA];
-		//outputs[V] = 0;
-		//outputs[MHAT] = 0;
+	if(s == 0) 
+	{
+		outputs[THETA] = inputs[V];
+		outputs[V] = 0;
+		outputs[MHAT] = 0;
 
-		//return;
-	//}
-	//outputs[THETA] =; //derivative of theta with respect to xi is eta
-	//outputs[V] = 
-	//outputs[MHAT] = ;
+		return;
+	}
+	outputs[THETA] = inputs[V]; //derivative of theta with respect to s 
+					//is v
+	outputs[V] = -2*inputs[V]/s - inputs[V]*inputs[V]*gprime(inputs[THETA])/
+			g(inputs[THETA]) - inputs[THETA]/g(inputs[THETA]);
+	outputs[MHAT] = 4*PI*inputs[THETA]*s*s;
 
 }
 
@@ -115,7 +129,7 @@ double RK4(double (*f)(double,double), double x0, double y0, double x, double h)
 
   //update next value of y
   temp  = y + (h/6.0)*(k1 + 2*k2 + 2*k3 + k4);
-  if(temp < 0) {*flag = 1; surface_eta = yp; break;}
+  if(temp < 0) {*flag = 1; break;}
   else y = temp;
   yp = yp + (h/6.0)*(m1 + 2*m2 + 2*m3 + m4);
   x0 = x0+h;
@@ -125,14 +139,14 @@ double RK4(double (*f)(double,double), double x0, double y0, double x, double h)
 } 
 
  //runge kutta solver for full system of eqns for lane emden
- void RK4_Sys(void (*f)(double,double[], double[]), double s0, 
-	double theta0, double eta0, double mhat0, double x, double h,double*y)
+ void RK4_Sys(void (*f)(double,double*, double*), double s0, 
+	double theta0, double v0, double mhat0, double x, double h,double*y)
  {
  int n = (int) ((x-s0)/h);
  double y1[3], y2[3], y3[3], k1[3],k2[3],k3[3],k4[3];
  double temp; //for checking if theta has become negative, ie we have left the star.
  y[THETA] = theta0,
- y[ETA] = eta0, 
+ y[V] = v0, 
  y[MHAT] = mhat0;
  
  //do our four steps
@@ -140,7 +154,7 @@ double RK4(double (*f)(double,double), double x0, double y0, double x, double h)
  {
   f(s0,y,k1);
   y1[THETA] = y[THETA]+0.5*h*k1[THETA], 
-  y1[V] = y[ETA]+0.5*h*k1[V], 
+  y1[V] = y[V]+0.5*h*k1[V], 
   y1[MHAT] = y[MHAT]+0.5*h*k1[MHAT], 
 
 
@@ -149,7 +163,7 @@ double RK4(double (*f)(double,double), double x0, double y0, double x, double h)
 		y2[V] = y[V]+0.5*h*k2[V], 
 		y2[MHAT] = y[MHAT]+0.5*h*k2[MHAT], 
 
-  f(xi0+0.5*h, y2,k3);
+  f(s0+0.5*h, y2,k3);
   y3[THETA] = y[THETA]+h*k3[THETA], 
 		y3[V] = y[V]+h*k3[V], 
 		y3[MHAT] = y[MHAT]+h*k3[MHAT], 
