@@ -118,3 +118,6 @@ mhat:	 45.077644 	 ihat:	 0.309118 	 omegahat:	 0.684051
 xi:	 2.700000 	 theta:	 0.026741
 mhat:	 47.076509 	 ihat:	 0.322150 	 omegahat:	 0.670429
 
+xi:	 2.753100 	 theta:	 0.000349
+mhat:	 47.608767 	 ihat:	 0.325830 	 omegahat:	 0.666770
+

@@ -124,6 +124,10 @@ int main()
 		printResults(results,x);
 		x+= step;
 	}
+ 	RK4_Sys(laneEmdenSystem,0,1,0,0,0,0,surface,h, results);
+	results[IHAT] = results[IHAT]/(results[MHAT]*pow(surface,2));
+	results[OMEGAHAT] = results[OMEGAHAT]*surface/pow(results[MHAT],2);
+	printResults(results,surface);
 	free(results); 
 }
 
