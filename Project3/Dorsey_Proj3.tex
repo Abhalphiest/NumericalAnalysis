@@ -20,14 +20,12 @@
 %   read geometry.pdf for detailed page layout information
 
 \usepackage{graphicx} % support the \includegraphics command and options
-\usepackage{alltt}
-\usepackage{wrapfig}
+
 % \usepackage[parfill]{parskip} % Activate to begin paragraphs with an empty line rather than an indent
 
 %%% PACKAGES
 \usepackage{booktabs} % for much better looking tables
 \usepackage{array} % for better arrays (eg matrices) in maths
-\usepackage{amssymb}
 \usepackage{paralist} % very flexible & customisable lists (eg. enumerate/itemize, etc.)
 \usepackage{verbatim} % adds environment for commenting out blocks of text & for better verbatim
 \usepackage{subfig} % make it possible to include more than one captioned figure/table in a single float
@@ -60,6 +58,7 @@
 %\date{} % Activate to display a given date or no date (if empty),
          % otherwise the current date is printed 
 
+
 \newenvironment{claim}[1]{\par\noindent\underline{Claim:}\space#1}{}
 \newenvironment{proof}[1]{\par\noindent\underline{Proof:}\space#1}{\hfill $\blacksquare$}
 
@@ -68,39 +67,96 @@
 \begin{document}
 \maketitle
 
-\section*{Background}
-\subsection*{$n = .5$}
+\section*{Lane Emden Equations}
 
-$\Xi = $
-$-\left(\pder[\theta]{\xi}\right)_{\xi = \Xi} = $
+More data can be found in the corresponding .txt files in the outputs directory. \\
 
-\begin{tabular}{| c | c c c c c |}
+\subsection*{n = .5}
+
+$\Xi = 2.753100$ \\
+$-\left(\pder[\theta]{\xi}\right)_{\xi = \Xi} = 0.500242$\\
+
+\begin{tabular}{| c | c c c c |}
 \hline
 $\xi$ & $\theta$ & $\hat{M}$ &  $\hat{I}$  & $\hat{\Omega}$ \\
 \hline
-
+0 & 1 & 0 & 0 & 0 \\
+.5 & .958594 & .517034 & .013161 & 3.307733\\
+1.0 & 0.837851 &  3.965218 & 0.052130 & 1.662054\\
+1.5 & 0.646511 & 12.497775 & 0.115720 & 1.115660\\
+2.0 & 0.402580 & 26.388160 & 0.199817 & 0.849346\\
+2.5 & 0.132636 & 42.431575 & 0.292766 & 0.702564\\
+2.7 & 0.026741 & 47.076509 & 0.322150 & 0.670429\\
 \hline
 \end{tabular}
 
-\subsection*{$n = 1$}
+\subsection*{n = 1}
+$\Xi = 3.142100$ \\
+$-\left(\pder[\theta]{\xi}\right)_{\xi = \Xi} =0.318430$\\
 
+\begin{tabular}{| c | c c c c |}
+\hline
+$\xi$ & $\theta$ & $\hat{M}$ &  $\hat{I}$  & $\hat{\Omega}$ \\
+\hline
+0 & 1 & 0 & 0 & 0 \\
+.5 & 0.958851 & 0.510625 & 0.010080 & 3.779649\\
+1.0 & 0.841772 & 3.774032 &0.039630 & 1.906359\\
+1.5 &0.664997 & 11.201527 &0.086815 & 1.288487\\
+2.0 & 0.454649 & 21.885479 & 0.146994 & 0.991357\\
+2.5 & 0.239389 & 32.689292 & 0.211071 & 0.829708\\
+3.0 & 0.047040 & 39.095204 & 0.257711 & 0.754742\\
+3.10 & 0.013 & 39.444576 & 0.260960 & 0.750543\\
+\hline
+\end{tabular}
 
-\subsection*{$n = 2$}
+\subsection*{n = 2}
 
+$\Xi = 4.353100$ \\
+$-\left(\pder[\theta]{\xi}\right)_{\xi = \Xi} =0.127300$\\
 
-\subsection*{$n = 3$}
+\begin{tabular}{| c | c c c c |}
+\hline
+$\xi$ & $\theta$ & $\hat{M}$ &  $\hat{I}$  & $\hat{\Omega}$ \\
+\hline
+0 & 1 & 0 & 0 & 0 \\
+.5 & 0.959353 & 0.498253 & 0.005227 & 5.248850\\
+1.0 & 0.848929 & 3.440920 &0.020269 & 2.666237\\
+1.5 & 0.695367 & 9.277393 & 0.043458 & 1.823020\\
+2.0 &0.529836 &16.404083 &0.071768 & 1.422937\\
+2.5 & 0.374739 & 22.793235 &0.101328 & 1.204538\\
+3.0 & 0.241824 &27.213646 & 0.127545 & 1.083075\\
+3.5 & 0.133969 &29.506644 & 0.145944 & 1.022508\\
+4.0 & 0.048840 &30.241656 &0.154024 & 1.001799\\
+4.3 & 0.006811 &30.297908 &0.154830 & 1.000058\\
+\hline
+\end{tabular}
 
-%\begin{tabular}{| c | c c c c c |}
-%\hline
-%n & $\hat{M}$ & $\Xi$ & $-\left(\pder[\theta]{\xi}\right)_{\xi = \Xi}$ & $\hat{\Omega}$ & $\hat{I}$ \\
-%\hline
-%0.5 & & & & & \\
-%1.0 & & & & & \\
-%2.0 & & & & & \\
-%3.0 & & & & & \\
-%\hline
-%\end{tabular}
+\subsection*{n = 3}
 
+$\Xi = 6.897200$ \\
+$-\left(\pder[\theta]{\xi}\right)_{\xi = \Xi} =0.042440$\\
+
+\begin{tabular}{| c | c c c c |}
+\hline
+$\xi$ & $\theta$ & $\hat{M}$ &  $\hat{I}$  & $\hat{\Omega}$ \\
+\hline
+0 & 1 & 0 & 0 & 0 \\
+.5 & 0.959839 & 0.486443 & 0.002072 &8.335976\\
+1.0 & 0.855310 & 3.160498 &0.007936 & 4.262277\\
+1.5 & 0.719502 & 7.914317 & 0.016735 & 2.941765\\
+2.0 &0.582851 &13.143968 &0.027220 & 2.318066\\
+2.5 & 0.461127 & 17.590476 &0.038177 & 1.973579\\
+3.0 & 0.359227 &20.815551 & 0.048537 & 1.770052\\
+3.5 & 0.276263 &22.913024 & 0.057505 & 1.647475\\
+4.0 &0.209282 &24.161423 &0.064605 & 1.574866\\
+4.5 &0.155069 &24.840997 &0.069681 & 1.533989\\
+5.0 & 0.110900 & 25.171911  &0.072868&1.513033\\
+5.5 & 0.074353 & 25.309843  &0.074544 &1.503789\\
+6.0 &0.043794 &25.353617 &0.075200 & 1.500692\\
+6.5 & 0.017914 &25.361601 &0.075344 & 1.500099\\
+6.8 &0.004211 &25.361900 &0.075350 & 1.500077\\
+\hline
+\end{tabular}
 \subsection*{Modelling Earth's Sun}
 
 \section{White Dwarfs}
@@ -124,6 +180,4 @@ $\xi$ & $\theta$ & $\hat{M}$ &  $\hat{I}$  & $\hat{\Omega}$ \\
 
 \subsection*{Mass-Radius Relation}
 
-
-
-
+\end{document}
