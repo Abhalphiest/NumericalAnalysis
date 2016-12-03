@@ -46,6 +46,29 @@ double RK4(double (*f)(double,double), double x0, double y0, double x, double h)
 
 
  }
+ 
+  //runge kutta solver for second order eqn split into a first order system
+ double RK4_2(void (*f)(double,double,double, double*, double*), double x0, double y0, double yp0, double x, double h)
+ {
+ int n = (int) ((x-x0)/h);
+ double k1,k2,k3,k4,m1,m2,m3,m4;
+ double temp;
+ double y = y0,yp=yp0; //two things to keep track of now that we're second order
+ for(int i = 1; i <=n; i++)
+ {
+  f(x0,y,yp,&k1,&m1);
+  f(x0+.5*h,y+0.5*h*k1,yp+0.5*h*m1,&k2,&m2);
+  f(x0+0.5*h, y+0.5*h*k2,yp+0.5*h*m2,&k3,&m3);
+  f(x0+h,y+h*k3,yp+h*m3,&k4,&m4);
+
+  //update next value of y
+  y  = y + (h/6.0)*(k1 + 2*k2 + 2*k3 + k4);
+  yp = yp + (h/6.0)*(m1 + 2*m2 + 2*m3 + m4);
+  x0 = x0+h;
+	 
+ }
+ return y;
+} 
 
  return y;
 }
