@@ -23,7 +23,7 @@ double calcRelError(double approx, double actual)
 int main()
 {
  double errlimit = pow(10, -8);
- double solution = 1.5366381359854324545862339712537521842841999519459 * pow(10,9);
+ double solution = -1.5366381359854324545862339712537521842841999519459 * pow(10,9);
 	
  int numsteps = 0;
  double step, y;
@@ -34,12 +34,13 @@ int main()
 	numsteps++;
 	step = 1.0/numsteps;
 	y = RK4_2(system,0,1,1,5,step);
-	if(calcRelError(y,solution) > errlimit)
+	if(fabs(calcRelError(y,solution)) > errlimit)
 	{
+//         printf("%lf %lf %lf\n",calcRelError(y,solution), solution, y);
 	 flag = 0;	
 	}
  }
  printf("y is calculated as %lf in %d steps.\n",y,numsteps);
-	
+// printf("%lf\n",calcRelError(y,solution));	
  return 0;	
 }

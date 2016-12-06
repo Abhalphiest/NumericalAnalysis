@@ -1,0 +1,8 @@
+Equation 1: 
+Euler: 4580607 	 RK2: 922 	 RK4: 37 
+
+Equation 2: 
+Euler: 500008 	 RK2: 250 	 RK4: 12 
+
+Equation 3: 
+Euler: 535406 	 RK2: 552 	 RK4: 13 
