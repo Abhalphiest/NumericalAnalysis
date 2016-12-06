@@ -76,32 +76,54 @@ double RK4(double (*f)(double,double), double x0, double y0, double x, double h)
 
 double AdamsBashforth(double(*f)(double,double),double x0,double y0, double x, double h)
 {
- double k1, k2, k3, k4, k5, y;
+ double y1,y2,y3,y4,y,y5;
+ y = y0;
+ y1 = RK4(f,x0,y0,x0+h,h);
+ y2 = RK4(f,x0,y0,x0+2*h,h);
+ y3 = RK4(f,x0,y0,x0+3*h,h);
+ y4 = RK4(f,x0,y0,x0+4*h,h);
  while(x0 < x)
  {
- k1 = y + h*f(x0,y); //euler method
- k2 = k1 + h*((3.0/2.0)*f(x0+h,k1)-.5*f(x0,y));
- k3 = k2 + h*((22.0/12.0)*f(x0+2*h,k2) - 
-		(4.0/3.0)*f(x0+h,k1) + (5.0/12.0)*f(x0,y));
- k4 = k3+h*((55.0/24.0)*f(x0+3*h,k3) - (59.0/24.0)*f(x0+2*h,k2) 
-		+ (37.0/24.0)*f(x0+h,k1)-(3.0/8.0)*f(x0,y));
- k5 = k4+ h*((1901.0/720.0)*f(x0+4*h,k4) - (1387.0/360.0)*f(x0+3*h, k3) +
-		(109.0/30.0)*f(x0+2*h,k2) - (637.0/360.0)*f(x0+h,k1) +
+ y5 = y4+ h*((1901.0/720.0)*f(x0+4*h,y4) - (1387.0/360.0)*f(x0+3*h, y3) +
+		(109.0/30.0)*f(x0+2*h,y2) - (637.0/360.0)*f(x0+h,y1) +
 		(251.0/720.0)*f(x0,y));
- y = k5;
- x0 += 5*h;
+ y = y1;
+ y1 = y2;
+ y2 = y3;
+ y3 = y4;
+ y4 = y5;
+ x0 += h;
  }
- return y;
+ return y5;
 }
+double AdamsBashforthInit(double(*f)(double,double),double x0, double*y0, double 
+x, double h)
+{
+ double y1,y2,y3,y4,y,y5;
+ y = y0[0];
+ y1 = y0[1];
+ y2 = y0[2];
+ y3 = y0[3];
+ y4 = y0[4];
+ printf("yvals: %e %e %e %e %e\n",y,y1,y2,y3,y4);
+ while(x0 < x)
+ {
+ y5 = y4+ h*((1901.0/720.0)*f(x0+4*h,y4) - (1387.0/360.0)*f(x0+3*h, y3) +
+		(109.0/30.0)*f(x0+2*h,y2) - (637.0/360.0)*f(x0+h,y1) +
+		(251.0/720.0)*f(x0,y));
+ y = y1;
+ y1 = y2;
+ y2 = y3;
+ y3 = y4;
+ y4 = y5;
+ x0 += h;
+ }
+ return y5;
 
+}
 double AdamsMoulton(double(*f)(double,double),double x0, double y0, double x, double h)
 {
- double k1,k2,k3,k4,k5,c0,c1,c2,c3,c4,y = y0;
- //while(x0 < x)
- //{ 
-	 
-
- //}
- return y;
+ 
+ return 0;
 
 }

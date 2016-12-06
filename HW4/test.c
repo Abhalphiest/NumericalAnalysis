@@ -11,28 +11,17 @@ double f1(double x, double y)
 
 double f2(double x, double y)
 {	
- return y;	
+ return x+ y;	
 }
 
 int main()
 {
- double result = Euler(f1,0,0,1,.005);
- printf("%lf\n",result);
- result = RK2(f1,0,0,1,.005);
- printf("%lf\n",result);
- result = RK4(f1,0,0,1,.005);
- printf("%lf\n",result);
+ double result;
  result = AdamsBashforth(f1,0,0,1,.005);
  printf("%lf\n",result);
 
  printf("\n\n");
 	
- result = Euler(f2,0,1,1,.005);
- printf("%lf\n",result);
- result = RK2(f2,0,1,1,.005);
- printf("%lf\n",result);
- result = RK4(f2,0,1,1,.005);
- printf("%lf\n",result);
  result = AdamsBashforth(f2,0,1,1,.005);
  printf("%lf\n",result);
  return 0;
