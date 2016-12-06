@@ -41,193 +41,146 @@ double prob3sol(double t)
 }
 int main()
 {
-	int numpoints;
-	printf("Enter the number of points to evaluate:");
-	scanf("%d",&numpoints);
-	double ptstep = 1.0/numpoints;
 	double errbound = pow(10,-6);
 	double x,y,step;
 	int flag = 0;
 	//eq 1
-	int nEuler_1, nRK2_1, nRK4_1;
-	printf("eq 1\n");	
+	int nEuler_1, nRK2_1, nRK4_1;	
 	//euler
 	nEuler_1 = 0;
-	/*while(flag == 0)
+	while(flag == 0)
 	{
+		flag = 1;
 		nEuler_1++;
 		step = 1.0/nEuler_1;
-		printf("%lf\n",step);
-		flag = 1;
-		x = 0;
-		for(int i = 0; i < numpoints; i++)
-		{
-			y = Euler(prob1f,0,0,x,step);
-			if(fabs(y-prob1sol(x))>errbound)
-				flag = 0;
-			printf("%lf %lf \n",y,prob1sol(x));
-			x += ptstep;
-		}
-		
+		y = Euler(prob1f,0,0,1,step);
+		if(fabs(y-prob1sol(1)>errbound))
+			flag = 0;
 	}
-	*/
+	
 	flag = 0;
 	printf("RK2\n");	
 	//RK2
 	nRK2_1 = 0;
 	while(flag == 0)
 	{
-		nRK2_1++;
-		step = 1.0/nRK2_1;
-		flag = 1;
-		x = 0;
-		for(int i = 0; i < numpoints; i++)
-		{
-			y = RK2(prob1f,0,0,x,step);
-			if(fabs(y-prob1sol(x))>errbound)
-				flag = 0;
-			x += ptstep;
-		}
-		
+	  nRK2_1++;
+	  step = 1.0/nRK2_1;
+	  flag = 1;
+	  y = RK2(prob1f,0,0,1,step);
+	  if(fabs(y-prob1sol(1))>errbound)
+	    flag = 0;
 	}
+		
+	
 	flag =0;
 	//RK4
+	printf("RK4\n");
 	nRK4_1 = 0;
 	while(flag == 0)
 	{
-		nRK4_1++;
+		nRK4_1 ++;
 		step = 1.0/nRK4_1;
 		flag = 1;
-		x = 0;
-		for(int i = 0; i < numpoints; i++)
-		{
-			y = RK4(prob1f,0,0,x,step);
-			if(fabs(y-prob1sol(x))>errbound)
-				flag = 0;
-			x += ptstep;
-		}
+		y = RK4(prob1f,0,0,1,step);
+		if(fabs(y-prob1sol(1))>errbound)
+		  flag = 0;
 		
 	}
-//	flag = 0;
+	
+	flag = 0;
 	//eq 2
-	int nEuler_2, nRK2_2, nRK4_2;
-	printf("eq2\n");
+	int nEuler_2, nRK2_2, nRK4_2;	
 	//euler
 	nEuler_2 = 0;
 	while(flag == 0)
 	{
+		flag = 1;
 		nEuler_2++;
 		step = 1.0/nEuler_2;
-		flag = 1;
-		x = 1;
-		for(int i = 0; i < numpoints; i++)
-		{
-			y = Euler(prob2f,1,2,x,step);
-			if(fabs(y-prob2sol(x))>errbound)
-				flag = 0;
-			x += ptstep;
-		}
-		
+		y = Euler(prob2f,1,2,2,step);
+		if(fabs(y-prob2sol(2)>errbound))
+			flag = 0;
 	}
+	
 	flag = 0;
+	printf("RK2\n");	
 	//RK2
 	nRK2_2 = 0;
 	while(flag == 0)
 	{
-		nRK2_2++;
-		step = 1.0/nRK2_2;
-		flag = 1;
-		x = 1;
-		for(int i = 0; i < numpoints; i++)
-		{
-			y = RK2(prob2f,1,2,x,step);
-			if(fabs(y-prob2sol(x))>errbound)
-				flag = 0;
-			x += ptstep;
-		}
-		
+	  nRK2_2++;
+	  step = 1.0/nRK2_2;
+	  flag = 1;
+	  y = RK2(prob2f,1,2,2,step);
+	  if(fabs(y-prob2sol(2))>errbound)
+	    flag = 0;
 	}
-	flag = 0;
+		
+	
+	flag =0;
 	//RK4
+	printf("RK4\n");
 	nRK4_2 = 0;
 	while(flag == 0)
 	{
-		nRK4_2++;
+		nRK4_2 ++;
 		step = 1.0/nRK4_2;
 		flag = 1;
-		x = 1;
-		for(int i = 0; i < numpoints; i++)
-		{
-			y = RK4(prob2f,1,2,x,step);
-			if(fabs(y-prob2sol(x))>errbound)
-				flag = 0;
-			x += ptstep;
-		}
+		y = RK4(prob2f,1,2,2,step);
+		if(fabs(y-prob2sol(2))>errbound)
+		  flag = 0;
 		
 	}
-//	flag = 0;
+	
+	
+	flag = 0;
 	//eq 3
-	int nEuler_3, nRK2_3, nRK4_3;
-	printf("eq3\n");
+	int nEuler_3, nRK2_3, nRK4_3;	
 	//euler
 	nEuler_3 = 0;
 	while(flag == 0)
 	{
+		flag = 1;
 		nEuler_3++;
 		step = 1.0/nEuler_3;
-		flag = 1;
-		x = 1;
-		for(int i = 0; i < numpoints; i++)
-		{
-			y = Euler(prob3f,1,2,x,step);
-			if(fabs(y-prob3sol(x))>errbound)
-				flag = 0;
-			x += ptstep;
-		}
-		
+		y = Euler(prob3f,1,2,2,step);
+		if(fabs(y-prob3sol(2)>errbound))
+			flag = 0;
 	}
+	
 	flag = 0;
 	//RK2
 	nRK2_3 = 0;
 	while(flag == 0)
 	{
-		nRK2_3++;
-		step = 1.0/nRK2_3;
-		flag = 1;
-		x = 1;
-		for(int i = 0; i < numpoints; i++)
-		{
-			y = RK2(prob3f,1,2,x,step);
-			if(fabs(y-prob3sol(x))>errbound)
-				flag = 0;
-			x += ptstep;
-		}
-		
+	  nRK2_3++;
+	  step = 1.0/nRK2_3;
+	  flag = 1;
+	  y = RK2(prob3f,1,2,2,step);
+	  if(fabs(y-prob3sol(2))>errbound)
+	    flag = 0;
 	}
-	flag = 0;
+		
+	
+	flag =0;
 	//RK4
 	nRK4_3 = 0;
 	while(flag == 0)
 	{
-		nRK4_3++;
+		nRK4_3 ++;
 		step = 1.0/nRK4_3;
 		flag = 1;
-		x = 1;
-		for(int i = 0; i < numpoints; i++)
-		{
-			y = RK4(prob3f,1,2,x,step);
-			if(fabs(y-prob3sol(x))>errbound)
-				flag = 0;
-			x += ptstep;
-		}
+		y = RK4(prob3f,1,2,2,step);
+		if(fabs(y-prob3sol(2))>errbound)
+		  flag = 0;
 		
 	}
-	
  printf("Equation 1: \n");
  printf("Euler: %d \t RK2: %d \t RK4: %d \n\n",nEuler_1,nRK2_1,nRK4_1);
-  printf("Equation 2: \n");
+ printf("Equation 2: \n");
  printf("Euler: %d \t RK2: %d \t RK4: %d \n\n",nEuler_2,nRK2_2,nRK4_2);
-  printf("Equation 3: \n");
+ printf("Equation 3: \n");
  printf("Euler: %d \t RK2: %d \t RK4: %d \n",nEuler_3,nRK2_3,nRK4_3);
  return 0;
 }
