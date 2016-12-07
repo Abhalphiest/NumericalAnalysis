@@ -1,7 +1,7 @@
-// File:	homework4-5.c
+// File:	homework4-6.c
 // Author:	Margaret Dorsey
 //
-// MATH 411 Numerical Analysis Homework 4 Problem 5
+// MATH 411 Numerical Analysis Homework 4 Problem 6
 //
 
 #include"ODE.h"
@@ -28,8 +28,8 @@ int main()
  {
   solY[i] = solution(t0+i*h);
  }
- double rkResult = AdamsBashforth(f,t0, y0, 2, h);
- double solResult = AdamsBashforthInit(f,t0,solY,2,h);
+ double rkResult = AdamsMoulton(f,t0, y0, 2, h);
+ double solResult = AdamsMoultonInit(f,t0,solY,2,h);
   
  printf("RK4 Initialization:\t%.9lf\n",rkResult);
  printf("Solution Initialization:\t%.9lf\n",solResult);
