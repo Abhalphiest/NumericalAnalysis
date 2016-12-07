@@ -14,6 +14,11 @@ double f2(double x, double y)
  return x+ y;	
 }
 
+double f3(double x, double y)
+{
+ return 2*x;
+}
+
 int main()
 {
  double result;
@@ -23,6 +28,9 @@ int main()
  printf("\n\n");
 	
  result = AdamsBashforth(f2,0,1,1,.005);
+ printf("%lf\n",result);
+
+ result = AdamsBashforth(f3,0,0,1,.005);
  printf("%lf\n",result);
  return 0;
 

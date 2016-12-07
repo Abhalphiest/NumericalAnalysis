@@ -94,7 +94,7 @@ double AdamsBashforth(double(*f)(double,double),double x0,double y0, double x, d
  y4 = y5;
  x0 += h;
  }
- return y5;
+ return y;
 }
 double AdamsBashforthInit(double(*f)(double,double),double x0, double*y0, double 
 x, double h)
@@ -118,7 +118,7 @@ x, double h)
  y4 = y5;
  x0 += h;
  }
- return y5;
+ return y;
 
 }
 double AdamsMoulton(double(*f)(double,double),double x0, double y0, double x, double h)
