@@ -124,7 +124,8 @@ x, double h)
 double AdamsMoulton(double(*f)(double,double),double x0, double y0, double x, double h)
 {
  
-  double y1,y2,y3,y4,y,y5;
+ double y1,y2,y3,y4,y,xi;
+ xi=x0;
  y = y0;
  y1 = RK4(f,x0,y0,x0+h,h);
  y2 = RK4(f,x0,y0,x0+2*h,h);
@@ -139,7 +140,7 @@ double AdamsMoulton(double(*f)(double,double),double x0, double y0, double x, do
  y1 = y2;
  y2 = y3;
  y3 = y4;
- y4 = AdamsBashforth(f,x0,y0,x0+5*h,h);
+ y4 = AdamsBashforth(f,xi,y0,x0+5*h,h);
  x0 += h;
  }
  return y;
@@ -149,13 +150,13 @@ double AdamsMoulton(double(*f)(double,double),double x0, double y0, double x, do
 double AdamsMoultonInit(double(*f)(double,double),double x0, double* y0, double x, double h)
 {
  
-double y1,y2,y3,y4,y;
+double y1,y2,y3,y4,y,xi;
+ xi = x0;
  y = y0[0];
  y1 = y0[1];
  y2 = y0[2];
  y3 = y0[3];
  y4 = y0[4];
- printf("yvals: %e %e %e %e %e\n",y,y1,y2,y3,y4);
  while(x0 < x)
  {
   y4 = y3+ h*((251.0/720.0)*f(x0+4*h,y4) + (323.0/360.0)*f(x0+3*h, y3) -
@@ -165,7 +166,7 @@ double y1,y2,y3,y4,y;
  y1 = y2;
  y2 = y3;
  y3 = y4;
- y4 = AdamsBashforthInit(f,x0,y0,x0+5*h,h);
+ y4 = AdamsBashforthInit(f,xi,y0,x0+5*h,h);
  x0 += h;
  }
  return y;

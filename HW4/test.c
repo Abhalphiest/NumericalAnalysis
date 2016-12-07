@@ -22,15 +22,15 @@ double f3(double x, double y)
 int main()
 {
  double result;
- result = AdamsBashforth(f1,0,0,1,.005);
+ result = AdamsMoulton(f1,0,0,1,.005);
  printf("%lf\n",result);
 
  printf("\n\n");
 	
- result = AdamsBashforth(f2,0,1,1,.005);
+ result = AdamsMoulton(f2,0,1,1,.005);
  printf("%lf\n",result);
 
- result = AdamsBashforth(f3,0,0,1,.005);
+ result = AdamsMoulton(f3,0,0,1,.005);
  printf("%lf\n",result);
  return 0;
 
