@@ -70,7 +70,7 @@ ocean::ocean(const int N, const float A, const vector2 w, const float length, co
 		}
 	}
 
-	createProgram(glProgram, glShaderV, glShaderF, "oceanv.sh", "oceanf.sh");
+	createProgram(glProgram, glShaderV, glShaderF, "ocean.vert", "ocean.frag");
 	vertex = glGetAttribLocation(glProgram, "vertex");
 	normal = glGetAttribLocation(glProgram, "normal");
 	texture = glGetAttribLocation(glProgram, "texture");

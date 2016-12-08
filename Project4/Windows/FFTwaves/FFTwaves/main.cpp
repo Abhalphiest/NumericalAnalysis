@@ -44,7 +44,7 @@ int main(int argc, char**argv)
 	{
 		exit(1);
 	}
-	myOcean = new ocean(64, 0.0005f, vector2(32.0f, 32.0f), 64, false);
+	myOcean = new ocean(64, 0.0005f, vector2(32.0f, 32.0f), 64, true);
 	glutMainLoop(); //enter our loop
 	myOcean->release();
 	delete myOcean;

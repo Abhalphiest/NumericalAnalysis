@@ -1,23 +1,50 @@
 #include"shader.h"
 
-char* loadFile(const char *filename) {
-	char* data;
-	int len;
-	std::ifstream ifs(filename, std::ifstream::in);
+char* loadFile(const char *filename) 
+	{
+		FILE *fp;
+		GLchar *content = NULL;
+		int count = 0;
 
-	ifs.seekg(0, std::ios::end);
-	len = ifs.tellg();
+		if (filename != NULL) {
 
-	ifs.seekg(0, std::ios::beg);
-	data = new char[len + 1];
+			// Attempt to open the file
+			// On Windows systems, may want to use "rt" here
+			fp = fopen(filename, "r");
+			if (fp != NULL) {
 
-	ifs.read(data, len);
-	data[len] = 0;
+				// Determine its length
+				fseek(fp, 0, SEEK_END);
+				count = ftell(fp);
+				rewind(fp);
 
-	ifs.close();
+				if (count > 0) {
 
-	return data;
-}
+					// Allocate the string buffer
+#ifdef __cplusplus
+					content = new GLchar[sizeof(GLchar) * (count + 1)];
+#else
+					content = (GLchar *)malloc(sizeof(GLchar) * (count + 1));
+#endif
+					// Read the file into the buffer
+					count = fread(content, sizeof(GLchar), count, fp);
+					// Add a NUL terminator
+					content[count] = '\0';
+				}
+
+				fclose(fp);
+			}
+			else {
+				perror(filename);
+			}
+		}
+		else {
+			fprintf(stderr, "error:  no file name specified\n");
+		}
+
+		return content;
+
+	}
 
 void createProgram(GLuint& glProgram, GLuint& glShaderV, GLuint& glShaderF, const char* vertex_shader, const char* fragment_shader) {
 	glShaderV = glCreateShader(GL_VERTEX_SHADER);

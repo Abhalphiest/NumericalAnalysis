@@ -39,10 +39,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="oceanf.sh">
+    <None Include="ocean.frag">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="oceanv.sh">
+    <None Include="ocean.vert">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>
