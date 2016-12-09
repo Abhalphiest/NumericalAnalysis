@@ -79,6 +79,25 @@ ocean::ocean(const int N, const float A, const vector2 w, const float length, co
 	view = glGetUniformLocation(glProgram, "View");
 	model = glGetUniformLocation(glProgram, "Model");
 
+	//load our texture
+	
+	glActiveTexture(GL_TEXTURE0);
+	waterTexture = SOIL_load_OGL_texture
+	(
+		"watertexture.jpg",
+		SOIL_LOAD_AUTO,
+		SOIL_CREATE_NEW_ID,
+		SOIL_FLAG_INVERT_Y //no need to bother with mip mapping, etc
+	);
+	glBindTexture(GL_TEXTURE_2D, waterTexture);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+	textureLoc = glGetUniformLocation(glProgram, "water");
+	
+
 	glGenBuffers(1, &vbo_vertices);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo_vertices);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertex_ocean)*(Nplus1)*(Nplus1), vertices, GL_DYNAMIC_DRAW);
@@ -358,21 +377,21 @@ void ocean::evaluateWavesFFT(float t) {
 	}
 }
 
-void ocean::render(float t, glm::vec3 light_pos, glm::mat4 Projection, glm::mat4 View, glm::mat4 Model, bool use_fft) {
-	static bool eval = false;
-	if (!use_fft && !eval) {
-		eval = true;
-		evaluateWaves(t);
-	}
-	else if (use_fft) {
+void ocean::render(float t, glm::vec3 light_pos, glm::mat4 Projection, glm::mat4 View, glm::mat4 Model) {
+
+	
 		evaluateWavesFFT(t);
-	}
+	
 
 	glUseProgram(glProgram);
 	glUniform3f(light_position, light_pos.x, light_pos.y, light_pos.z);
 	glUniformMatrix4fv(projection, 1, GL_FALSE, glm::value_ptr(Projection));
 	glUniformMatrix4fv(view, 1, GL_FALSE, glm::value_ptr(View));
 	glUniformMatrix4fv(model, 1, GL_FALSE, glm::value_ptr(Model));
+
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, waterTexture);
+	glUniform1i(textureLoc, 0);
 
 	glBindBuffer(GL_ARRAY_BUFFER, vbo_vertices);
 	glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertex_ocean) * Nplus1 * Nplus1, vertices);

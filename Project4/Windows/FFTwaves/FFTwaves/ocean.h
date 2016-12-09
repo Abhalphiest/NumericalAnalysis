@@ -12,7 +12,7 @@
 #include "glm-0.9.2.6/glm/gtc/type_ptr.hpp"
 
 #include <windows.h>
-
+#include "SOIL\SOIL.h"
 #include <GL/glew.h>
 #include <GL/glut.h>
 
@@ -36,7 +36,7 @@ private:
 	unsigned int *indices;			// indicies for vertex buffer object
 	unsigned int indices_count;		// number of indices to render
 	GLuint vbo_vertices, vbo_indices;	// vertex buffer objects
-
+	GLuint waterTexture, textureLoc;
 	GLuint glProgram, glShaderV, glShaderF;	// shaders
 	GLint vertex, normal, texture, light_position, projection, view, model;	// attributes and uniforms
 
@@ -54,5 +54,5 @@ public:
 	complex_vector_normal h_D_and_n(vector2 x, float t);
 	void evaluateWaves(float t);
 	void evaluateWavesFFT(float t);
-	void render(float t, glm::vec3 light_pos, glm::mat4 Projection, glm::mat4 View, glm::mat4 Model, bool use_fft);
+	void render(float t, glm::vec3 light_pos, glm::mat4 Projection, glm::mat4 View, glm::mat4 Model);
 };

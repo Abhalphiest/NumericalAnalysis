@@ -76,6 +76,9 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
+    <Link>
+      <AdditionalDependencies>SOIL/SOIL.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -114,22 +117,28 @@
     <ClCompile Include="complex.cpp" />
     <ClCompile Include="FFT.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="obj.cpp" />
     <ClCompile Include="ocean.cpp" />
     <ClCompile Include="random.cpp" />
     <ClCompile Include="shader.cpp" />
+    <ClCompile Include="skybox.cpp" />
     <ClCompile Include="vector.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ocean.frag" />
     <None Include="ocean.vert" />
     <None Include="packages.config" />
+    <None Include="skybox.frag" />
+    <None Include="skybox.vert" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="complex.h" />
     <ClInclude Include="FFT.h" />
+    <ClInclude Include="obj.h" />
     <ClInclude Include="ocean.h" />
     <ClInclude Include="random.h" />
     <ClInclude Include="shader.h" />
+    <ClInclude Include="skybox.h" />
     <ClInclude Include="structs.h" />
     <ClInclude Include="vector.h" />
   </ItemGroup>

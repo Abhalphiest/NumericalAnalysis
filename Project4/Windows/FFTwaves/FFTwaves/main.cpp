@@ -1,4 +1,4 @@
-// 
+﻿// 
 // File: main.cpp
 // Author: Margaret Dorsey
 //
@@ -12,9 +12,11 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdbool.h>
+#include<vector>
 #include "structs.h"
 #include "ocean.h"
-
+#include "skybox.h"
+#include "obj.h"
 //REMOVE FOR SUBMISSION
 #include <windows.h>
 
@@ -27,11 +29,11 @@ const int w_height = 600;
 
 //global for simplicity for now
 ocean* myOcean;
+skybox mySkybox;
+float rotx=0.0f, roty=15.0f; //for camera
 
 //initialize GLUT, set up callbacks, etc
 bool init(int argc, char** argv);
-//our display function
-void draw();
 //our keyboard input function
 void keyboard(unsigned char c, int i, int j);
 //our update function
@@ -44,7 +46,9 @@ int main(int argc, char**argv)
 	{
 		exit(1);
 	}
-	myOcean = new ocean(64, 0.0005f, vector2(32.0f, 32.0f), 64, true);
+	myOcean = new ocean(64, 0.0001f, vector2(32.0f, 32.0f), 64, false);
+	mySkybox.setupSkybox();
+	loadObj("dock.obj");
 	glutMainLoop(); //enter our loop
 	myOcean->release();
 	delete myOcean;
@@ -68,34 +72,62 @@ bool init(int argc, char** argv)
 	}
 
 	//set up callbacks
-	glutDisplayFunc(draw);
 	glutKeyboardFunc(keyboard);
 	glutIdleFunc(update);
+	glEnable(GL_DEPTH_TEST);
 	return true;
 }
 
-void draw()
-{
 
-}
 void keyboard(unsigned char c, int i, int j)
 {
-
+	switch (c) {
+	case 'w':
+		rotx += 1.0;
+		if (rotx >= 10.0)
+			rotx = 10.0;
+		break;
+	case 's':
+		rotx -= 1.0;
+		if (rotx <= 0.0)
+			rotx = 0.0;
+		break;
+	case 'd':
+		roty += 1.0;
+		if (roty >= 60.0)
+			roty = 60.0;
+		break;
+	case 'a':
+		roty -= 1.0;
+		if (roty <= 10.0)
+			roty = 10.0;
+		break;
+	}
 }
 void update()
 {
 
-	//hard code for now, for simplicity
-	static glm::mat4 Projection = glm::perspective(45.0f, (float)w_width / (float)w_height, 0.1f, 1000.0f);
-	static glm::mat4 View = glm::mat4(1.0f);
-	static glm::mat4 Model = glm::mat4(1.0f);
-	static glm::vec3 light_position;
-	//get time since last frame
-	float t1 = (float)glutGet(GLUT_ELAPSED_TIME);
-	// rendering
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	myOcean->render(t1, light_position, Projection, View, Model, true);
+		//hard code for now, for simplicity
+		static glm::mat4 Projection = glm::perspective(45.0f, (float)w_width / (float)w_height, 0.1f, 1000.0f);
+		static glm::mat4 View;
+		static glm::mat4 Model = glm::mat4(1.0f);
+		static glm::vec3 light_position;
 
-	// swap the buffers
-	glutSwapBuffers();
+		View = glm::mat4(1.0f);
+		View = glm::rotate(View, rotx, glm::vec3(-1.0f, 0.0f, 0.0f));
+		View = glm::rotate(View, roty, glm::vec3(0.0f, 1.0f, 0.0f));
+		View = glm::translate(View, glm::vec3(10, -30, -5));
+		light_position = glm::vec3(350.0f, 100.0f, -1000.0f);
+		//get time since last frame
+		float t1 = (float)(glutGet(GLUT_ELAPSED_TIME) / 1000.0);
+		// rendering
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		myOcean->render(t1, light_position, Projection, View, Model);
+		mySkybox.renderSkybox(View, Projection); //draw skybox last
+												 // swap the buffers
+		glutSwapBuffers();
+	
+	
 }
+
+
