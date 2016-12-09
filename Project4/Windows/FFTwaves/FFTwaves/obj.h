@@ -20,5 +20,5 @@ struct Vertex
 	glm::vec2 uv;
 };
 
-void loadObj(const char* filename);
-void setupMesh(const char* filename);
+void loadObj(const char* filename, std::vector<Vertex>& verts, std::vector<UINT>& indices);
+void setupMesh(const char* filename, GLuint &vao, GLuint &vbo, GLuint &ibo, GLuint &numIndices);

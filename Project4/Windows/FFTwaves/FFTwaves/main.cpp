@@ -31,6 +31,7 @@ const int w_height = 600;
 ocean* myOcean;
 skybox mySkybox;
 float rotx=0.0f, roty=15.0f; //for camera
+GLuint dockvao, dockvbo, dockibo, docknumIndices;
 
 //initialize GLUT, set up callbacks, etc
 bool init(int argc, char** argv);
@@ -38,6 +39,9 @@ bool init(int argc, char** argv);
 void keyboard(unsigned char c, int i, int j);
 //our update function
 void update();
+
+//laziness
+void drawDock();
 
 int main(int argc, char**argv)
 {
@@ -48,7 +52,7 @@ int main(int argc, char**argv)
 	}
 	myOcean = new ocean(64, 0.0001f, vector2(32.0f, 32.0f), 64, false);
 	mySkybox.setupSkybox();
-	loadObj("dock.obj");
+	setupMesh("dock.obj",dockvao,dockvbo,dockibo,docknumIndices);
 	glutMainLoop(); //enter our loop
 	myOcean->release();
 	delete myOcean;
@@ -123,11 +127,18 @@ void update()
 		// rendering
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		myOcean->render(t1, light_position, Projection, View, Model);
+		drawDock();
 		mySkybox.renderSkybox(View, Projection); //draw skybox last
 												 // swap the buffers
 		glutSwapBuffers();
 	
 	
+}
+
+void drawDock()
+{
+	glBindVertexArray(dockvao);
+	glDrawElements(GL_TRIANGLES, docknumIndices, GL_UNSIGNED_INT, 0);
 }
 
 

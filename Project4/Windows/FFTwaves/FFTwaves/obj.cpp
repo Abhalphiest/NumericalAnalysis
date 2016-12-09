@@ -2,7 +2,7 @@
 #include <iostream>
 using namespace std; //laziness
 
-void loadObj(const char* filename)
+void loadObj(const char* filename, std::vector<Vertex>& verts, std::vector<UINT>& indices)
 {
 	// File input object
 	std::ifstream obj(filename);
@@ -14,9 +14,7 @@ void loadObj(const char* filename)
 	// Variables used while reading the file
 	std::vector<glm::vec3> positions;     // Positions from the file
 	std::vector<glm::vec3> normals;       // Normals from the file
-	std::vector<glm::vec2> uvs;           // UVs from the file
-	std::vector<Vertex> verts;           // Verts we're assembling
-	std::vector<UINT> indices;           // Indices of these verts
+	std::vector<glm::vec2> uvs;           // UVs from the file         
 	unsigned int vertCounter = 0;        // Count of vertices/indices
 	char chars[100];                     // String for line reading
 
@@ -139,6 +137,41 @@ void loadObj(const char* filename)
 	obj.close();
 }
 
-void setupMesh(const char* filename)
+void setupMesh(const char* filename, GLuint &vao, GLuint &vbo, GLuint &ibo, GLuint &numIndices)
 {
+	std::vector<Vertex> verts;
+	std::vector<UINT> indices;
+	loadObj(filename, verts,indices);
+
+	//creat OpenGL objects to use in drawing
+	unsigned int gl_vertex_array_object, gl_vertex_buffer_object, gl_index_buffer_object;
+
+	//vertex array object 
+	glGenVertexArrays(1, &gl_vertex_array_object);
+	glBindVertexArray(gl_vertex_array_object);
+
+	//vertex buffer object holds the vertices 
+	glGenBuffers(1, &gl_vertex_buffer_object);
+	glBindBuffer(GL_ARRAY_BUFFER, gl_vertex_buffer_object);
+	glBufferData(GL_ARRAY_BUFFER, verts.size() * sizeof(Vertex), &verts[0], GL_STATIC_DRAW);
+
+	//index buffer object holds the index of the vertex
+	glGenBuffers(1, &gl_index_buffer_object);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, gl_index_buffer_object);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices[0], GL_STATIC_DRAW);
+
+
+	//the connection between attributes, interleaved data
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);                       //send positions on pipe 0
+	glEnableVertexAttribArray(1);
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)(sizeof(float) * 3));       //send normals on pipe 1
+	glEnableVertexAttribArray(2);
+	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)(sizeof(float) * 6));     //send uv on pipe 2
+
+
+	vao = gl_vertex_array_object;
+	vbo = gl_vertex_buffer_object;
+	ibo = gl_index_buffer_object;
+	numIndices = indices.size();
 }
