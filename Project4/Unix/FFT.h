@@ -10,7 +10,7 @@
 
 #include <math.h>
 #include "complex.h"
-#define M_PI 3.14159265359
+//#define M_PI 3.14159265359
 
 class FFT {
 private:

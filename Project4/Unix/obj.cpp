@@ -41,7 +41,7 @@ void loadObj(const char* filename, std::vector<Vertex>& verts, std::vector<UINT>
 		{
 			// Read the 3 numbers directly into an XMFLOAT3
 			glm::vec3 norm;
-			sscanf_s(
+			sscanf(
 				chars,
 				"vn %f %f %f",
 				&norm.x, &norm.y, &norm.z);
@@ -53,7 +53,7 @@ void loadObj(const char* filename, std::vector<Vertex>& verts, std::vector<UINT>
 		{
 			// Read the 2 numbers directly into an XMFLOAT2
 			glm::vec2 uv;
-			sscanf_s(
+			sscanf(
 				chars,
 				"vt %f %f",
 				&uv.x, &uv.y);
@@ -65,7 +65,7 @@ void loadObj(const char* filename, std::vector<Vertex>& verts, std::vector<UINT>
 		{
 			// Read the 3 numbers directly into an XMFLOAT3
 			glm::vec3 pos;
-			sscanf_s(
+			sscanf(
 				chars,
 				"v %f %f %f",
 				&pos.x, &pos.y, &pos.z);
@@ -77,7 +77,7 @@ void loadObj(const char* filename, std::vector<Vertex>& verts, std::vector<UINT>
 		{
 			// Read the face indices into an array
 			unsigned int i[12];
-			int facesRead = sscanf_s(
+			int facesRead = sscanf(
 				chars,
 				"f %d/%d/%d %d/%d/%d %d/%d/%d %d/%d/%d",
 				&i[0], &i[1], &i[2],

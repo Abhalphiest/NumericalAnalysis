@@ -13,7 +13,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdbool.h>
-#include<vector>
+#include <vector>
 #include "structs.h"
 #include "ocean.h"
 #include "skybox.h"
@@ -21,7 +21,7 @@
 
 
 //REMOVE FOR UNIX SYSTEMS
-#include <windows.h>
+//#include <windows.h>
 
 #include <GL/glew.h>
 #include <GL/glut.h>

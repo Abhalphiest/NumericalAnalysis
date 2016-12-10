@@ -12,7 +12,7 @@
 
 
 //#include <windows.h> //REMOVE FOR UNIX PORT
-#include "SOIL\SOIL.h" // SOIL library for image loading
+#include "SOIL/SOIL.h" // SOIL library for image loading
 #include <GL/glew.h>
 #include <GL/glut.h>
 #include <string> //can't honestly remember what I used this for

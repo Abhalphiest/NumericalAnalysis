@@ -12,6 +12,8 @@
 #include<fstream>
 #include<vector> //for REALLY brainless buffer construction
 
+#define UINT unsigned int
+
 #include "glm-0.9.2.6/glm/glm.hpp"
 #include "glm-0.9.2.6/glm/gtc/matrix_transform.hpp"
 #include "glm-0.9.2.6/glm/gtc/type_ptr.hpp"

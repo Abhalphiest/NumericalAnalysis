@@ -18,11 +18,11 @@
 #include "glm-0.9.2.6/glm/gtc/type_ptr.hpp"
 
 //#include <windows.h>
-#include "SOIL\SOIL.h"
+#include "SOIL/SOIL.h"
 #include <GL/glew.h>
 #include <GL/glut.h>
 
-#define M_PI 3.14159265359
+//#define M_PI 3.14159265359
 
 class ocean {
 private:

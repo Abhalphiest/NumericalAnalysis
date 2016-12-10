@@ -16,7 +16,7 @@
 
 #include <GL/glew.h>
 #include <GL/glut.h>
-#include "SOIL\SOIL.h"  //SOIL image library for image loading
+#include "SOIL/SOIL.h"  //SOIL image library for image loading
 
 #include "glm-0.9.2.6/glm/glm.hpp" //matrix math libraries
 #include "glm-0.9.2.6/glm/gtc/matrix_transform.hpp"
