@@ -1,7 +1,23 @@
 #include "vector.h"
 
+// File: vector
+// Author: Margaret Dorsey
+//
+// The vector files provide the basic vector operations,
+// for use in FFT.
+// probably could have used GLM for this, but wasn't thinking about it
+// while implementing
+//
+
 vector3::vector3() : x(0.0f), y(0.0f), z(0.0f) { }
 vector3::vector3(float x, float y, float z) : x(x), y(y), z(z) { }
+
+//all following functions are really self documenting and
+//simple, so I won't bother commenting on them.
+// I almost certainly grabbed all of them from one source or another at some point,
+// but I can't remember where.
+
+//They're just op overloads and vector operations, nothing mindblowing.
 
 float vector3::operator*(const vector3& v) {
 	return this->x*v.x + this->y*v.y + this->z*v.z;
@@ -29,7 +45,7 @@ vector3& vector3::operator=(const vector3& v) {
 }
 
 float vector3::length() {
-	return sqrt(this->x*this->x + this->y*this->y + this->z*this->z);
+	return (float)sqrt(this->x*this->x + this->y*this->y + this->z*this->z);
 }
 
 vector3 vector3::unit() {
@@ -64,7 +80,7 @@ vector2& vector2::operator=(const vector2& v) {
 }
 
 float vector2::length() {
-	return sqrt(this->x*this->x + this->y*this->y);
+	return (float)sqrt(this->x*this->x + this->y*this->y);
 }
 
 vector2 vector2::unit() {

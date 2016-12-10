@@ -1,21 +1,33 @@
 #include"ocean.h"
 
+//File: ocean
+//Author: Margaret Dorsey
+//
+// The ocean files provide a class for our FFT ocean.
+// Based on code by Keith Lantz.
+
+//sets up everything we need, including GL resources, etc
 ocean::ocean(const int N, const float A, const vector2 w, const float length, const bool geometry) :
 	g(9.81), geometry(geometry), N(N), Nplus1(N + 1), A(A), w(w), length(length),
 	vertices(0), indices(0), h_tilde(0), h_tilde_slopex(0), h_tilde_slopez(0), h_tilde_dx(0), h_tilde_dz(0), fft(0)
 {
+	//set up all our arrays 
 	h_tilde = new complex[N*N];
 	h_tilde_slopex = new complex[N*N];
 	h_tilde_slopez = new complex[N*N];
 	h_tilde_dx = new complex[N*N];
 	h_tilde_dz = new complex[N*N];
+
+	//for performing the FFT
 	fft = new FFT(N);
+	//for the actual plane we'll be deforming
 	vertices = new vertex_ocean[Nplus1*Nplus1];
 	indices = new unsigned int[Nplus1*Nplus1 * 10];
-
+	w_indices = new unsigned int[Nplus1*Nplus1 * 10];
 	int index;
 
 	complex htilde0, htilde0mk_conj;
+	//build the plane
 	for (int m_prime = 0; m_prime < Nplus1; m_prime++) {
 		for (int n_prime = 0; n_prime < Nplus1; n_prime++) {
 			index = m_prime * Nplus1 + n_prime;
@@ -38,38 +50,41 @@ ocean::ocean(const int N, const float A, const vector2 w, const float length, co
 		}
 	}
 
+	//setup indices
 	indices_count = 0;
+	w_indices_count = 0;
 	for (int m_prime = 0; m_prime < N; m_prime++) {
 		for (int n_prime = 0; n_prime < N; n_prime++) {
 			index = m_prime * Nplus1 + n_prime;
 
-			if (geometry) {
-				indices[indices_count++] = index;				// lines
-				indices[indices_count++] = index + 1;
-				indices[indices_count++] = index;
-				indices[indices_count++] = index + Nplus1;
-				indices[indices_count++] = index;
-				indices[indices_count++] = index + Nplus1 + 1;
+			//wireframe index building
+				w_indices[w_indices_count++] = index;				// lines
+				w_indices[w_indices_count++] = index + 1;
+				w_indices[w_indices_count++] = index;
+				w_indices[w_indices_count++] = index + Nplus1;
+				w_indices[w_indices_count++] = index;
+				w_indices[w_indices_count++] = index + Nplus1 + 1;
 				if (n_prime == N - 1) {
-					indices[indices_count++] = index + 1;
-					indices[indices_count++] = index + Nplus1 + 1;
+					w_indices[w_indices_count++] = index + 1;
+					w_indices[w_indices_count++] = index + Nplus1 + 1;
 				}
 				if (m_prime == N - 1) {
-					indices[indices_count++] = index + Nplus1;
-					indices[indices_count++] = index + Nplus1 + 1;
+					w_indices[w_indices_count++] = index + Nplus1;
+					w_indices[w_indices_count++] = index + Nplus1 + 1;
 				}
-			}
-			else {
+			
+			//shaded geometry index building
 				indices[indices_count++] = index;				// two triangles
 				indices[indices_count++] = index + Nplus1;
 				indices[indices_count++] = index + Nplus1 + 1;
 				indices[indices_count++] = index;
 				indices[indices_count++] = index + Nplus1 + 1;
 				indices[indices_count++] = index + 1;
-			}
+			
 		}
 	}
 
+	//setup GL locations and resources
 	createProgram(glProgram, glShaderV, glShaderF, "ocean.vert", "ocean.frag");
 	vertex = glGetAttribLocation(glProgram, "vertex");
 	normal = glGetAttribLocation(glProgram, "normal");
@@ -97,7 +112,7 @@ ocean::ocean(const int N, const float A, const vector2 w, const float length, co
 
 	textureLoc = glGetUniformLocation(glProgram, "water");
 	
-
+	//pass data to GPU
 	glGenBuffers(1, &vbo_vertices);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo_vertices);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertex_ocean)*(Nplus1)*(Nplus1), vertices, GL_DYNAMIC_DRAW);
@@ -105,9 +120,16 @@ ocean::ocean(const int N, const float A, const vector2 w, const float length, co
 	glGenBuffers(1, &vbo_indices);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vbo_indices);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices_count * sizeof(unsigned int), indices, GL_STATIC_DRAW);
+
+	glGenBuffers(1, &vbo_windices);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vbo_windices);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, w_indices_count * sizeof(unsigned int), w_indices, GL_STATIC_DRAW);
 }
 
+//releases CPU memory
 ocean::~ocean() {
+	//basically just delete all the arrays we made
+	// plus the FFT object
 	if (h_tilde)		delete[] h_tilde;
 	if (h_tilde_slopex)	delete[] h_tilde_slopex;
 	if (h_tilde_slopez)	delete[] h_tilde_slopez;
@@ -116,22 +138,34 @@ ocean::~ocean() {
 	if (fft)		delete fft;
 	if (vertices)		delete[] vertices;
 	if (indices)		delete[] indices;
+	if (w_indices) delete[] w_indices;
 }
-
+//releases GPU memory
 void ocean::release() {
+	//vertex buffers
 	glDeleteBuffers(1, &vbo_indices);
 	glDeleteBuffers(1, &vbo_vertices);
+	glDeleteBuffers(1, &vbo_windices);
+	//shader
 	releaseProgram(glProgram, glShaderV, glShaderF);
+	//texture
+	glDeleteTextures(1, &waterTexture);
 }
 
+// deep water dispersion factor from gravity
 float ocean::dispersion(int n_prime, int m_prime) {
+	//sqrt(gk) transformed into our index space
 	float w_0 = (float) 2.0f * M_PI / 200.0f;
 	float kx = (float) M_PI * (2 * n_prime - N) / length;
 	float kz = (float) M_PI * (2 * m_prime - N) / length;
 	return floor(sqrt(g * sqrt(kx * kx + kz * kz)) / w_0) * w_0;
 }
 
+// phillips spectrum calculation
 float ocean::phillips(int n_prime, int m_prime) {
+
+	//calculating our wind factor
+	//function can be found in writeup
 	vector2 k(M_PI * (2 * n_prime - N) / length,
 		M_PI * (2 * m_prime - N) / length);
 	float k_length = k.length();
@@ -153,11 +187,13 @@ float ocean::phillips(int n_prime, int m_prime) {
 	return A * exp(-1.0f / (k_length2 * L2)) / k_length4 * k_dot_w2 * exp(-k_length2 * l2);
 }
 
+//complex conjugate of our height function
 complex ocean::hTilde_0(int n_prime, int m_prime) {
 	complex r = gaussianRandomVariable();
 	return r * sqrt(phillips(n_prime, m_prime) / 2.0f);
 }
 
+//height function
 complex ocean::hTilde(float t, int n_prime, int m_prime) {
 	int index = m_prime * Nplus1 + n_prime;
 
@@ -177,6 +213,7 @@ complex ocean::hTilde(float t, int n_prime, int m_prime) {
 	return htilde0 * c0 + htilde0mkconj*c1;
 }
 
+//displacement vector and normal vector calculations
 complex_vector_normal ocean::h_D_and_n(vector2 x, float t) {
 	complex h(0.0f, 0.0f);
 	vector2 D(0.0f, 0.0f);
@@ -216,63 +253,7 @@ complex_vector_normal ocean::h_D_and_n(vector2 x, float t) {
 	return cvn;
 }
 
-void ocean::evaluateWaves(float t) {
-	float lambda = -1.0;
-	int index;
-	vector2 x;
-	vector2 d;
-	complex_vector_normal h_d_and_n;
-	for (int m_prime = 0; m_prime < N; m_prime++) {
-		for (int n_prime = 0; n_prime < N; n_prime++) {
-			index = m_prime * Nplus1 + n_prime;
-
-			x = vector2(vertices[index].x, vertices[index].z);
-
-			h_d_and_n = h_D_and_n(x, t);
-
-			vertices[index].y = h_d_and_n.h.a;
-
-			vertices[index].x = vertices[index].ox + lambda*h_d_and_n.D.x;
-			vertices[index].z = vertices[index].oz + lambda*h_d_and_n.D.y;
-
-			vertices[index].nx = h_d_and_n.n.x;
-			vertices[index].ny = h_d_and_n.n.y;
-			vertices[index].nz = h_d_and_n.n.z;
-
-			if (n_prime == 0 && m_prime == 0) {
-				vertices[index + N + Nplus1 * N].y = h_d_and_n.h.a;
-
-				vertices[index + N + Nplus1 * N].x = vertices[index + N + Nplus1 * N].ox + lambda*h_d_and_n.D.x;
-				vertices[index + N + Nplus1 * N].z = vertices[index + N + Nplus1 * N].oz + lambda*h_d_and_n.D.y;
-
-				vertices[index + N + Nplus1 * N].nx = h_d_and_n.n.x;
-				vertices[index + N + Nplus1 * N].ny = h_d_and_n.n.y;
-				vertices[index + N + Nplus1 * N].nz = h_d_and_n.n.z;
-			}
-			if (n_prime == 0) {
-				vertices[index + N].y = h_d_and_n.h.a;
-
-				vertices[index + N].x = vertices[index + N].ox + lambda*h_d_and_n.D.x;
-				vertices[index + N].z = vertices[index + N].oz + lambda*h_d_and_n.D.y;
-
-				vertices[index + N].nx = h_d_and_n.n.x;
-				vertices[index + N].ny = h_d_and_n.n.y;
-				vertices[index + N].nz = h_d_and_n.n.z;
-			}
-			if (m_prime == 0) {
-				vertices[index + Nplus1 * N].y = h_d_and_n.h.a;
-
-				vertices[index + Nplus1 * N].x = vertices[index + Nplus1 * N].ox + lambda*h_d_and_n.D.x;
-				vertices[index + Nplus1 * N].z = vertices[index + Nplus1 * N].oz + lambda*h_d_and_n.D.y;
-
-				vertices[index + Nplus1 * N].nx = h_d_and_n.n.x;
-				vertices[index + Nplus1 * N].ny = h_d_and_n.n.y;
-				vertices[index + Nplus1 * N].nz = h_d_and_n.n.z;
-			}
-		}
-	}
-}
-
+//wrapper for FFT transform and updates
 void ocean::evaluateWavesFFT(float t) {
 	float kx, kz, len, lambda = -1.0f;
 	int index, index1;
@@ -377,12 +358,13 @@ void ocean::evaluateWavesFFT(float t) {
 	}
 }
 
+//render and update logic
 void ocean::render(float t, glm::vec3 light_pos, glm::mat4 Projection, glm::mat4 View, glm::mat4 Model) {
 
-	
+		//do FFT
 		evaluateWavesFFT(t);
 	
-
+	//standard GL rendering stuff...
 	glUseProgram(glProgram);
 	glUniform3f(light_position, light_pos.x, light_pos.y, light_pos.z);
 	glUniformMatrix4fv(projection, 1, GL_FALSE, glm::value_ptr(Projection));
@@ -402,13 +384,16 @@ void ocean::render(float t, glm::vec3 light_pos, glm::mat4 Projection, glm::mat4
 	glEnableVertexAttribArray(texture);
 	glVertexAttribPointer(texture, 3, GL_FLOAT, GL_FALSE, sizeof(vertex_ocean), (char *)NULL + 24);
 
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vbo_indices);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, geometry?vbo_windices:vbo_indices);
+
+	//we encode our transformation in the world matrix,
+	//which is bad practice in general but works for right now.
 	for (int j = 0; j < 10; j++) {
 		for (int i = 0; i < 10; i++) {
 			Model = glm::scale(glm::mat4(1.0f), glm::vec3(5.f, 5.f, 5.f));
 			Model = glm::translate(Model, glm::vec3(length * i, 0, length * -j));
 			glUniformMatrix4fv(model, 1, GL_FALSE, glm::value_ptr(Model));
-			glDrawElements(geometry ? GL_LINES : GL_TRIANGLES, indices_count, GL_UNSIGNED_INT, 0);
+			glDrawElements(geometry ? GL_LINES : GL_TRIANGLES, geometry? w_indices_count:indices_count, GL_UNSIGNED_INT, 0);
 		}
 	}
 }

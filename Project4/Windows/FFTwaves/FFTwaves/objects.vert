@@ -1,4 +1,11 @@
 #version 330
+
+//File:	objects.vert
+//Author: Margaret Dorsey
+//
+//the vertex shader for drawing the pier/dock and 
+// teapot
+
  
 layout (location = 0) in vec3 position;
 layout (location = 1) in vec3 normal;
@@ -17,6 +24,8 @@ out vec3 light_vector;
  
 void main()
 {
+	//nothing interesting here, apply our transformations and
+	//pass data to the pixel shader.
 	vec4 pos = vec4(position,1.0);
 	mat4 mvp = Projection*View*Model;
 	gl_Position = mvp*pos;

@@ -1,7 +1,19 @@
 #include "obj.h"
 #include <iostream>
+
+// File:	object
+// Author:	Margaret Dorsey
+//
+// The object files handle the loading and setup
+// of .obj file meshes, with normals and UV coordinates.
+// Also passes all the data neatly to GPU side.
+//
+
 using namespace std; //laziness
 
+//loads obj files, fills parameter vectors
+// Based on obj loader by Chris Cascioli from a previous project of 
+// mine
 void loadObj(const char* filename, std::vector<Vertex>& verts, std::vector<UINT>& indices)
 {
 	// File input object
@@ -135,7 +147,8 @@ void loadObj(const char* filename, std::vector<Vertex>& verts, std::vector<UINT>
 	// Close the file and create the actual buffers
 	obj.close();
 }
-
+//calls loadObj, then passes the vertex data to the GPU for us. Sets the location parameters 
+//in lieu of a return value.
 void setupMesh(const char* filename, GLuint &vao, GLuint &vbo, GLuint &ibo, GLuint &numIndices)
 {
 	std::vector<Vertex> verts;

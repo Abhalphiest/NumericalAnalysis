@@ -1,5 +1,13 @@
 #include "FFT.h"
 
+//File: FFT
+//Author: Margaret Dorsey
+//
+// FFT files provide a class that performs a fast fourier transform.
+// Based on source code by Keith Lantz.
+
+//the constructor allocates resources, precomputes values,
+//and gets our bitwise reversed index
 FFT::FFT(unsigned int N) : N(N), reversed(0), T(0), pi2((float)(2 * M_PI)) {
 	c[0] = c[1] = 0;
 
@@ -21,6 +29,7 @@ FFT::FFT(unsigned int N) : N(N), reversed(0), T(0), pi2((float)(2 * M_PI)) {
 	which = 0;
 }
 
+//releases our allocated memory
 FFT::~FFT() {
 	if (c[0]) delete[] c[0];
 	if (c[1]) delete[] c[1];
@@ -31,6 +40,7 @@ FFT::~FFT() {
 	if (reversed) delete[] reversed;
 }
 
+//reverses our index bitwise
 unsigned int FFT::reverse(unsigned int i) {
 	unsigned int res = 0;
 	for (unsigned int j = 0; j < log_2_N; j++) {
@@ -40,10 +50,13 @@ unsigned int FFT::reverse(unsigned int i) {
 	return res;
 }
 
+
+//compute function for FFT
 complex FFT::t(unsigned int x, unsigned int N) {
 	return complex((float)cos(pi2 * x / N), (float)sin(pi2 * x / N));
 }
 
+//actually performs the fast fourier transform
 void FFT::fft(complex* input, complex* output, int stride, int offset) {
 	for (unsigned int i = 0; i < N; i++) c[which][i] = input[reversed[i] * stride + offset];
 

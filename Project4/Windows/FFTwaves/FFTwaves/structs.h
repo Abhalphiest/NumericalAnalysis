@@ -1,4 +1,14 @@
 #pragma once
+
+//
+// File: structs.h
+// Author: Margaret Dorsey
+// 
+// holds the basic structs for ocean vertices for use in
+// FFT
+
+//follows naming conventions from derivation in writeup
+
 #include <windows.h>
 
 #include <GL/glew.h>

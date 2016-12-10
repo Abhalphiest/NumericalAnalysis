@@ -1,5 +1,14 @@
 #pragma once
 
+// File: vector
+// Author: Margaret Dorsey
+//
+// The vector files provide the basic vector operations,
+// for use in FFT.
+// probably could have used GLM for this, but wasn't thinking about it
+// while implementing
+//
+
 #ifndef VECTOR_H
 #define VECTOR_H
 

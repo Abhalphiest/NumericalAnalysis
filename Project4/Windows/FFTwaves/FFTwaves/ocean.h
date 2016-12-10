@@ -1,5 +1,11 @@
 #pragma once
 
+//File: ocean
+//Author: Margaret Dorsey
+//
+// The ocean files provide a class for our FFT ocean.
+// Based on code by Keith Lantz.
+
 #include"vector.h"
 #include"vector.h"
 #include"structs.h"
@@ -33,26 +39,29 @@ private:
 	FFT *fft;				// fast fourier transform
 
 	vertex_ocean *vertices;			// vertices for vertex buffer object
-	unsigned int *indices;			// indicies for vertex buffer object
-	unsigned int indices_count;		// number of indices to render
-	GLuint vbo_vertices, vbo_indices;	// vertex buffer objects
-	GLuint waterTexture, textureLoc;
+	unsigned int *indices, *w_indices;			// indices for vertex buffer object
+	unsigned int indices_count, w_indices_count;		// number of indices to render
+	GLuint vbo_vertices, vbo_indices, vbo_windices;	// vertex buffer objects
+	GLuint waterTexture, textureLoc; //texture stuff
 	GLuint glProgram, glShaderV, glShaderF;	// shaders
 	GLint vertex, normal, texture, light_position, projection, view, model;	// attributes and uniforms
 
 protected:
 	
 public:
+	//sets up everything we need, including GL resources, etc
 	ocean(const int N, const float A, const vector2 w, const float length, bool geometry);
+	//releases CPU memory
 	~ocean();
+	//releases GPU memory
 	void release();
-
-	float dispersion(int n_prime, int m_prime);		// deep water
-	float phillips(int n_prime, int m_prime);		// phillips spectrum
-	complex hTilde_0(int n_prime, int m_prime);
-	complex hTilde(float t, int n_prime, int m_prime);
-	complex_vector_normal h_D_and_n(vector2 x, float t);
-	void evaluateWaves(float t);
-	void evaluateWavesFFT(float t);
+	void toggleGeometry() { geometry = !geometry; } //toggling shaded or wireframe rendering
+	float dispersion(int n_prime, int m_prime);		// deep water dispersion factor
+	float phillips(int n_prime, int m_prime);		// phillips spectrum calculation
+	complex hTilde_0(int n_prime, int m_prime);		//complex conjugate height function
+	complex hTilde(float t, int n_prime, int m_prime); //index based height function
+	complex_vector_normal h_D_and_n(vector2 x, float t); //displacement vector and normal vector computation
+	void evaluateWavesFFT(float t); //wrapper function for FFT computation and wave updates
+	//render logic for ocean
 	void render(float t, glm::vec3 light_pos, glm::mat4 Projection, glm::mat4 View, glm::mat4 Model);
 };
