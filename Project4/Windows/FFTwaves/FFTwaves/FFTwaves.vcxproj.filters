@@ -42,6 +42,9 @@
     <ClCompile Include="obj.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="objects.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -55,6 +58,12 @@
       <Filter>Resource Files</Filter>
     </None>
     <None Include="skybox.vert">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="objects.frag">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="objects.vert">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>
@@ -84,6 +93,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="obj.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="objects.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

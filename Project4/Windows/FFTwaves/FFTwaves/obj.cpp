@@ -132,7 +132,6 @@ void loadObj(const char* filename, std::vector<Vertex>& verts, std::vector<UINT>
 		}
 
 	}
-	cout << "Dock loaded " << vertCounter << endl;
 	// Close the file and create the actual buffers
 	obj.close();
 }

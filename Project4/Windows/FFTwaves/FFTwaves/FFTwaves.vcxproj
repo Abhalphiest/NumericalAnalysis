@@ -118,6 +118,7 @@
     <ClCompile Include="FFT.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="obj.cpp" />
+    <ClCompile Include="objects.cpp" />
     <ClCompile Include="ocean.cpp" />
     <ClCompile Include="random.cpp" />
     <ClCompile Include="shader.cpp" />
@@ -125,6 +126,8 @@
     <ClCompile Include="vector.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="objects.frag" />
+    <None Include="objects.vert" />
     <None Include="ocean.frag" />
     <None Include="ocean.vert" />
     <None Include="packages.config" />
@@ -135,6 +138,7 @@
     <ClInclude Include="complex.h" />
     <ClInclude Include="FFT.h" />
     <ClInclude Include="obj.h" />
+    <ClInclude Include="objects.h" />
     <ClInclude Include="ocean.h" />
     <ClInclude Include="random.h" />
     <ClInclude Include="shader.h" />
