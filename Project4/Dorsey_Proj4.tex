@@ -102,8 +102,10 @@ The implementation of the fast fourier transform of the system of two one-dimens
 vertex as it is processed for screen rasterization. This is not the most optimal data flow, but it is one that is simple enough for the scope of this project.
 \section*{Outputs and Executables}
 
-The following is a gallery of screenshots taken from the executable of the submitted program.
-
+The following is a pair of screenshots taken from the executable of the submitted program.\\
+\includegraphics{images/render1.png}
+\includegraphics{images/render2.png}
+\\
 
 \par The program can be built using the submitted files and run to see the real time animation allowed by the FFT implementation, however
 it requires an OpenGL version not guaranteed by integrated graphics cards, so compatibility issues in running may arise. The program uses the 
@@ -117,11 +119,9 @@ in a terminal. (Omit the \$!).\\
 For other non-Windows environments, you will have to download the entire source file and
 use the makefile they provided to build the library, and place it wherever your system libraries
 can be accessed. The makefile provided with my project links to it as -lSOIL.
+\par For Windows systems, the \textit{Windows} directory contains a Visual Studio 2015 project for the program.
 
-\par Two executable files, one for Unix-based systems and one for Windows-based systems, have been included. I do not promise that either of them
-will run on any given machine except the ones that I developed on.
-
-\par A video file of the program at runtime has been included.
+\par A video file of the program at runtime has been included, it is called \textit{fftOceanRender.mp4}.
 
 \section*{Results and Notes}
 
