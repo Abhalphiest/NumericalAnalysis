@@ -7,7 +7,7 @@
 \documentclass[11pt]{article} % use larger type; default would be 10pt
 
 \usepackage[utf8]{inputenc} % set input encoding (not needed with XeLaTeX)
-
+\usepackage{listings}
 %%% Examples of Article customizations
 % These packages are optional, depending whether you want the features they provide.
 % See the LaTeX Companion or other references for full information.
@@ -109,6 +109,14 @@ The following is a gallery of screenshots taken from the executable of the submi
 it requires an OpenGL version not guaranteed by integrated graphics cards, so compatibility issues in running may arise. The program uses the 
 glm math library and the SOIL image library. GLM is header-only, and thus very portable, however to compile with SOIL you must download and
 build SOIL from source on your machine.
+To install the SOIL library in a Ubuntu environment, simply enter
+\begin{lstlisting}[language = bash]
+$sudo apt-get install libsoil-dev
+\end{lstlisting}
+in a terminal. (Omit the \$!).\\
+For other non-Windows environments, you will have to download the entire source file and
+use the makefile they provided to build the library, and place it wherever your system libraries
+can be accessed. The makefile provided with my project links to it as -lSOIL.
 
 \par Two executable files, one for Unix-based systems and one for Windows-based systems, have been included. I do not promise that either of them
 will run on any given machine except the ones that I developed on.
