@@ -1,8 +1,0 @@
-Enter bounds separated by space: n: Result: 2.404073
-
-
-median: 0.702091
-mean photon energy: 0.666550
-total wavelength: 833333125611.450195
-mean wavelength: 0.000000
-Standard deviation in wavelength: 2.680589

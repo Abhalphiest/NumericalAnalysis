@@ -1,3 +1,0 @@
-RK4 Initialization:	145.231963680
-Solution Initialization:	145.231963670
-Actual Value:	145.235098283

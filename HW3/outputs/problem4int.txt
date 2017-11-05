@@ -1,3 +1,0 @@
-Enter bounds separated by space: .0000001 .9999999
-n: 40
-Result: 2.404073

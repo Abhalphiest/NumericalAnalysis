@@ -1,3 +1,0 @@
-n: Simpson's: 0.316200 	 Trapezoid: 0.318500 
-Total Emitted Energy from Magnitude Spline: 64.469777
-Total Emitted Energy from Luminosity Spline: 64.476557

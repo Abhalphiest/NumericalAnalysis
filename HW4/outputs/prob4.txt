@@ -1,1 +1,0 @@
-y is calculated as -1536638120.746138 in 493 steps.
