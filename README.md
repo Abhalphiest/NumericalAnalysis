@@ -9,7 +9,7 @@ approximations:
   polynomial approximation methods, including cubig splides, chebyshev curves, bezier curves, and lagrange polynomials
 
 fft:
-  fast fourier transform, used for a project on ocean wave simulations, available in a different repo
+  fast fourier transform, used for a project on ocean wave simulations, available at https://github.com/Abhalphiest/FFTwaves
 
 numerical calc:
   numerical integration and differentiation
